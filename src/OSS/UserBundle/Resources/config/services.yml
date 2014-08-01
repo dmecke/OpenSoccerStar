@@ -1,0 +1,4 @@
+services:
+    oauth_user_provider:
+        class: OSS\UserBundle\Services\UserProvider
+        arguments: [@fos_user.user_manager, { google: google_id }]
