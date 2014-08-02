@@ -17,3 +17,7 @@ parameters:
     debug_toolbar:          true
     debug_redirects:        false
     use_assetic_controller: true
+
+    google_app_id: app-id
+    google_app_secret: app-secret
+
