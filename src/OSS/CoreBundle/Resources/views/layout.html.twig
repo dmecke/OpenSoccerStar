@@ -1,21 +1,52 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<h1>Open Soccer Star</h1>
-<div>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-        <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-        <a href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}">Google Login</a>
-        <a href="{{ path('fos_user_registration_register') }}">Signup</a>
-    {% endif %}
-</div>
+<nav class="top-bar" data-topbar>
+    <ul class="title-area">
+        <li class="name"><h1><a href="{{ path('landingpage') }}">Open Soccer Star</a></h1></li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>{{ 'menu'|trans }}</span></a></li>
+    </ul>
+    <section class="top-bar-section">
+        <ul class="left">
+            <li class="divider"></li>
+            <li><a href="#">Main Menu I</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Main Menu II</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Main Menu III</a></li>
+            <li class="divider"></li>
+        </ul>
+        <ul class="right">
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li><a href="#">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
+            <li class="divider"></li>
+            <li class="has-form"><a href="{{ path('fos_user_security_logout') }}" class="button">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+{% else %}
+            <li class="has-form"><a href="{{ path('fos_user_security_login') }}" class="button">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+            <li class="divider"></li>
+            <li class="has-dropdown">
+                <a href="#">{{ 'login_oauth'|trans }}</a>
+                <ul class="dropdown">
+                    <li><a href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}">Google</a></li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li class="has-form"><a href="{{ path('fos_user_registration_register') }}" class="button">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+{% endif %}
+        </ul>
+    </section>
+</nav>
+
+<section role="main" class="scroll-container">
+    <div class="row">
 {% block content %}{% endblock %}
-<a href="{{ path('hwi_oauth_connect') }}">Connect Accounts</a>
-<div>
-    <a href="#">Impressum</a>
-    <a href="https://github.com/dmecke/OpenSoccerStar" target="_blank">Contribute</a>
-</div>
+    </div>
+    <div class="row">
+        <ul class="small-block-grid-3">
+            <li><a href="#">Impressum</a></li>
+            <li><a href="{{ path('hwi_oauth_connect') }}">Connect Accounts</a></li>
+            <li><a href="https://github.com/dmecke/OpenSoccerStar" target="_blank">Contribute</a></li>
+        </ul>
+    </div>
+</section>
 {% endblock %}

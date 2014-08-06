@@ -4,8 +4,144 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3905821802ff1f3e92cb161b85ad8156",
+    "hash": "9b879fe8689e9463597c327f12da6ffb",
     "packages": [
+        {
+            "name": "bmatzner/foundation-bundle",
+            "version": "5.3.3",
+            "target-dir": "Bmatzner/FoundationBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerFoundationBundle.git",
+                "reference": "1efdc151644538ac425aff89ae82f2d3b6d4774d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerFoundationBundle/zipball/1efdc151644538ac425aff89ae82f2d3b6d4774d",
+                "reference": "1efdc151644538ac425aff89ae82f2d3b6d4774d",
+                "shasum": ""
+            },
+            "require": {
+                "bmatzner/jquery-bundle": ">=1.11",
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\FoundationBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "ZURB Foundation Bundle for Symfony2",
+            "homepage": "http://foundation.zurb.com/",
+            "keywords": [
+                "javascript",
+                "responsive",
+                "symfony"
+            ],
+            "time": "2014-08-04 15:12:15"
+        },
+        {
+            "name": "bmatzner/jquery-bundle",
+            "version": "2.1.1",
+            "target-dir": "Bmatzner/JQueryBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerJQueryBundle.git",
+                "reference": "c47ebfd993782560d425081d6866393274537953"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerJQueryBundle/zipball/c47ebfd993782560d425081d6866393274537953",
+                "reference": "c47ebfd993782560d425081d6866393274537953",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\JQueryBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "jQuery Bundle for Symfony2",
+            "homepage": "http://jquery.com/",
+            "keywords": [
+                "javascript",
+                "jquery",
+                "symfony"
+            ],
+            "time": "2014-05-05 16:19:00"
+        },
+        {
+            "name": "bmatzner/modernizr-bundle",
+            "version": "2.7.1",
+            "target-dir": "Bmatzner/ModernizrBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerModernizrBundle.git",
+                "reference": "db93e7b9aa12cfb6b2de8bfe083aa571c85430e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerModernizrBundle/zipball/db93e7b9aa12cfb6b2de8bfe083aa571c85430e0",
+                "reference": "db93e7b9aa12cfb6b2de8bfe083aa571c85430e0",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\ModernizrBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "BSD-3"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "Modernizr Bundle for Symfony2",
+            "homepage": "http://modernizr.com/",
+            "keywords": [
+                "HTML5",
+                "detection",
+                "javascript",
+                "symfony"
+            ],
+            "time": "2013-12-03 12:26:37"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.0",

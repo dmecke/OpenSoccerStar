@@ -1,0 +1,40 @@
+<div class="large-6 columns">
+    <form action="{{ path('fos_user_registration_register') }}" method="post" class="fos_user_registration_register">
+        <fieldset>
+            <div class="row collapse">
+                <div class="small-2 columns">
+                    <span class="prefix"><i class="fi-torso-male"></i></span>
+                </div>
+                <div class="small-10 columns">
+                    {{ form_widget(form.username, { 'attr': { 'placeholder': 'form.username'|trans } }) }}
+                </div>
+            </div>
+            <div class="row collapse">
+                <div class="small-2 columns">
+                    <span class="prefix"><i class="fi-mail"></i></span>
+                </div>
+                <div class="small-10 columns">
+                    {{ form_widget(form.email, { 'attr': { 'placeholder': 'form.email'|trans } }) }}
+                </div>
+            </div>
+            <div class="row collapse">
+                <div class="small-2 columns">
+                    <span class="prefix"><i class="fi-lock"></i></span>
+                </div>
+                <div class="small-10 columns">
+                    {{ form_widget(form.plainPassword.first, { 'attr': { 'placeholder': 'form.password'|trans } }) }}
+                </div>
+            </div>
+            <div class="row collapse">
+                <div class="small-2 columns">
+                    <span class="prefix"><i class="fi-lock"></i></span>
+                </div>
+                <div class="small-10 columns">
+                    {{ form_widget(form.plainPassword.second, { 'attr': { 'placeholder': 'form.password_confirmation'|trans } }) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            <input type="submit" class="button" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+        </fieldset>
+    </form>
+</div>
