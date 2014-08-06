@@ -8,6 +8,10 @@ DirectoryIndex app.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Redirect www to no subdomain
+    RewriteCond %{HTTP_HOST} ^www\.(.+) [NC]
+    RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
