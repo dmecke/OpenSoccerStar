@@ -1,0 +1,6 @@
+standings:
+    team: Team
+    goalsDifference: Goals Difference
+    goalsFor: Goals
+    goalsAgainst: Goals Against
+    points: Points

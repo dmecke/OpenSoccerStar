@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new OSS\CoreBundle\CoreBundle(),
             new OSS\UserBundle\UserBundle(),
             new OSS\MatchBundle\MatchBundle(),
+            new OSS\LeagueBundle\LeagueBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

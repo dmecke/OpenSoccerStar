@@ -1,0 +1,28 @@
+{% extends 'LeagueBundle::layout.html.twig' %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>{{ 'standings.team'|trans }}</th>
+            <th>{{ 'standings.goalsDifference'|trans }}</th>
+            <th>{{ 'standings.goalsFor'|trans }}</th>
+            <th>{{ 'standings.goalsAgainst'|trans }}</th>
+            <th>{{ 'standings.points'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for position,team in standings %}
+        <tr>
+            <td>{{ position+1 }}.</td>
+            <td>{{ team.id }}</td>
+            <td>{{ team.goalsDifference }}</td>
+            <td>{{ team.goalsFor }}</td>
+            <td>{{ team.goalsAgainst }}</td>
+            <td>{{ team.points }}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -20,7 +20,7 @@ class MatchdayCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var GameDate $gameDate */
-        $gameDate = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->find(1);
+        $gameDate = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
 
         /** @var Match[] $matches */
         $matches = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Match')->findBy(array('season' => $gameDate->getSeason(), 'week' => $gameDate->getWeek()));
