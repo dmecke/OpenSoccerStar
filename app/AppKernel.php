@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Bmatzner\ModernizrBundle\BmatznerModernizrBundle(),
             new OSS\CoreBundle\CoreBundle(),
             new OSS\UserBundle\UserBundle(),
+            new OSS\MatchBundle\MatchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
