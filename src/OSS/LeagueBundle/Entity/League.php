@@ -27,6 +27,11 @@ class League
      */
     private $teams;
 
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+    }
+
     /**
      * @param Team $team
      */
