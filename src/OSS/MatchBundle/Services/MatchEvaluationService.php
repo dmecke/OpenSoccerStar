@@ -4,10 +4,9 @@ namespace OSS\MatchBundle\Services;
 
 use OSS\MatchBundle\Entity\Event;
 use OSS\MatchBundle\Entity\Match;
-use OSS\MatchBundle\Entity\Team;
 use OSS\MatchBundle\Exception\MatchException;
 
-class MatchEvaluation
+class MatchEvaluationService
 {
     /**
      * @param Match $match

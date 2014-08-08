@@ -4,7 +4,7 @@ namespace OSS\MatchBundle\Tests\Services;
 
 use OSS\MatchBundle\Entity\Match;
 use OSS\MatchBundle\Entity\Team;
-use OSS\MatchBundle\Services\MatchEvaluation;
+use OSS\MatchBundle\Services\MatchEvaluationService;
 
 class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
         $match->setTeamHome($team1);
         $match->setTeamAway($team2);
-        $matchEvaluation = new MatchEvaluation();
+        $matchEvaluation = new MatchEvaluationService();
 
         $matchEvaluation->evaluateCompleteMatch($match);
 
@@ -37,7 +37,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
     public function testNoTeamsAssigned()
     {
         $match = new Match();
-        $matchEvaluation = new MatchEvaluation();
+        $matchEvaluation = new MatchEvaluationService();
 
         $matchEvaluation->evaluateCompleteMatch($match);
     }
@@ -51,7 +51,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
         $team2->setId(2);
         $match->setTeamHome($team1);
         $match->setTeamAway($team2);
-        $matchEvaluation = new MatchEvaluation();
+        $matchEvaluation = new MatchEvaluationService();
 
         $this->assertFalse($match->isFinished());
 
@@ -71,7 +71,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
         $team2->setId(2);
         $match->setTeamHome($team1);
         $match->setTeamAway($team2);
-        $matchEvaluation = new MatchEvaluation();
+        $matchEvaluation = new MatchEvaluationService();
 
         $matchEvaluation->evaluateCompleteMatch($match);
         $this->assertGreaterThan(0, count($match->getEvents()));
@@ -79,7 +79,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testHappensEvent()
     {
-        $matchEvaluation = new MatchEvaluation();
+        $matchEvaluation = new MatchEvaluationService();
 
         $this->assertFalse($matchEvaluation->happensEvent());
         $this->assertTrue($matchEvaluation->happensEvent());
@@ -95,7 +95,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
         $team2->setId(2);
         $match->setTeamHome($team1);
         $match->setTeamAway($team2);
-        $matchEvaluation = new MatchEvaluation();
+        $matchEvaluation = new MatchEvaluationService();
 
         for ($i = 0; $i <= 10; $i++) {
         }

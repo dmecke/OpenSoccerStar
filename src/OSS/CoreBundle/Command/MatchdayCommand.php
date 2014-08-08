@@ -27,7 +27,7 @@ class MatchdayCommand extends ContainerAwareCommand
         $progress = new ProgressBar($output, count($matches));
         $progress->start();
         foreach ($matches as $match) {
-            $this->getContainer()->get('oss.match.match_evaluation')->evaluateCompleteMatch($match);
+            $this->getContainer()->get('oss.match.service.match_evaluation')->evaluateCompleteMatch($match);
             $progress->advance();
         }
         $progress->finish();
