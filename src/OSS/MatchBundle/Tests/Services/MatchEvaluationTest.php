@@ -6,7 +6,7 @@ use OSS\MatchBundle\Entity\Match;
 use OSS\MatchBundle\Entity\Team;
 use OSS\MatchBundle\Services\MatchEvaluation;
 
-class DefaultControllerTest extends \PHPUnit_Framework_TestCase
+class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -16,8 +16,13 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
     public function testHasScore()
     {
         $match = new Match();
-        $match->setTeamHome(new Team());
-        $match->setTeamAway(new Team());
+        $team1 = new Team();
+        $team1->setId(1);
+        $team2 = new Team();
+        $team2->setId(2);
+
+        $match->setTeamHome($team1);
+        $match->setTeamAway($team2);
         $matchEvaluation = new MatchEvaluation();
 
         $matchEvaluation->evaluateCompleteMatch($match);
@@ -40,8 +45,12 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
     public function testIsFinished()
     {
         $match = new Match();
-        $match->setTeamHome(new Team());
-        $match->setTeamAway(new Team());
+        $team1 = new Team();
+        $team1->setId(1);
+        $team2 = new Team();
+        $team2->setId(2);
+        $match->setTeamHome($team1);
+        $match->setTeamAway($team2);
         $matchEvaluation = new MatchEvaluation();
 
         $this->assertFalse($match->isFinished());
@@ -56,8 +65,12 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
     public function testEventsGenerated()
     {
         $match = new Match();
-        $match->setTeamHome(new Team());
-        $match->setTeamAway(new Team());
+        $team1 = new Team();
+        $team1->setId(1);
+        $team2 = new Team();
+        $team2->setId(2);
+        $match->setTeamHome($team1);
+        $match->setTeamAway($team2);
         $matchEvaluation = new MatchEvaluation();
 
         $matchEvaluation->evaluateCompleteMatch($match);
@@ -76,8 +89,12 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
     public function testMinutesToPlay()
     {
         $match = new Match();
-        $match->setTeamHome(new Team());
-        $match->setTeamAway(new Team());
+        $team1 = new Team();
+        $team1->setId(1);
+        $team2 = new Team();
+        $team2->setId(2);
+        $match->setTeamHome($team1);
+        $match->setTeamAway($team2);
         $matchEvaluation = new MatchEvaluation();
 
         for ($i = 0; $i <= 10; $i++) {
@@ -86,6 +103,6 @@ class DefaultControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThanOrEqual(95, $matchEvaluation->getMinutesToPlay());
 
         $matchEvaluation->evaluateCompleteMatch($match);
-        $this->assertEquals(92, $match->getMinutesPlayed());
+        $this->assertEquals(90, $match->getMinutesPlayed());
     }
 }

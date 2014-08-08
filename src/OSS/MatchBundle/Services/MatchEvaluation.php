@@ -4,6 +4,7 @@ namespace OSS\MatchBundle\Services;
 
 use OSS\MatchBundle\Entity\Event;
 use OSS\MatchBundle\Entity\Match;
+use OSS\MatchBundle\Entity\Team;
 use OSS\MatchBundle\Exception\MatchException;
 
 class MatchEvaluation
@@ -37,7 +38,7 @@ class MatchEvaluation
 
         $match->incrementMinutesPlayed();
         if ($this->happensEvent()) {
-            $match->addEvent(new Event());
+            $match->addEvent($this->createRandomEvent($match));
         }
     }
 
@@ -55,5 +56,20 @@ class MatchEvaluation
     public function happensEvent()
     {
         return mt_rand(1, 100) >= 50;
+    }
+
+    /**
+     * @param Match $match
+     *
+     * @return Event
+     */
+    public function createRandomEvent(Match $match)
+    {
+        $possibleEvents = array(Event::TYPE_CHANCE, Event::TYPE_GOAL);
+        $possibleTeams = array($match->getTeamHome(), $match->getTeamAway());
+
+        $event = Event::create($possibleEvents[mt_rand(0, count($possibleEvents) - 1)], $possibleTeams[mt_rand(0, count($possibleTeams) - 1)]);
+
+        return $event;
     }
 }
