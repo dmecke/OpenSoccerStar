@@ -3,17 +3,17 @@
 namespace OSS\MatchBundle\Services;
 
 use OSS\MatchBundle\Entity\Event;
-use OSS\MatchBundle\Entity\Match;
+use OSS\MatchBundle\Entity\Fixture;
 use OSS\MatchBundle\Exception\MatchException;
 
 class MatchEvaluationService
 {
     /**
-     * @param Match $match
+     * @param Fixture $match
      *
      * @throws MatchException
      */
-    public function evaluateCompleteMatch(Match $match)
+    public function evaluateCompleteMatch(Fixture $match)
     {
         for ($minute = 1; $minute <= $this->getMinutesToPlay(); $minute++) {
             $this->evaluateMinuteOfMatch($match);
@@ -22,11 +22,11 @@ class MatchEvaluationService
     }
 
     /**
-     * @param Match $match
+     * @param Fixture $match
      *
      * @throws MatchException
      */
-    public function evaluateMinuteOfMatch(Match $match)
+    public function evaluateMinuteOfMatch(Fixture $match)
     {
         if (!$match->hasTeamHome()) {
             throw new MatchException('no home team');
@@ -58,11 +58,11 @@ class MatchEvaluationService
     }
 
     /**
-     * @param Match $match
+     * @param Fixture $match
      *
      * @return Event
      */
-    public function createRandomEvent(Match $match)
+    public function createRandomEvent(Fixture $match)
     {
         $possibleEvents = array(Event::TYPE_CHANCE, Event::TYPE_GOAL);
         $possibleTeams = array($match->getTeamHome(), $match->getTeamAway());

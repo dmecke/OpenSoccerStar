@@ -3,7 +3,7 @@
 namespace OSS\CoreBundle\Command;
 
 use OSS\CoreBundle\Entity\GameDate;
-use OSS\MatchBundle\Entity\Match;
+use OSS\MatchBundle\Entity\Fixture;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +22,7 @@ class MatchdayCommand extends ContainerAwareCommand
         /** @var GameDate $gameDate */
         $gameDate = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
 
-        /** @var Match[] $matches */
+        /** @var Fixture[] $matches */
         $matches = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Match')->findBy(array('season' => $gameDate->getSeason(), 'week' => $gameDate->getWeek()));
         $progress = new ProgressBar($output, count($matches));
         $progress->start();

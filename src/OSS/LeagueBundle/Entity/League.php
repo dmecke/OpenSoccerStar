@@ -71,4 +71,12 @@ class League
 
         return $standings[$position - 1];
     }
+
+    /**
+     * @return ArrayCollection|Team[]
+     */
+    public function getTeams()
+    {
+        return $this->teams;
+    }
 }

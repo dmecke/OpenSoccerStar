@@ -7,9 +7,8 @@ use OSS\MatchBundle\Exception\MatchException;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="`Match`")
  */
-class Match
+class Fixture
 {
     /**
      * @var int
@@ -36,11 +35,15 @@ class Match
 
     /**
      * @var Team
+     *
+     * @ORM\ManyToOne(targetEntity="Team")
      */
     private $teamHome;
 
     /**
      * @var Team
+     *
+     * @ORM\ManyToOne(targetEntity="Team")
      */
     private $teamAway;
 
@@ -61,11 +64,15 @@ class Match
 
     /**
      * @var int
+     *
+     * @ORM\Column(type="integer")
      */
     private $scoreHome = 0;
 
     /**
      * @var int
+     *
+     * @ORM\Column(type="integer")
      */
     private $scoreAway = 0;
 
@@ -207,5 +214,21 @@ class Match
     public function getTeamAway()
     {
         return $this->teamAway;
+    }
+
+    /**
+     * @param int $season
+     */
+    public function setSeason($season)
+    {
+        $this->season = $season;
+    }
+
+    /**
+     * @param int $week
+     */
+    public function setWeek($week)
+    {
+        $this->week = $week;
     }
 }

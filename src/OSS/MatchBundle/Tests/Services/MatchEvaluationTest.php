@@ -2,7 +2,7 @@
 
 namespace OSS\MatchBundle\Tests\Services;
 
-use OSS\MatchBundle\Entity\Match;
+use OSS\MatchBundle\Entity\Fixture;
 use OSS\MatchBundle\Entity\Team;
 use OSS\MatchBundle\Services\MatchEvaluationService;
 
@@ -15,7 +15,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testHasScore()
     {
-        $match = new Match();
+        $match = new Fixture();
         $team1 = new Team();
         $team1->setId(1);
         $team2 = new Team();
@@ -36,7 +36,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoTeamsAssigned()
     {
-        $match = new Match();
+        $match = new Fixture();
         $matchEvaluation = new MatchEvaluationService();
 
         $matchEvaluation->evaluateCompleteMatch($match);
@@ -44,7 +44,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testIsFinished()
     {
-        $match = new Match();
+        $match = new Fixture();
         $team1 = new Team();
         $team1->setId(1);
         $team2 = new Team();
@@ -64,7 +64,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testEventsGenerated()
     {
-        $match = new Match();
+        $match = new Fixture();
         $team1 = new Team();
         $team1->setId(1);
         $team2 = new Team();
@@ -88,7 +88,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testMinutesToPlay()
     {
-        $match = new Match();
+        $match = new Fixture();
         $team1 = new Team();
         $team1->setId(1);
         $team2 = new Team();

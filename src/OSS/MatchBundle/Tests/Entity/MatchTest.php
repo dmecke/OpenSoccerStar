@@ -3,7 +3,7 @@
 namespace OSS\MatchBundle\Tests\Entity;
 
 use OSS\MatchBundle\Entity\Event;
-use OSS\MatchBundle\Entity\Match;
+use OSS\MatchBundle\Entity\Fixture;
 use OSS\MatchBundle\Entity\Team;
 
 class MatchTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetTeam()
     {
-        $match = new Match();
+        $match = new Fixture();
         $team = new Team();
 
         $match->setTeamHome($team);
@@ -22,7 +22,7 @@ class MatchTest extends \PHPUnit_Framework_TestCase
 
     public function testScoreMatchesEvents()
     {
-        $match = new Match();
+        $match = new Fixture();
         $team1 = new Team();
         $team1->setId(1);
         $team2 = new Team();
@@ -43,12 +43,12 @@ class MatchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param Match $match
+     * @param Fixture $match
      * @param Team $team
      *
      * @return int
      */
-    private function countGoalsInEvents(Match $match, Team $team)
+    private function countGoalsInEvents(Fixture $match, Team $team)
     {
         $goalsInEvents = 0;
         foreach ($match->getEvents() as $event) {
