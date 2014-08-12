@@ -20,6 +20,13 @@ class Team
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $name;
+
+    /**
      * @var League
      *
      * @ORM\ManyToOne(targetEntity="OSS\LeagueBundle\Entity\League", inversedBy="teams")
@@ -128,5 +135,29 @@ class Team
     public function getGoalsAgainst()
     {
         return $this->goalsAgainst;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param League $league
+     */
+    public function setLeague(League $league)
+    {
+        $this->league = $league;
     }
 }
