@@ -5,6 +5,7 @@ namespace OSS\MatchBundle\Tests\Entity;
 use OSS\MatchBundle\Entity\Event;
 use OSS\MatchBundle\Entity\Fixture;
 use OSS\MatchBundle\Entity\Team;
+use OSS\MatchBundle\Services\MatchEvaluationService;
 
 class FixtureTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +35,7 @@ class FixtureTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->countGoalsInEvents($fixture, $fixture->getTeamAway()));
         $this->assertEquals(0, $fixture->getGoalsScored());
 
-        $fixture->addEvent(Event::createGoal($fixture->getTeamHome()));
+        $fixture->addEvent(Event::createGoal($fixture, $fixture->getTeamHome()));
         $this->assertEquals(1, $this->countGoalsInEvents($fixture, $fixture->getTeamHome()));
         $this->assertEquals(0, $this->countGoalsInEvents($fixture, $fixture->getTeamAway()));
         $this->assertEquals(1, $fixture->getScoreHome());
@@ -47,6 +48,22 @@ class FixtureTest extends \PHPUnit_Framework_TestCase
         $fixture = new Fixture();
         $this->assertNull($fixture->getScoreHome());
         $this->assertNull($fixture->getScoreAway());
+    }
+
+    public function testZeroScoreAfterMatchStart()
+    {
+        $fixture = new Fixture();
+        $team1 = new Team();
+        $team1->setId(1);
+        $team2 = new Team();
+        $team2->setId(2);
+        $fixture->setTeamHome($team1);
+        $fixture->setTeamAway($team2);
+
+        $matchEvaluationService = new MatchEvaluationService();
+        $matchEvaluationService->evaluateMinuteOfMatch($fixture);
+        $this->assertNotNull($fixture->getScoreHome());
+        $this->assertNotNull($fixture->getScoreAway());
     }
 
     /**

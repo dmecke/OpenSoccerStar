@@ -81,8 +81,9 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
     {
         $matchEvaluation = new MatchEvaluationService();
 
-        $this->assertFalse($matchEvaluation->happensEvent());
-        $this->assertTrue($matchEvaluation->happensEvent());
+        for ($i = 0; $i < 32; $i++) {
+            $this->assertFalse($matchEvaluation->happensEvent());
+        }
         $this->assertTrue($matchEvaluation->happensEvent());
     }
 

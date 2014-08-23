@@ -49,16 +49,22 @@ class Fixture
 
     /**
      * @var Event[]
+     *
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="fixture", cascade={"all"})
      */
     private $events = array();
 
     /**
      * @var bool
+     *
+     * @ORM\Column(type="boolean")
      */
     private $finished = false;
 
     /**
      * @var int
+     *
+     * @ORM\Column(type="integer")
      */
     private $minutesPlayed = 0;
 
@@ -90,6 +96,16 @@ class Fixture
     public function getScoreAway()
     {
         return $this->scoreAway;
+    }
+
+    public function resetScoreHome()
+    {
+        $this->scoreHome = 0;
+    }
+
+    public function resetScoreAway()
+    {
+        $this->scoreAway = 0;
     }
 
     /**

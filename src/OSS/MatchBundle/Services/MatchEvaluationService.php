@@ -9,35 +9,41 @@ use OSS\MatchBundle\Exception\MatchException;
 class MatchEvaluationService
 {
     /**
-     * @param Fixture $match
+     * @param Fixture $fixture
      *
      * @throws MatchException
      */
-    public function evaluateCompleteMatch(Fixture $match)
+    public function evaluateCompleteMatch(Fixture $fixture)
     {
         for ($minute = 1; $minute <= $this->getMinutesToPlay(); $minute++) {
-            $this->evaluateMinuteOfMatch($match);
+            $this->evaluateMinuteOfMatch($fixture);
         }
-        $match->setFinished(true);
+        $fixture->setFinished(true);
     }
 
     /**
-     * @param Fixture $match
+     * @param Fixture $fixture
      *
      * @throws MatchException
      */
-    public function evaluateMinuteOfMatch(Fixture $match)
+    public function evaluateMinuteOfMatch(Fixture $fixture)
     {
-        if (!$match->hasTeamHome()) {
+        if (!$fixture->hasTeamHome()) {
             throw new MatchException('no home team');
         }
-        if (!$match->hasTeamAway()) {
+        if (!$fixture->hasTeamAway()) {
             throw new MatchException('no away team');
         }
 
-        $match->incrementMinutesPlayed();
+        $fixture->incrementMinutesPlayed();
+        if (null === $fixture->getScoreHome()) {
+            $fixture->resetScoreHome();
+        }
+        if (null === $fixture->getScoreAway()) {
+            $fixture->resetScoreAway();
+        }
         if ($this->happensEvent()) {
-            $match->addEvent($this->createRandomEvent($match));
+            $fixture->addEvent($this->createRandomEvent($fixture));
         }
     }
 
@@ -54,20 +60,20 @@ class MatchEvaluationService
      */
     public function happensEvent()
     {
-        return mt_rand(1, 100) >= 50;
+        return mt_rand(1, 100) >= 95;
     }
 
     /**
-     * @param Fixture $match
+     * @param Fixture $fixture
      *
      * @return Event
      */
-    public function createRandomEvent(Fixture $match)
+    public function createRandomEvent(Fixture $fixture)
     {
         $possibleEvents = array(Event::TYPE_CHANCE, Event::TYPE_GOAL);
-        $possibleTeams = array($match->getTeamHome(), $match->getTeamAway());
+        $possibleTeams = array($fixture->getTeamHome(), $fixture->getTeamAway());
 
-        $event = Event::create($possibleEvents[mt_rand(0, count($possibleEvents) - 1)], $possibleTeams[mt_rand(0, count($possibleTeams) - 1)]);
+        $event = Event::create($fixture, $possibleEvents[mt_rand(0, count($possibleEvents) - 1)], $possibleTeams[mt_rand(0, count($possibleTeams) - 1)]);
 
         return $event;
     }
