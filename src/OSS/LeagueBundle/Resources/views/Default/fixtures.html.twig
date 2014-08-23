@@ -1,0 +1,28 @@
+{% extends 'LeagueBundle::layout.html.twig' %}
+
+{% block content %}
+    <table>
+        <thead>
+        <tr>
+            <th>{{ 'fixtures.team_home'|trans }}</th>
+            <th>{{ 'fixtures.team_away'|trans }}</th>
+            <th>{{ 'fixtures.score'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for fixture in fixtures %}
+        {% if week is not defined or week != fixture.week %}
+            {% set week = fixture.week %}
+            <tr>
+                <td colspan="3">{{ 'fixtures.week'|trans({ '%week%': week }) }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <td>{{ fixture.teamHome.name }}</td>
+                <td>{{ fixture.teamAway.name }}</td>
+                <td>{{ fixture.scoreHome }} : {{ fixture.scoreAway }}</td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

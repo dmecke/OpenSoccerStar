@@ -23,7 +23,7 @@ class MatchdayCommand extends ContainerAwareCommand
         $gameDate = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
 
         /** @var Fixture[] $matches */
-        $matches = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Match')->findBy(array('season' => $gameDate->getSeason(), 'week' => $gameDate->getWeek()));
+        $matches = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Fixture')->findBy(array('season' => $gameDate->getSeason(), 'week' => $gameDate->getWeek()));
         $progress = new ProgressBar($output, count($matches));
         $progress->start();
         foreach ($matches as $match) {

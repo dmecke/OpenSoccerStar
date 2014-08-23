@@ -65,16 +65,16 @@ class Fixture
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $scoreHome = 0;
+    private $scoreHome;
 
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $scoreAway = 0;
+    private $scoreAway;
 
     /**
      * @return int
@@ -230,5 +230,13 @@ class Fixture
     public function setWeek($week)
     {
         $this->week = $week;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWeek()
+    {
+        return $this->week;
     }
 }

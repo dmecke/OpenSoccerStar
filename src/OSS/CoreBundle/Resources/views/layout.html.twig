@@ -4,16 +4,14 @@
 <nav class="top-bar" data-topbar>
     <ul class="title-area">
         <li class="name"><h1><a href="{{ path('landingpage') }}">Open Soccer Star</a></h1></li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>{{ 'menu'|trans }}</span></a></li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>{{ 'menu.headline'|trans }}</span></a></li>
     </ul>
     <section class="top-bar-section">
         <ul class="left">
             <li class="divider"></li>
             <li><a href="{{ path('standings') }}">{{ 'menu.standings'|trans }}</a></li>
             <li class="divider"></li>
-            <li><a href="#">Main Menu II</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Main Menu III</a></li>
+            <li><a href="{{ path('fixtures') }}">{{ 'menu.fixtures'|trans }}</a></li>
             <li class="divider"></li>
         </ul>
         <ul class="right">

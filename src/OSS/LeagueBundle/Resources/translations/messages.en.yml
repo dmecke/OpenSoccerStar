@@ -1,6 +1,11 @@
 standings:
     team: Team
-    goalsDifference: Goals Difference
-    goalsFor: Goals
-    goalsAgainst: Goals Against
+    goals_difference: Goals Difference
+    goals_for: Goals
+    goals_against: Goals Against
     points: Points
+fixtures:
+    week: Week %week%
+    team_home: Home
+    team_away: Away
+    score: Score

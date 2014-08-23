@@ -1,3 +1,5 @@
-menu: Menu
-menu.standings: Standings
+menu:
+    headline: Menu
+    standings: Standings
+    fixtures: Fixtures
 login_oauth: OAuth Login
