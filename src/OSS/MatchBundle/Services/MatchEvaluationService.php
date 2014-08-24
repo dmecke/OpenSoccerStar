@@ -19,6 +19,18 @@ class MatchEvaluationService
             $this->evaluateMinuteOfMatch($fixture);
         }
         $fixture->setFinished(true);
+        if ($fixture->isDraw()) {
+            $fixture->getTeamHome()->addPoints(1);
+            $fixture->getTeamAway()->addPoints(1);
+        } elseif ($fixture->isHomeTeamWinner()) {
+            $fixture->getTeamHome()->addPoints(3);
+        } else {
+            $fixture->getTeamAway()->addPoints(3);
+        }
+        $fixture->getTeamHome()->addGoalsFor($fixture->getScoreHome());
+        $fixture->getTeamHome()->addGoalsAgainst($fixture->getScoreAway());
+        $fixture->getTeamAway()->addGoalsFor($fixture->getScoreAway());
+        $fixture->getTeamAway()->addGoalsAgainst($fixture->getScoreHome());
     }
 
     /**

@@ -255,4 +255,36 @@ class Fixture
     {
         return $this->week;
     }
+
+    /**
+     * @return Team
+     *
+     * @throws MatchException
+     */
+    public function getWinner()
+    {
+        if ($this->getScoreHome() == $this->getScoreAway()) {
+            throw new MatchException('this match has no winner');
+        }
+
+        return $this->scoreHome > $this->scoreAway ? $this->teamHome : $this->teamAway;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDraw()
+    {
+        return $this->scoreHome == $this->scoreAway;
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws MatchException
+     */
+    public function isHomeTeamWinner()
+    {
+        return $this->getWinner()->equals($this->teamHome);
+    }
 }

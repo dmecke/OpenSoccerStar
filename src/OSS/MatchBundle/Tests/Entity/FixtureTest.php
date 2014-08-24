@@ -67,6 +67,27 @@ class FixtureTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException \OSS\MatchBundle\Exception\MatchException
+     */
+    public function testNoWinnerException()
+    {
+        $fixture = new Fixture();
+        $fixture->resetScoreHome();
+        $fixture->resetScoreAway();
+
+        $fixture->getWinner();
+    }
+
+    public function testDraw()
+    {
+        $fixture = new Fixture();
+        $fixture->resetScoreHome();
+        $fixture->resetScoreAway();
+
+        $this->assertTrue($fixture->isDraw());
+    }
+
+    /**
      * @param Fixture $fixture
      * @param Team $team
      *

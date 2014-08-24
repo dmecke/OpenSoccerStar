@@ -98,11 +98,27 @@ class Team
     }
 
     /**
+     * @param int $points
+     */
+    public function addPoints($points)
+    {
+        $this->points += $points;
+    }
+
+    /**
      * @param int $goalsFor
      */
     public function setGoalsFor($goalsFor)
     {
         $this->goalsFor = $goalsFor;
+    }
+
+    /**
+     * @param int $goalsFor
+     */
+    public function addGoalsFor($goalsFor)
+    {
+        $this->goalsFor += $goalsFor;
     }
 
     /**
@@ -119,6 +135,14 @@ class Team
     public function setGoalsAgainst($goalsAgainst)
     {
         $this->goalsAgainst = $goalsAgainst;
+    }
+
+    /**
+     * @param int $goalsAgainst
+     */
+    public function addGoalsAgainst($goalsAgainst)
+    {
+        $this->goalsAgainst += $goalsAgainst;
     }
 
     /**

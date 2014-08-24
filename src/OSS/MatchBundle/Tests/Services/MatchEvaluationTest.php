@@ -4,6 +4,7 @@ namespace OSS\MatchBundle\Tests\Services;
 
 use OSS\MatchBundle\Entity\Fixture;
 use OSS\MatchBundle\Entity\Team;
+use OSS\MatchBundle\Exception\MatchException;
 use OSS\MatchBundle\Services\MatchEvaluationService;
 
 class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
@@ -15,20 +16,13 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testHasScore()
     {
-        $match = new Fixture();
-        $team1 = new Team();
-        $team1->setId(1);
-        $team2 = new Team();
-        $team2->setId(2);
-
-        $match->setTeamHome($team1);
-        $match->setTeamAway($team2);
+        $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
         $matchEvaluation = new MatchEvaluationService();
 
-        $matchEvaluation->evaluateCompleteMatch($match);
+        $matchEvaluation->evaluateCompleteMatch($fixture);
 
-        $this->assertGreaterThanOrEqual(0, $match->getScoreHome());
-        $this->assertGreaterThanOrEqual(0, $match->getScoreAway());
+        $this->assertGreaterThanOrEqual(0, $fixture->getScoreHome());
+        $this->assertGreaterThanOrEqual(0, $fixture->getScoreAway());
     }
 
     /**
@@ -44,37 +38,25 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testIsFinished()
     {
-        $match = new Fixture();
-        $team1 = new Team();
-        $team1->setId(1);
-        $team2 = new Team();
-        $team2->setId(2);
-        $match->setTeamHome($team1);
-        $match->setTeamAway($team2);
+        $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
         $matchEvaluation = new MatchEvaluationService();
 
-        $this->assertFalse($match->isFinished());
+        $this->assertFalse($fixture->isFinished());
 
-        $matchEvaluation->evaluateMinuteOfMatch($match);
-        $this->assertFalse($match->isFinished());
+        $matchEvaluation->evaluateMinuteOfMatch($fixture);
+        $this->assertFalse($fixture->isFinished());
 
-        $matchEvaluation->evaluateCompleteMatch($match);
-        $this->assertTrue($match->isFinished());
+        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->assertTrue($fixture->isFinished());
     }
 
     public function testEventsGenerated()
     {
-        $match = new Fixture();
-        $team1 = new Team();
-        $team1->setId(1);
-        $team2 = new Team();
-        $team2->setId(2);
-        $match->setTeamHome($team1);
-        $match->setTeamAway($team2);
+        $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
         $matchEvaluation = new MatchEvaluationService();
 
-        $matchEvaluation->evaluateCompleteMatch($match);
-        $this->assertGreaterThan(0, count($match->getEvents()));
+        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->assertGreaterThan(0, count($fixture->getEvents()));
     }
 
     public function testHappensEvent()
@@ -89,21 +71,69 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
     public function testMinutesToPlay()
     {
-        $match = new Fixture();
-        $team1 = new Team();
-        $team1->setId(1);
-        $team2 = new Team();
-        $team2->setId(2);
-        $match->setTeamHome($team1);
-        $match->setTeamAway($team2);
+        $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
         $matchEvaluation = new MatchEvaluationService();
 
         for ($i = 0; $i <= 10; $i++) {
+            $this->assertGreaterThanOrEqual(90, $matchEvaluation->getMinutesToPlay());
+            $this->assertLessThanOrEqual(95, $matchEvaluation->getMinutesToPlay());
         }
-        $this->assertGreaterThanOrEqual(90, $matchEvaluation->getMinutesToPlay());
-        $this->assertLessThanOrEqual(95, $matchEvaluation->getMinutesToPlay());
 
-        $matchEvaluation->evaluateCompleteMatch($match);
-        $this->assertEquals(90, $match->getMinutesPlayed());
+        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->assertEquals(91, $fixture->getMinutesPlayed());
+    }
+
+    public function testPointsAndGoalsForLeague()
+    {
+        $team1 = $this->createTeam(1);
+        $team2 = $this->createTeam(2);
+        $fixture = $this->createFixture($team1, $team2);
+        $matchEvaluation = new MatchEvaluationService();
+
+        $this->assertEquals(0, $team1->getPoints());
+        $this->assertEquals(0, $team1->getGoalsFor());
+        $this->assertEquals(0, $team1->getGoalsAgainst());
+        $this->assertEquals(0, $team2->getPoints());
+        $this->assertEquals(0, $team2->getGoalsFor());
+        $this->assertEquals(0, $team2->getGoalsAgainst());
+
+        $matchEvaluation->evaluateCompleteMatch($fixture);
+
+        $this->assertEquals(0, $team1->getPoints());
+        $this->assertEquals(0, $team1->getGoalsFor());
+        $this->assertEquals(1, $team1->getGoalsAgainst());
+        $this->assertEquals(3, $team2->getPoints());
+        $this->assertEquals(1, $team2->getGoalsFor());
+        $this->assertEquals(0, $team2->getGoalsAgainst());
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Team
+     */
+    private function createTeam($id)
+    {
+        $team = new Team();
+        $team->setId($id);
+
+        return $team;
+    }
+
+    /**
+     * @param Team $teamHome
+     * @param Team $teamAway
+     *
+     * @return Fixture
+     *
+     * @throws MatchException
+     */
+    private function createFixture(Team $teamHome, Team $teamAway)
+    {
+        $fixture = new Fixture();
+        $fixture->setTeamHome($teamHome);
+        $fixture->setTeamAway($teamAway);
+
+        return $fixture;
     }
 }
