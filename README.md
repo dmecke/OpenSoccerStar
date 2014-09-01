@@ -21,6 +21,18 @@ When reading about how to start an open source project, there is always the advi
 ## Getting Started
 So if you like the idea, simply watch this project to get informed about any updates. And when you feel the time is right, just open an issue with a question or suggestion.
 
+If you want to add your own features, improve an existing one or just want to play around a bit just follow these steps:
+
+* fork this project
+* git clone it to your server
+* copy `parameters.yml.dist` to `parameters.yml` and adjust the values to your needs
+* execute `composer install` to install all dependencies
+* open `localhost/config.php` to check if everything is set up properly / fix problems
+* execute `php app/console doctrine:schema:create` to create the database schema
+* execute `php app/console doctrine:fixtures:load` to fill the database with the base data
+* execute `php app/console oss:fixture` to create match fixtures for the first season
+* execute `php app/console oss:matchday` to evaluate one matchday - you could set this up as a cronjob
+
 ## Next Steps
 The next steps will be to change the project skeleton into a very very simple, but playable game, the minimum viable product. Furthermore I would like to outline my vision of the project a bit more, so everybody is able to see in what direction the project shall go.
 
