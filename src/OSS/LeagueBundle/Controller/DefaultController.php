@@ -4,6 +4,7 @@ namespace OSS\LeagueBundle\Controller;
 
 use OSS\CoreBundle\Entity\GameDate;
 use OSS\LeagueBundle\Entity\League;
+use OSS\MatchBundle\Entity\Team;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

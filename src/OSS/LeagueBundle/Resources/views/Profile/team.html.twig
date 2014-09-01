@@ -1,0 +1,19 @@
+{% extends 'LeagueBundle::layout.html.twig' %}
+
+{% block content %}
+    <h3>{{ team.name }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'team.player.name'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for player in team.players %}
+            <tr>
+                <td><a href="{{ path('profile_player', { 'id': player.id } ) }}">{{ player.name }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

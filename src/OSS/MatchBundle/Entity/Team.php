@@ -2,6 +2,7 @@
 
 namespace OSS\MatchBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use OSS\LeagueBundle\Entity\League;
 
@@ -54,6 +55,18 @@ class Team
      * @ORM\Column(type="integer")
      */
     private $goalsAgainst = 0;
+
+    /**
+     * @var Player[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Player", mappedBy="team")
+     */
+    private $players;
+
+    public function __construct()
+    {
+        $this->players = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -183,5 +196,24 @@ class Team
     public function setLeague(League $league)
     {
         $this->league = $league;
+    }
+
+    /**
+     * @return Player[]
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function addPlayer(Player $player)
+    {
+        if (!$this->players->contains($player)) {
+            $this->players->add($player);
+            $player->setTeam($this);
+        }
     }
 }

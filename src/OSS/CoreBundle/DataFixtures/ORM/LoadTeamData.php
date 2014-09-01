@@ -17,6 +17,11 @@ class LoadTeamData extends AbstractFixture implements FixtureInterface, OrderedF
     private $manager;
 
     /**
+     * @var int
+     */
+    private $teamCounter = 1;
+
+    /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
@@ -58,6 +63,8 @@ class LoadTeamData extends AbstractFixture implements FixtureInterface, OrderedF
         $team->setLeague($league);
 
         $this->manager->persist($team);
+
+        $this->addReference('team' . $this->teamCounter++, $team);
     }
 
     /**

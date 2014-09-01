@@ -16,7 +16,7 @@
 {% for position,team in standings %}
         <tr>
             <td>{{ position+1 }}.</td>
-            <td>{{ team.name }}</td>
+            <td><a href="{{ path('profile_team', { 'id': team.id } ) }}">{{ team.name }}</a></td>
             <td>{{ team.goalsDifference }}</td>
             <td>{{ team.goalsFor }}</td>
             <td>{{ team.goalsAgainst }}</td>

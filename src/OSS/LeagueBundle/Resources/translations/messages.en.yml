@@ -9,3 +9,6 @@ fixtures:
     team_home: Home
     team_away: Away
     score: Score
+team:
+    player:
+        name: Name

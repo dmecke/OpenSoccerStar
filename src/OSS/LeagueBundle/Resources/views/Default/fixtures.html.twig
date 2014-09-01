@@ -18,8 +18,8 @@
             </tr>
         {% endif %}
             <tr>
-                <td>{{ fixture.teamHome.name }}</td>
-                <td>{{ fixture.teamAway.name }}</td>
+                <td><a href="{{ path('profile_team', { 'id': fixture.teamHome.id } ) }}">{{ fixture.teamHome.name }}</a></td>
+                <td><a href="{{ path('profile_team', { 'id': fixture.teamAway.id } ) }}">{{ fixture.teamAway.name }}</a></td>
                 <td>{{ fixture.scoreHome }} : {{ fixture.scoreAway }}</td>
             </tr>
     {% endfor %}
