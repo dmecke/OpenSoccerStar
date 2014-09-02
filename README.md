@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/dmecke/OpenSoccerStar.svg)](https://travis-ci.org/dmecke/OpenSoccerStar)
 
-Play the current stable release at http://www.opensoccerstar.com
+Play the current stable release at http://opensoccerstar.com
 
 ## Introduction
 This is an experiment. Is it possible to create a browsergame by the open source community?
