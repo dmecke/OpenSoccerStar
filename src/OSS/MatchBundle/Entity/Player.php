@@ -28,7 +28,7 @@ class Player
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="Team")
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="players")
      */
     private $team;
 
