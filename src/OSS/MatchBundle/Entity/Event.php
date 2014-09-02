@@ -22,6 +22,13 @@ class Event
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $minute;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -58,16 +65,18 @@ class Event
      * @param string $type
      * @param Team $team
      * @param Player $player
+     * @param int $minute
      *
      * @return Event
      */
-    static public function create(Fixture $fixture, $type, Team $team, Player $player)
+    static public function create(Fixture $fixture, $type, Team $team, Player $player, $minute)
     {
         $event = new Event();
         $event->setFixture($fixture);
         $event->setType($type);
         $event->setTeam($team);
         $event->setPlayer($player);
+        $event->setMinute($minute);
 
         return $event;
     }
@@ -76,24 +85,26 @@ class Event
      * @param Fixture $fixture
      * @param Team $team
      * @param Player $player
+     * @param int $minute
      *
      * @return Event
      */
-    static public function createGoal(Fixture $fixture, Team $team, Player $player)
+    static public function createGoal(Fixture $fixture, Team $team, Player $player, $minute)
     {
-        return self::create($fixture, self::TYPE_GOAL, $team, $player);
+        return self::create($fixture, self::TYPE_GOAL, $team, $player, $minute);
     }
 
     /**
      * @param Fixture $fixture
      * @param Team $team
      * @param Player $player
+     * @param int $minute
      *
      * @return Event
      */
-    static public function createChance(Fixture $fixture, Team $team, Player $player)
+    static public function createChance(Fixture $fixture, Team $team, Player $player, $minute)
     {
-        return self::create($fixture, self::TYPE_CHANCE, $team, $player);
+        return self::create($fixture, self::TYPE_CHANCE, $team, $player, $minute);
     }
 
     private function setType($type)
@@ -147,5 +158,37 @@ class Event
     public function setPlayer($player)
     {
         $this->player = $player;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMinute()
+    {
+        return $this->minute;
+    }
+
+    /**
+     * @param int $minute
+     */
+    public function setMinute($minute)
+    {
+        $this->minute = $minute;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return Player
+     */
+    public function getPlayer()
+    {
+        return $this->player;
     }
 }

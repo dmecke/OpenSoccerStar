@@ -1,0 +1,21 @@
+{% extends 'LeagueBundle::layout.html.twig' %}
+
+{% block content %}
+<h3>{{ fixture.teamHome.name }} - {{ fixture.teamAway.name }}</h3>
+<table>
+    <thead>
+        <tr>
+            <th>{{ 'fixture.minute'|trans }}</th>
+            <th>{{ 'fixture.event'|trans }}</th>
+            <th>{{ 'fixture.player'|trans }}</th>
+        </tr>
+    </thead>
+{% for event in fixture.events %}
+    <tr>
+        <td>{{ event.minute }}.</td>
+        <td>{{ event.type }}</td>
+        <td>{{ event.player.name }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

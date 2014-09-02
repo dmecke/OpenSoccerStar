@@ -11,13 +11,13 @@ class EventTest extends \PHPUnit_Framework_TestCase
 {
     public function testGoal()
     {
-        $event = Event::createGoal(new Fixture(), new Team(), new Player());
+        $event = Event::createGoal(new Fixture(), new Team(), new Player(), 1);
         $this->assertTrue($event->isGoal());
     }
 
     public function testChance()
     {
-        $event = Event::createChance(new Fixture(), new Team(), new Player());
+        $event = Event::createChance(new Fixture(), new Team(), new Player(), 1);
         $this->assertTrue($event->isChance());
     }
 }

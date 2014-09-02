@@ -287,4 +287,12 @@ class Fixture
     {
         return $this->getWinner()->equals($this->teamHome);
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

@@ -36,7 +36,7 @@ class FixtureTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->countGoalsInEvents($fixture, $fixture->getTeamAway()));
         $this->assertEquals(0, $fixture->getGoalsScored());
 
-        $fixture->addEvent(Event::createGoal($fixture, $fixture->getTeamHome(), new Player()));
+        $fixture->addEvent(Event::createGoal($fixture, $fixture->getTeamHome(), new Player(), 1));
         $this->assertEquals(1, $this->countGoalsInEvents($fixture, $fixture->getTeamHome()));
         $this->assertEquals(0, $this->countGoalsInEvents($fixture, $fixture->getTeamAway()));
         $this->assertEquals(1, $fixture->getScoreHome());

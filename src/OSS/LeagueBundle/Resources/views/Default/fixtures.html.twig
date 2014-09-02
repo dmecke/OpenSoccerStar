@@ -20,7 +20,7 @@
             <tr>
                 <td><a href="{{ path('profile_team', { 'id': fixture.teamHome.id } ) }}">{{ fixture.teamHome.name }}</a></td>
                 <td><a href="{{ path('profile_team', { 'id': fixture.teamAway.id } ) }}">{{ fixture.teamAway.name }}</a></td>
-                <td>{{ fixture.scoreHome }} : {{ fixture.scoreAway }}</td>
+                <td><a href="{{ path('fixture', { 'id': fixture.id } ) }}">{{ fixture.scoreHome }} : {{ fixture.scoreAway }}</a></td>
             </tr>
     {% endfor %}
         </tbody>
