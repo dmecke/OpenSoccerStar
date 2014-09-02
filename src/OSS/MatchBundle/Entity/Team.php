@@ -216,4 +216,18 @@ class Team
             $player->setTeam($this);
         }
     }
+
+    /**
+     * @return Player
+     *
+     * @throws \Exception
+     */
+    public function getRandomPlayer()
+    {
+        if (0 == count($this->players)) {
+            throw new \Exception('this team has no players');
+        }
+
+        return $this->players[rand(0, count($this->players) - 1)];
+    }
 }

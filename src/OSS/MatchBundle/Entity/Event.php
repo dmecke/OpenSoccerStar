@@ -36,6 +36,13 @@ class Event
     private $team;
 
     /**
+     * @var Player
+     *
+     * @ORM\ManyToOne(targetEntity="Player")
+     */
+    private $player;
+
+    /**
      * @var Fixture
      *
      * @ORM\ManyToOne(targetEntity="Fixture", inversedBy="events")
@@ -50,15 +57,17 @@ class Event
      * @param Fixture $fixture
      * @param string $type
      * @param Team $team
+     * @param Player $player
      *
      * @return Event
      */
-    static public function create(Fixture $fixture, $type, Team $team)
+    static public function create(Fixture $fixture, $type, Team $team, Player $player)
     {
         $event = new Event();
         $event->setFixture($fixture);
         $event->setType($type);
         $event->setTeam($team);
+        $event->setPlayer($player);
 
         return $event;
     }
@@ -66,23 +75,25 @@ class Event
     /**
      * @param Fixture $fixture
      * @param Team $team
+     * @param Player $player
      *
      * @return Event
      */
-    static public function createGoal(Fixture $fixture, Team $team)
+    static public function createGoal(Fixture $fixture, Team $team, Player $player)
     {
-        return self::create($fixture, self::TYPE_GOAL, $team);
+        return self::create($fixture, self::TYPE_GOAL, $team, $player);
     }
 
     /**
      * @param Fixture $fixture
      * @param Team $team
+     * @param Player $player
      *
      * @return Event
      */
-    static public function createChance(Fixture $fixture, Team $team)
+    static public function createChance(Fixture $fixture, Team $team, Player $player)
     {
-        return self::create($fixture, self::TYPE_CHANCE, $team);
+        return self::create($fixture, self::TYPE_CHANCE, $team, $player);
     }
 
     private function setType($type)
@@ -128,5 +139,13 @@ class Event
     public function setFixture(Fixture $fixture)
     {
         $this->fixture = $fixture;
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function setPlayer($player)
+    {
+        $this->player = $player;
     }
 }

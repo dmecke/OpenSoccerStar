@@ -2,4 +2,18 @@
 
 {% block content %}
     <h3>{{ player.name }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'player.skill.defense'|trans }}</th>
+                <th>{{ 'player.skill.offense'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ player.skillDefense }}</td>
+                <td>{{ player.skillOffense }}</td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace OSS\MatchBundle\Services;
 
 use OSS\MatchBundle\Entity\Event;
 use OSS\MatchBundle\Entity\Fixture;
+use OSS\MatchBundle\Entity\Team;
 use OSS\MatchBundle\Exception\MatchException;
 
 class MatchEvaluationService
@@ -82,10 +83,18 @@ class MatchEvaluationService
      */
     public function createRandomEvent(Fixture $fixture)
     {
-        $possibleEvents = array(Event::TYPE_CHANCE, Event::TYPE_GOAL);
         $possibleTeams = array($fixture->getTeamHome(), $fixture->getTeamAway());
 
-        $event = Event::create($fixture, $possibleEvents[mt_rand(0, count($possibleEvents) - 1)], $possibleTeams[mt_rand(0, count($possibleTeams) - 1)]);
+        /** @var Team $attackingTeam */
+        $attackingTeam = $possibleTeams[mt_rand(0, count($possibleTeams) - 1)];
+        $defendingTeam = $attackingTeam->equals($fixture->getTeamHome()) ? $fixture->getTeamAway() : $fixture->getTeamHome();
+
+        $attacker = $attackingTeam->getRandomPlayer();
+        $defender = $defendingTeam->getRandomPlayer();
+
+        $eventType = $attacker->getSkillOffense() > $defender->getSkillDefense() ? Event::TYPE_GOAL : Event::TYPE_CHANCE;
+
+        $event = Event::create($fixture, $eventType, $attackingTeam, $attacker);
 
         return $event;
     }

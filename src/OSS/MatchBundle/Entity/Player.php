@@ -33,6 +33,20 @@ class Player
     private $team;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $skillDefense;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $skillOffense;
+
+    /**
      * @param Player $player
      *
      * @return bool
@@ -91,5 +105,37 @@ class Player
     public function getTeam()
     {
         return $this->team;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkillDefense()
+    {
+        return $this->skillDefense;
+    }
+
+    /**
+     * @param int $skillDefense
+     */
+    public function setSkillDefense($skillDefense)
+    {
+        $this->skillDefense = $skillDefense;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkillOffense()
+    {
+        return $this->skillOffense;
+    }
+
+    /**
+     * @param int $skillOffense
+     */
+    public function setSkillOffense($skillOffense)
+    {
+        $this->skillOffense = $skillOffense;
     }
 }

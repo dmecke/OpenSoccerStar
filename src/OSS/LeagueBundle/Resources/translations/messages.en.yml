@@ -12,3 +12,7 @@ fixtures:
 team:
     player:
         name: Name
+player:
+    skill:
+        defense: Defense
+        offense: Offense

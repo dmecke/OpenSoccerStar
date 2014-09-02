@@ -35,6 +35,8 @@ class LoadPlayerData extends AbstractFixture implements FixtureInterface, Ordere
             for ($j = 1; $j <= 11; $j++) {
                 $player = new Player();
                 $player->setName('Player ' . $this->playerCounter++);
+                $player->setSkillDefense(rand(1, 100));
+                $player->setSkillOffense(rand(1, 100));
                 $team->addPlayer($player);
                 $this->manager->persist($player);
             }

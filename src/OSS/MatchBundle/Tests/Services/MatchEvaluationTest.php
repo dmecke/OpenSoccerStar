@@ -3,6 +3,7 @@
 namespace OSS\MatchBundle\Tests\Services;
 
 use OSS\MatchBundle\Entity\Fixture;
+use OSS\MatchBundle\Entity\Player;
 use OSS\MatchBundle\Entity\Team;
 use OSS\MatchBundle\Exception\MatchException;
 use OSS\MatchBundle\Services\MatchEvaluationService;
@@ -80,7 +81,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
         }
 
         $matchEvaluation->evaluateCompleteMatch($fixture);
-        $this->assertEquals(91, $fixture->getMinutesPlayed());
+        $this->assertEquals(90, $fixture->getMinutesPlayed());
     }
 
     public function testPointsAndGoalsForLeague()
@@ -99,11 +100,11 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 
         $matchEvaluation->evaluateCompleteMatch($fixture);
 
-        $this->assertEquals(0, $team1->getPoints());
+        $this->assertEquals(1, $team1->getPoints());
         $this->assertEquals(0, $team1->getGoalsFor());
-        $this->assertEquals(1, $team1->getGoalsAgainst());
-        $this->assertEquals(3, $team2->getPoints());
-        $this->assertEquals(1, $team2->getGoalsFor());
+        $this->assertEquals(0, $team1->getGoalsAgainst());
+        $this->assertEquals(1, $team2->getPoints());
+        $this->assertEquals(0, $team2->getGoalsFor());
         $this->assertEquals(0, $team2->getGoalsAgainst());
     }
 
@@ -116,6 +117,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
     {
         $team = new Team();
         $team->setId($id);
+        $team->addPlayer(new Player());
 
         return $team;
     }
