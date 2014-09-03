@@ -5,6 +5,9 @@
         <title>{% block title %}Open Soccer Star{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerfoundation/css/foundation.min.css') }}" />
+            {% stylesheets '@CoreBundle/Resources/public/css/*.scss' output='/css/core.css' filter='?yui_css,compass' %}
+        <link href="{{ asset_url }}" rel="stylesheet" />
+            {% endstylesheets %}
         {% endblock %}
         <script type="text/javascript" src="{{ asset('bundles/bmatznermodernizr/js/modernizr.min.js') }}"></script>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

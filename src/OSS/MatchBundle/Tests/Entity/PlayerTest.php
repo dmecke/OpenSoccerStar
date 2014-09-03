@@ -15,6 +15,10 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($player1->equals($player2));
 
         $player1->setId(1);
+        $player2->setId(1);
+        $this->assertTrue($player1->equals($player2));
+
+        $player1->setId(1);
         $player2->setId(2);
         $this->assertFalse($player1->equals($player2));
     }

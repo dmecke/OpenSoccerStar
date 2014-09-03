@@ -1,4 +1,10 @@
 services:
     oauth_user_provider:
         class: OSS\UserBundle\Services\UserProvider
-        arguments: [@fos_user.user_manager, { google: google_id }]
+        arguments: [@fos_user.user_manager, @event_dispatcher, { google: google_id }]
+
+    listener.registration:
+        class: OSS\UserBundle\Listener\RegistrationListener
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: fos_user.registration.completed, method: onRegister }

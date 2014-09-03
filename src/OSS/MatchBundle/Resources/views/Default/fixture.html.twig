@@ -11,7 +11,7 @@
         </tr>
     </thead>
 {% for event in fixture.events %}
-    <tr>
+    <tr class="{% if app.user and app.user.player.equals(event.player) %}own{% endif %}">
         <td>{{ event.minute }}.</td>
         <td>{{ event.type }}</td>
         <td>{{ event.player.name }}</td>

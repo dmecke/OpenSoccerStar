@@ -12,7 +12,7 @@
         </thead>
         <tbody>
         {% for player in team.players %}
-            <tr>
+            <tr class="{% if app.user and app.user.player.equals(player) %}own{% endif %}">
                 <td><a href="{{ path('profile_player', { 'id': player.id } ) }}">{{ player.name }}</a></td>
                 <td>{{ player.skillDefense }}</td>
                 <td>{{ player.skillOffense }}</td>
