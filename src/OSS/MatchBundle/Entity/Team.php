@@ -231,6 +231,33 @@ class Team
         return $this->players[rand(0, count($this->players) - 1)];
     }
 
+    /**
+     * @return Player
+     *
+     * @throws \Exception
+     */
+    public function getRandomPlayerFromLineup()
+    {
+        $lineup = $this->getLineup();
+
+        if (0 == count($lineup)) {
+            throw new \Exception('no players in the lineup');
+        }
+
+        return $lineup[rand(0, count($lineup) - 1)];
+    }
+
+    /**
+     * @return Player[]
+     */
+    public function getLineup()
+    {
+        $players = $this->players->toArray();
+        usort($players, array('OSS\MatchBundle\Entity\Player', 'compareAverageSkill'));
+
+        return array_slice($players, 0, 11);
+    }
+
     public function resetPointsAndGoals()
     {
         $this->points = 0;

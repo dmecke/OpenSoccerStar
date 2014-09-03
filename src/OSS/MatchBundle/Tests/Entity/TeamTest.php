@@ -61,4 +61,30 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $team->getGoalsFor());
         $this->assertEquals(0, $team->getGoalsAgainst());
     }
+
+    public function testLineup()
+    {
+        $team = new Team();
+        $player1 = new Player();
+        $player1->setId(1);
+        $player1->setSkillDefense(40);
+        $player1->setSkillOffense(40);
+        $team->addPlayer($player1);
+        for ($i = 2; $i <= 12; $i++) {
+            $player = new Player();
+            $player->setId($i);
+            $player->setSkillDefense(50);
+            $player->setSkillOffense(50);
+            $team->addPlayer($player);
+        }
+        $player2 = new Player();
+        $player2->setId(13);
+        $player2->setSkillDefense(40);
+        $player2->setSkillOffense(40);
+        $team->addPlayer($player2);
+
+        $this->assertCount(11, $team->getLineup());
+        $this->assertNotContains($player1, $team->getLineup());
+        $this->assertNotContains($player2, $team->getLineup());
+    }
 }

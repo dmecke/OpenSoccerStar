@@ -32,4 +32,34 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($team, $player->getTeam());
         $this->assertContains($player, $team->getPlayers());
     }
+
+    public function testAverage()
+    {
+        $player = new Player();
+        $player->setSkillDefense(50);
+        $player->setSkillOffense(70);
+        $this->assertEquals(60, $player->getSkillAverage());
+    }
+
+    public function testCompareAverageSkill()
+    {
+        $player1 = new Player();
+        $player1->setSkillDefense(50);
+        $player1->setSkillOffense(50);
+
+        $player2 = new Player();
+        $player2->setSkillDefense(60);
+        $player2->setSkillOffense(60);
+        $this->assertTrue(Player::compareAverageSkill($player1, $player2));
+
+        $player2 = new Player();
+        $player2->setSkillDefense(50);
+        $player2->setSkillOffense(50);
+        $this->assertFalse(Player::compareAverageSkill($player1, $player2));
+
+        $player2 = new Player();
+        $player2->setSkillDefense(40);
+        $player2->setSkillOffense(40);
+        $this->assertFalse(Player::compareAverageSkill($player1, $player2));
+    }
 }

@@ -138,4 +138,23 @@ class Player
     {
         $this->skillOffense = $skillOffense;
     }
+
+    /**
+     * @return float
+     */
+    public function getSkillAverage()
+    {
+        return ($this->skillDefense + $this->skillOffense) / 2;
+    }
+
+    /**
+     * @param Player $a
+     * @param Player $b
+     *
+     * @return bool
+     */
+    static public function compareAverageSkill(Player $a, Player $b)
+    {
+        return $a->getSkillAverage() < $b->getSkillAverage();
+    }
 }

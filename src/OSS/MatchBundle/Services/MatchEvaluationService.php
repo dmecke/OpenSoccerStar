@@ -89,8 +89,8 @@ class MatchEvaluationService
         $attackingTeam = $possibleTeams[mt_rand(0, count($possibleTeams) - 1)];
         $defendingTeam = $attackingTeam->equals($fixture->getTeamHome()) ? $fixture->getTeamAway() : $fixture->getTeamHome();
 
-        $attacker = $attackingTeam->getRandomPlayer();
-        $defender = $defendingTeam->getRandomPlayer();
+        $attacker = $attackingTeam->getRandomPlayerFromLineup();
+        $defender = $defendingTeam->getRandomPlayerFromLineup();
 
         $eventType = $attacker->getSkillOffense() * 2 > $defender->getSkillDefense() * 3 ? Event::TYPE_GOAL : Event::TYPE_CHANCE;
 
