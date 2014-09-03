@@ -46,4 +46,19 @@ class TeamTest extends \PHPUnit_Framework_TestCase
 
         $this->assertContains($team->getRandomPlayer(), array($player1, $player2));
     }
+
+    public function testResetPointsAndGoals()
+    {
+        $team = new Team();
+
+        $team->setPoints(1);
+        $team->setGoalsFor(1);
+        $team->setGoalsAgainst(1);
+
+        $team->resetPointsAndGoals();
+
+        $this->assertEquals(0, $team->getPoints());
+        $this->assertEquals(0, $team->getGoalsFor());
+        $this->assertEquals(0, $team->getGoalsAgainst());
+    }
 }

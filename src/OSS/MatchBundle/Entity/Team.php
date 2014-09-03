@@ -230,4 +230,11 @@ class Team
 
         return $this->players[rand(0, count($this->players) - 1)];
     }
+
+    public function resetPointsAndGoals()
+    {
+        $this->points = 0;
+        $this->goalsFor = 0;
+        $this->goalsAgainst = 0;
+    }
 }

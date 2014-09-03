@@ -22,7 +22,17 @@ class FixtureCommand extends ContainerAwareCommand
         /** @var GameDate $gameDate */
         $gameDate = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
 
+        $this->resetStandings();
         $this->createFixtures($gameDate->getSeason());
+    }
+
+    private function resetStandings()
+    {
+        $teams = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Team')->findAll();
+        foreach ($teams as $team) {
+            $team->resetPointsAndGoals();
+        }
+        $this->getContainer()->get('doctrine.orm.entity_manager')->flush();
     }
 
     /**
