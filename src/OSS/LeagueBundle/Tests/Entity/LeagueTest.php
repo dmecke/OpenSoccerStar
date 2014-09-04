@@ -83,4 +83,22 @@ class LeagueTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($league->getTeamByPosition(1)->equals($team2));
         $this->assertTrue($league->getTeamByPosition(2)->equals($team1));
     }
+
+    public function testGetPositionByTeam()
+    {
+        $league = new League();
+
+        $team1 = new Team();
+        $team1->setId(1);
+        $team1->setPoints(1);
+        $league->addTeam($team1);
+
+        $team2 = new Team();
+        $team2->setId(2);
+        $team2->setPoints(3);
+        $league->addTeam($team2);
+
+        $this->assertEquals(1, $league->getPositionByTeam($team2));
+        $this->assertEquals(2, $league->getPositionByTeam($team1));
+    }
 }

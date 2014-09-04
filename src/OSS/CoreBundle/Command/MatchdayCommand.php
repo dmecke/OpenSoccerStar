@@ -3,6 +3,7 @@
 namespace OSS\CoreBundle\Command;
 
 use OSS\CoreBundle\Entity\GameDate;
+use OSS\LeagueBundle\Entity\FinalPosition;
 use OSS\MatchBundle\Entity\Fixture;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -33,6 +34,24 @@ class MatchdayCommand extends ContainerAwareCommand
         $progress->finish();
 
         $gameDate->incrementWeek();
+        if ($gameDate->getWeek() == 1) {
+            $this->resetStandings($gameDate->getSeason() - 1);
+        }
+        $this->getContainer()->get('doctrine.orm.entity_manager')->flush();
+    }
+
+    private function resetStandings($season)
+    {
+        $teams = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Team')->findAll();
+        foreach ($teams as $team) {
+            $finalPosition = new FinalPosition();
+            $finalPosition->setTeam($team);
+            $finalPosition->setSeason($season);
+            $finalPosition->setLeague($team->getLeague());
+            $finalPosition->setPosition($team->getLeague()->getPositionByTeam($team));
+            $this->getContainer()->get('doctrine.orm.entity_manager')->persist($finalPosition);
+            $team->resetPointsAndGoals();
+        }
         $this->getContainer()->get('doctrine.orm.entity_manager')->flush();
     }
 }

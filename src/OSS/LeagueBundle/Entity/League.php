@@ -73,6 +73,26 @@ class League
     }
 
     /**
+     * @param Team $team
+     *
+     * @return int|string
+     *
+     * @throws \Exception
+     */
+    public function getPositionByTeam(Team $team)
+    {
+        $standings = $this->getStandings();
+
+        foreach ($standings as $index => $t) {
+            if ($t->equals($team)) {
+                return $index + 1;
+            }
+        }
+
+        throw new \Exception('team not found in standings');
+    }
+
+    /**
      * @return ArrayCollection|Team[]
      */
     public function getTeams()

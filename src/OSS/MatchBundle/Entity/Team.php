@@ -4,6 +4,7 @@ namespace OSS\MatchBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use OSS\LeagueBundle\Entity\FinalPosition;
 use OSS\LeagueBundle\Entity\League;
 
 /**
@@ -62,6 +63,13 @@ class Team
      * @ORM\OneToMany(targetEntity="Player", mappedBy="team")
      */
     private $players;
+
+    /**
+     * @var FinalPosition[]
+     *
+     * @ORM\OneToMany(targetEntity="OSS\LeagueBundle\Entity\FinalPosition", mappedBy="team")
+     */
+    private $finalPositions;
 
     public function __construct()
     {
@@ -263,5 +271,21 @@ class Team
         $this->points = 0;
         $this->goalsFor = 0;
         $this->goalsAgainst = 0;
+    }
+
+    /**
+     * @return League
+     */
+    public function getLeague()
+    {
+        return $this->league;
+    }
+
+    /**
+     * @return FinalPosition[]
+     */
+    public function getFinalPositions()
+    {
+        return $this->finalPositions;
     }
 }

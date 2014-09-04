@@ -16,3 +16,5 @@ player:
     skill:
         defense: Defense
         offense: Offense
+season: Season
+position: Position

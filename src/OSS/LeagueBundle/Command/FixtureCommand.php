@@ -3,6 +3,7 @@
 namespace OSS\LeagueBundle\Command;
 
 use OSS\CoreBundle\Entity\GameDate;
+use OSS\LeagueBundle\Entity\FinalPosition;
 use OSS\LeagueBundle\Entity\League;
 use OSS\MatchBundle\Entity\Fixture;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -22,17 +23,7 @@ class FixtureCommand extends ContainerAwareCommand
         /** @var GameDate $gameDate */
         $gameDate = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
 
-        $this->resetStandings();
         $this->createFixtures($gameDate->getSeason());
-    }
-
-    private function resetStandings()
-    {
-        $teams = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Team')->findAll();
-        foreach ($teams as $team) {
-            $team->resetPointsAndGoals();
-        }
-        $this->getContainer()->get('doctrine.orm.entity_manager')->flush();
     }
 
     /**
