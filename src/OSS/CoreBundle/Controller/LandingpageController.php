@@ -21,4 +21,15 @@ class LandingpageController extends Controller
     {
         return array();
     }
+
+    /**
+     * @return array
+     *
+     * @Route("/privacy", name="privacy")
+     * @Template
+     */
+    public function privacyAction()
+    {
+        return array();
+    }
 }

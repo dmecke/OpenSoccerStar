@@ -1,0 +1,6 @@
+{% extends 'CoreBundle::layout.html.twig' %}
+
+{% block content %}
+<h3>{{ 'privacy'|trans }}</h3>
+<iframe style="border: 0; height: 200px; width: 600px;" src="http://piwik.cunningsoft.de/index.php?module=CustomOptOut&action=optOut&idSite=1&language={{ app.request.locale }}"></iframe>
+{% endblock %}

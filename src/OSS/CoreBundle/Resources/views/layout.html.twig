@@ -40,8 +40,9 @@
 {% block content %}{% endblock %}
     </div>
     <div class="row">
-        <ul class="small-block-grid-3">
-            <li><a href="#">Impressum</a></li>
+        <ul class="small-block-grid-4">
+            <li><a href="#">{{ 'imprint'|trans }}</a></li>
+            <li><a href="{{ path('privacy') }}">{{ 'privacy'|trans }}</a></li>
             <li><a href="{{ path('hwi_oauth_connect') }}">Connect Accounts</a></li>
             <li><a href="https://github.com/dmecke/OpenSoccerStar" target="_blank">Contribute</a></li>
         </ul>
