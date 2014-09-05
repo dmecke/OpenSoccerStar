@@ -2,47 +2,47 @@
 
 {% block body %}
 <div class="fixed">
-<nav class="top-bar" data-topbar>
-    <ul class="title-area">
-        <li class="name"><h1><a href="{{ path('landingpage') }}">Open Soccer Star</a></h1></li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>{{ 'menu.headline'|trans }}</span></a></li>
-    </ul>
-    <section class="top-bar-section">
-        <ul class="left">
-            <li class="divider"></li>
-            <li><a href="{{ path('standings') }}">{{ 'menu.standings'|trans }}</a></li>
-            <li class="divider"></li>
-            <li><a href="{{ path('fixtures') }}">{{ 'menu.fixtures'|trans }}</a></li>
-            <li class="divider"></li>
+    <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+            <li class="name"><h1><a href="{{ path('landingpage') }}">Open Soccer Star</a></h1></li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>{{ 'menu.headline'|trans }}</span></a></li>
         </ul>
-        <ul class="right">
+        <section class="top-bar-section">
+            <ul class="left">
+                <li class="divider"></li>
+                <li><a href="{{ path('standings') }}">{{ 'menu.standings'|trans }}</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ path('fixtures') }}">{{ 'menu.fixtures'|trans }}</a></li>
+                <li class="divider"></li>
+            </ul>
+            <ul class="right">
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <li><a href="#">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
-            <li class="divider"></li>
-            <li class="has-form"><a href="{{ path('fos_user_security_logout') }}" class="button">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                <li><a href="#">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
+                <li class="divider"></li>
+                <li class="has-form"><a href="{{ path('fos_user_security_logout') }}" class="button">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
 {% else %}
-            <li class="has-form"><a href="{{ path('fos_user_security_login') }}" class="button">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
-            <li class="divider"></li>
-            <li class="has-dropdown">
-                <a href="#">{{ 'login_oauth'|trans }}</a>
-                <ul class="dropdown">
-                    <li><a href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}">Google</a></li>
-                </ul>
-            </li>
-            <li class="divider"></li>
-            <li class="has-form"><a href="{{ path('fos_user_registration_register') }}" class="button">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                <li class="has-form"><a href="{{ path('fos_user_security_login') }}" class="button">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                <li class="divider"></li>
+                <li class="has-dropdown">
+                    <a href="#">{{ 'login_oauth'|trans }}</a>
+                    <ul class="dropdown">
+                        <li><a href="{{ path('hwi_oauth_service_redirect', { 'service': 'google' }) }}">Google</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li class="has-form"><a href="{{ path('fos_user_registration_register') }}" class="button">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
 {% endif %}
-        </ul>
-    </section>
-</nav>
+            </ul>
+        </section>
+    </nav>
 </div>
 
-<section role="main" class="scroll-container">
+<section role="main" class="scroll-container main">
     <div class="row">
 {% block content %}{% endblock %}
     </div>
     <div class="row">
-        <ul class="small-block-grid-4">
+        <ul class="small-block-grid-4 text-center">
             <li><a href="#">{{ 'imprint'|trans }}</a></li>
             <li><a href="{{ path('privacy') }}">{{ 'privacy'|trans }}</a></li>
             <li><a href="{{ path('hwi_oauth_connect') }}">Connect Accounts</a></li>
