@@ -1,1 +1,4 @@
 services:
+    oss.league.service.fixture_service:
+        class: OSS\LeagueBundle\Services\FixtureService
+        arguments: [@doctrine.orm.entity_manager]

@@ -1,29 +1,23 @@
 <?php
 
-namespace OSS\LeagueBundle\Command;
+namespace OSS\LeagueBundle\Services;
 
-use OSS\CoreBundle\Entity\GameDate;
-use OSS\LeagueBundle\Entity\FinalPosition;
-use OSS\LeagueBundle\Entity\League;
+use Doctrine\ORM\EntityManager;
 use OSS\MatchBundle\Entity\Fixture;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class FixtureCommand extends ContainerAwareCommand
+class FixtureService
 {
-    protected function configure()
-    {
-        $this->setName('oss:fixture');
-        $this->setDescription('Creates fixtures for the current season');
-    }
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
     {
-        /** @var GameDate $gameDate */
-        $gameDate = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
-
-        $this->createFixtures($gameDate->getSeason());
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -33,7 +27,7 @@ class FixtureCommand extends ContainerAwareCommand
      */
     public function createFixtures($season)
     {
-        $league = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('LeagueBundle:League')->findOneBy(array());
+        $league = $this->entityManager->getRepository('LeagueBundle:League')->findOneBy(array());
         $numberOfTeams = count($league->getTeams());
 
         // cannot generate fixtures for odd number of teams
@@ -116,8 +110,8 @@ class FixtureCommand extends ContainerAwareCommand
             $fixture->setTeamHome($listOfTeams[$matches[$x]['home'] - 1]);
             $fixture->setTeamAway($listOfTeams[$matches[$x]['away'] - 1]);
 
-            $this->getContainer()->get('doctrine.orm.entity_manager')->persist($fixture);
+            $this->entityManager->persist($fixture);
         }
-        $this->getContainer()->get('doctrine.orm.entity_manager')->flush();
+        $this->entityManager->flush();
     }
 }

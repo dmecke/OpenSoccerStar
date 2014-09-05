@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use OSS\LeagueBundle\Entity\League;
 
-class LeagueData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
+class LoadLeagueData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
     /**
      * @param ObjectManager $manager

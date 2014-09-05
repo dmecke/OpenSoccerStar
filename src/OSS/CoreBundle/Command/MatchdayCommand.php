@@ -36,6 +36,7 @@ class MatchdayCommand extends ContainerAwareCommand
         $gameDate->incrementWeek();
         if ($gameDate->getWeek() == 1) {
             $this->resetStandings($gameDate->getSeason() - 1);
+            $this->getContainer()->get('oss.league.service.fixture_service')->createFixtures($gameDate->getSeason());
         }
         $this->getContainer()->get('doctrine.orm.entity_manager')->flush();
     }
