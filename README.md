@@ -31,8 +31,7 @@ If you want to add your own features, improve an existing one or just want to pl
 * execute `composer install` to install all dependencies
 * open `localhost/config.php` to check if everything is set up properly / fix problems
 * execute `php app/console doctrine:schema:create` to create the database schema
-* execute `php app/console doctrine:fixtures:load` to fill the database with the base data
-* execute `php app/console oss:fixture` to create match fixtures for the first season
+* execute `php app/console oss:setup` to fill the database with the base data and create initial match fixtures
 * execute `php app/console oss:matchday` to evaluate one matchday - you could set this up as a cronjob
 
 ## Next Steps
