@@ -10,9 +10,9 @@
         <section class="top-bar-section">
             <ul class="left">
                 <li class="divider"></li>
-                <li><a href="{{ path('standings') }}">{{ 'menu.standings'|trans }}</a></li>
+                <li class="{% if app.request.attributes.get('_route') == 'standings' %}active{% endif %}"><a href="{{ path('standings') }}">{{ 'menu.standings'|trans }}</a></li>
                 <li class="divider"></li>
-                <li><a href="{{ path('fixtures') }}">{{ 'menu.fixtures'|trans }}</a></li>
+                <li class="{% if app.request.attributes.get('_route') == 'fixtures' %}active{% endif %}"><a href="{{ path('fixtures') }}">{{ 'menu.fixtures'|trans }}</a></li>
                 <li class="divider"></li>
             </ul>
             <ul class="right">
