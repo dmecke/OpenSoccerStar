@@ -16,6 +16,7 @@
                 <li class="divider"></li>
             </ul>
             <ul class="right">
+                <li><a href="#">{{ 'gamedate'|trans({'%season%': gameDate.season, '%week%': gameDate.week }) }}</a></li>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li><a href="#">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a></li>
                 <li class="divider"></li>

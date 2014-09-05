@@ -1,1 +1,6 @@
 services:
+    twig.extension.game_date:
+        class: OSS\CoreBundle\Twig\GameDateExtension
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: twig.extension }

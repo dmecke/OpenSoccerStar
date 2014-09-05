@@ -5,6 +5,7 @@ menu:
 login_oauth: OAuth Login
 privacy: Privacy
 imprint: Imprint
+gamedate: Season %season%, Week %week%
 landingpage.introduction: |
   Welcome to Open Soccer Star!
 
