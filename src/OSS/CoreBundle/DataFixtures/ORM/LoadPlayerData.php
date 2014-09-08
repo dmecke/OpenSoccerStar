@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory as FakerFactory;
 use OSS\MatchBundle\Entity\Player;
 use OSS\MatchBundle\Entity\Team;
 
@@ -27,6 +28,7 @@ class LoadPlayerData extends AbstractFixture implements FixtureInterface, Ordere
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
+        $faker = FakerFactory::create('de_DE');
 
         for ($i = 1; $i <= 18; $i++) {
             /** @var Team $team */
@@ -34,7 +36,7 @@ class LoadPlayerData extends AbstractFixture implements FixtureInterface, Ordere
 
             for ($j = 1; $j <= 11; $j++) {
                 $player = new Player();
-                $player->setName('Player ' . $this->playerCounter++);
+                $player->setName($faker->firstNameMale . ' '. $faker->lastName);
                 $player->setSkillDefense(rand(1, 100));
                 $player->setSkillOffense(rand(1, 100));
                 $team->addPlayer($player);

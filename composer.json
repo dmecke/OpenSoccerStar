@@ -22,7 +22,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "hwi/oauth-bundle": "0.4.*@dev",
         "bmatzner/foundation-bundle": "~5.3",
-        "bmatzner/modernizr-bundle": "~2.7"
+        "bmatzner/modernizr-bundle": "~2.7",
+        "fzaninotto/faker": "~1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
