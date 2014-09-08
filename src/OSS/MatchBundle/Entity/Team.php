@@ -65,6 +65,13 @@ class Team
     private $players;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $money;
+
+    /**
      * @var FinalPosition[]
      *
      * @ORM\OneToMany(targetEntity="OSS\LeagueBundle\Entity\FinalPosition", mappedBy="team")
@@ -287,5 +294,21 @@ class Team
     public function getFinalPositions()
     {
         return $this->finalPositions;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMoney()
+    {
+        return $this->money;
+    }
+
+    /**
+     * @param int $money
+     */
+    public function setMoney($money)
+    {
+        $this->money = $money;
     }
 }

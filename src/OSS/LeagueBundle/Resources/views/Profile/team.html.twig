@@ -1,7 +1,7 @@
 {% extends 'LeagueBundle::layout.html.twig' %}
 
 {% block content %}
-    <h3>{{ team.name }}</h3>
+    <h3>{{ team.name }}</h3><div> - {{ team.money|money }}</div>
     <div class="row">
         <div class="large-6 columns">
             <table>

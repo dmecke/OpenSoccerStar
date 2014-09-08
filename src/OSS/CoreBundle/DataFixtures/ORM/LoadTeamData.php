@@ -28,35 +28,37 @@ class LoadTeamData extends AbstractFixture implements FixtureInterface, OrderedF
     {
         $this->manager = $manager;
 
-        $this->createTeam('Schwarz-Grün Hannover');
-        $this->createTeam('Rot-Weiss München');
-        $this->createTeam('Blau-Weiss Gelsenkirchen');
-        $this->createTeam('Schwarz-Rot Leverkusen');
-        $this->createTeam('Grün-Weiss Wolfsburg');
-        $this->createTeam('Schwarz-Grün Mönchengladbach');
-        $this->createTeam('Rot-Weiss Mainz');
-        $this->createTeam('Rot-Weiss Augsburg');
-        $this->createTeam('Blau-Weiss Hoffenheim');
-        $this->createTeam('Schwarz-Gelb Dortmund');
-        $this->createTeam('Blau-Weiss Berlin');
-        $this->createTeam('Grün-Weiss Bremen');
-        $this->createTeam('Schwarz-Rot Frankfurt');
-        $this->createTeam('Schwarz-Rot Freiburg');
-        $this->createTeam('Rot-Weiss Stuttgart');
-        $this->createTeam('Blau-Weiss Hamburg');
-        $this->createTeam('Rot-Weiss Köln');
-        $this->createTeam('Blau-Weiss Paderborn');
+        $this->createTeam('Rot-Weiss München', 140000000);
+        $this->createTeam('Schwarz-Gelb Dortmund', 68000000);
+        $this->createTeam('Blau-Weiss Gelsenkirchen', 80000000);
+        $this->createTeam('Schwarz-Rot Leverkusen', 48000000);
+        $this->createTeam('Grün-Weiss Wolfsburg', 50000000);
+        $this->createTeam('Schwarz-Grün Mönchengladbach', 34500000);
+        $this->createTeam('Rot-Weiss Mainz', 24000000);
+        $this->createTeam('Rot-Weiss Augsburg', 17000000);
+        $this->createTeam('Blau-Weiss Hoffenheim', 30000000);
+        $this->createTeam('Schwarz-Grün Hannover', 33000000);
+        $this->createTeam('Blau-Weiss Berlin', 28000000);
+        $this->createTeam('Grün-Weiss Bremen', 35000000);
+        $this->createTeam('Schwarz-Rot Frankfurt', 30000000);
+        $this->createTeam('Schwarz-Rot Freiburg', 16100000);
+        $this->createTeam('Rot-Weiss Stuttgart', 40000000);
+        $this->createTeam('Blau-Weiss Hamburg', 43500000);
+        $this->createTeam('Rot-Weiss Köln', 15000000);
+        $this->createTeam('Blau-Weiss Paderborn', 12000000);
 
         $this->manager->flush();
     }
 
     /**
      * @param string $name
+     * @param int $money
      */
-    private function createTeam($name)
+    private function createTeam($name, $money)
     {
         $team = new Team();
         $team->setName($name);
+        $team->setMoney($money);
 
         /** @var League $league */
         $league = $this->getReference('league1');
