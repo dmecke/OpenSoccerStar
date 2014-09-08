@@ -2,6 +2,7 @@
 
 namespace OSS\LeagueBundle\Controller;
 
+use OSS\CoreBundle\Entity\Manager;
 use OSS\MatchBundle\Entity\Player;
 use OSS\MatchBundle\Entity\Team;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -37,6 +38,21 @@ class ProfileController extends Controller
     {
         return array(
             'player' => $player,
+        );
+    }
+
+    /**
+     * @param Manager $manager
+     *
+     * @return array
+     *
+     * @Route("/manager/{id}", name="profile_manager")
+     * @Template
+     */
+    public function managerAction(Manager $manager)
+    {
+        return array(
+            'manager' => $manager,
         );
     }
 }

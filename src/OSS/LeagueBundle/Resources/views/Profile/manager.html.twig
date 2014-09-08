@@ -1,0 +1,19 @@
+{% extends 'LeagueBundle::layout.html.twig' %}
+
+{% block content %}
+    <h3>{{ manager.name }}<small> - <a href="{{ path('profile_team', { 'id': manager.team.id } ) }}">{{ manager.team.name }}</a></small></h3>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'manager.preferred_skill.label'|trans }}</th>
+                <th>{{ 'manager.money_behaviour.label'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ ('manager.preferred_skill.'~manager.preferredSkill)|trans }}</td>
+                <td>{{ ('manager.money_behaviour.'~manager.moneyBehaviour)|trans }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

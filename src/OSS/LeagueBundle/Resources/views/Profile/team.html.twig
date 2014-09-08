@@ -3,7 +3,7 @@
 {% block content %}
     <h3>{{ team.name }}<small> - {{ team.money|money }}</small></h3>
     <div class="row">
-        <div class="large-6 columns">
+        <div class="large-4 columns">
             <table>
                 <thead>
                     <tr>
@@ -23,7 +23,17 @@
                 </tbody>
             </table>
         </div>
-        <div class="large-6 columns">
+        <div class="large-4 columns">
+            <table>
+                <tbody>
+                <tr>
+                    <td>{{ 'team.manager'|trans }}</td>
+                    <td><a href="{{ path('profile_manager', { 'id': team.manager.id } ) }}">{{ team.manager.name }}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="large-4 columns">
             <table>
                 <thead>
                     <tr>

@@ -12,9 +12,22 @@ fixtures:
 team:
     player:
         name: Name
+    manager: Manager
 player:
     skill:
         defense: Defense
         offense: Offense
+manager:
+    preferred_skill:
+        label: Preferred Skill
+        1: Offensive
+        2: Defensive
+        3: Neutral
+    money_behaviour:
+        label: Money Behaviour
+        1: Conservative
+        2: Neutral
+        3: Offensive
+
 season: Season
 position: Position

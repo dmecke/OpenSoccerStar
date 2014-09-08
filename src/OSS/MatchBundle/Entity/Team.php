@@ -4,6 +4,7 @@ namespace OSS\MatchBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use OSS\CoreBundle\Entity\Manager;
 use OSS\LeagueBundle\Entity\FinalPosition;
 use OSS\LeagueBundle\Entity\League;
 
@@ -70,6 +71,13 @@ class Team
      * @ORM\Column(type="integer")
      */
     private $money;
+
+    /**
+     * @var Manager
+     *
+     * @ORM\OneToOne(targetEntity="OSS\CoreBundle\Entity\Manager", mappedBy="team")
+     */
+    private $manager;
 
     /**
      * @var FinalPosition[]
@@ -310,5 +318,13 @@ class Team
     public function setMoney($money)
     {
         $this->money = $money;
+    }
+
+    /**
+     * @return Manager
+     */
+    public function getManager()
+    {
+        return $this->manager;
     }
 }
