@@ -2,3 +2,8 @@ services:
     oss.league.service.fixture:
         class: OSS\LeagueBundle\Services\FixtureService
         arguments: [@doctrine.orm.entity_manager]
+
+    twig.extension.money:
+        class: OSS\LeagueBundle\Twig\MoneyExtension
+        tags:
+            - { name: twig.extension }
