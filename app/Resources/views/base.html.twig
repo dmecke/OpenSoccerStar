@@ -20,6 +20,6 @@
             <script type="text/javascript" src="{{ asset('bundles/bmatznerfoundation/js/vendor/fastclick.js') }}"></script>
             <script type="text/javascript">$(document).foundation();</script>
         {% endblock %}
-        {% include '::tracking.html.twig' %}
+{% if app.environment == 'prod' %}{% include '::tracking.html.twig' %}{% endif %}
     </body>
 </html>
