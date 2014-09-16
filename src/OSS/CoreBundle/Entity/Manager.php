@@ -10,11 +10,11 @@ use OSS\MatchBundle\Entity\Team;
  */
 class Manager
 {
-    const PREFERRED_SKILL_OFFENSE = 1;
-    const PREFERRED_SKILL_DEFENSE = 2;
-    const PREFERRED_SKILL_BOTH = 3;
+    const PREFERRED_SKILL_DEFENSE = 1;
+    const PREFERRED_SKILL_NEUTRAL = 2;
+    const PREFERRED_SKILL_OFFENSE = 3;
 
-    const MONEY_BEHAVIOUR_CONSERVATIVE = 1;
+    const MONEY_BEHAVIOUR_DEFENSIVE = 1;
     const MONEY_BEHAVIOUR_NEUTRAL = 2;
     const MONEY_BEHAVIOUR_OFFENSIVE = 3;
 

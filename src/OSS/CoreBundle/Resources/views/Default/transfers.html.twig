@@ -1,0 +1,8 @@
+{% extends 'CoreBundle::layout.html.twig' %}
+
+{% block content %}
+<h2>{{ 'transfers.offers'|trans }}</h2>
+{% include 'CoreBundle:Default:transfer_table.html.twig' with { 'transfers': transferOffers } %}
+<h2>{{ 'transfers.actual'|trans }}</h2>
+{% include 'CoreBundle:Default:transfer_table.html.twig' with { 'transfers': transfers } %}
+{% endblock %}

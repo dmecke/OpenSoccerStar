@@ -93,7 +93,7 @@ class Player
      */
     public function setTeam(Team $team)
     {
-        if (null === $this->team) {
+        if (null === $this->team || !$this->team->equals($team)) {
             $this->team = $team;
             $this->team->addPlayer($this);
         }
@@ -145,6 +145,14 @@ class Player
     public function getSkillAverage()
     {
         return ($this->skillDefense + $this->skillOffense) / 2;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMarketValue()
+    {
+        return round(pow($this->getSkillAverage(), 6) / 10000);
     }
 
     /**

@@ -321,6 +321,22 @@ class Team
     }
 
     /**
+     * @param int $amount
+     */
+    public function addMoney($amount)
+    {
+        $this->money += $amount;
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function subtractAmount($amount)
+    {
+        $this->money -= $amount;
+    }
+
+    /**
      * @return Manager
      */
     public function getManager()

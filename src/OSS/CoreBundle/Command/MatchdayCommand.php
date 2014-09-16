@@ -33,9 +33,12 @@ class MatchdayCommand extends ContainerAwareCommand
         }
         $progress->finish();
 
+        $this->getContainer()->get('oss.core.service.transfer')->handleTransfers();
+
         $gameDate->incrementWeek();
         if ($gameDate->getWeek() == 1) {
             $this->resetStandings($gameDate->getSeason() - 1);
+            $this->getContainer()->get('oss.core.service.transfer')->clearTransferlist();
             $this->getContainer()->get('oss.league.service.fixture')->createFixtures($gameDate->getSeason());
         }
         $this->getContainer()->get('doctrine.orm.entity_manager')->flush();

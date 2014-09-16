@@ -1,0 +1,20 @@
+<table>
+    <thead>
+    <tr>
+        <th>{{ 'transfers.player'|trans }}</th>
+        <th>{{ 'transfers.current_team'|trans }}</th>
+        <th>{{ 'transfers.target_team'|trans }}</th>
+        <th>{{ 'transfers.offer'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for transfer in transfers %}
+        <tr>
+            <td><a href="{{ path('profile_player', { 'id': transfer.player.id } ) }}">{{ transfer.player.name }}</a></td>
+            <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</td>
+            <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</td>
+            <td>{{ transfer.amount|money }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

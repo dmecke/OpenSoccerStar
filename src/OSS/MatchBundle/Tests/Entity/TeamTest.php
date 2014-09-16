@@ -25,11 +25,21 @@ class TeamTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(0, $team->getPlayers());
 
-        $player = new Player();
-        $team->addPlayer($player);
+        $player1 = new Player();
+        $player1->setId(1);
+        $team->addPlayer($player1);
         $this->assertCount(1, $team->getPlayers());
-        $this->assertEquals($team, $player->getTeam());
-        $this->assertContains($player, $team->getPlayers());
+        $this->assertEquals($team, $player1->getTeam());
+        $this->assertContains($player1, $team->getPlayers());
+
+        $player2 = new Player();
+        $player2->setId(1);
+        $team->addPlayer($player2);
+        $this->assertCount(2, $team->getPlayers());
+        $this->assertEquals($team, $player1->getTeam());
+        $this->assertEquals($team, $player2->getTeam());
+        $this->assertContains($player1, $team->getPlayers());
+        $this->assertContains($player2, $team->getPlayers());
     }
 
     public function testGetRandomPlayer()
