@@ -35,6 +35,7 @@ class ScoreCalculator
     /**
      * @param Manager $manager
      * @param Player $player
+     * @param string $type
      *
      * @return int
      */

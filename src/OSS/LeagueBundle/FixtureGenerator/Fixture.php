@@ -2,8 +2,6 @@
 
 namespace OSS\LeagueBundle\FixtureGenerator;
 
-use OSS\MatchBundle\Entity\Team;
-
 class Fixture
 {
     /**

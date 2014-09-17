@@ -3,7 +3,6 @@
 namespace OSS\UserBundle\Services;
 
 use FOS\UserBundle\Event\FilterUserResponseEvent;
-use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;

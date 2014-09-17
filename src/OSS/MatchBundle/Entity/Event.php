@@ -107,6 +107,9 @@ class Event
         return self::create($fixture, self::TYPE_CHANCE, $team, $player, $minute);
     }
 
+    /**
+     * @param string $type
+     */
     private function setType($type)
     {
         $this->type = $type;

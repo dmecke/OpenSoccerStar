@@ -36,6 +36,14 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertCalculateSellEquals(25, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
     }
 
+    /**
+     * @param int $value
+     * @param int $preferredSkill
+     * @param int $moneyBehaviour
+     * @param int $money
+     * @param int $playerDefense
+     * @param int $playerOffense
+     */
     private function assertCalculateBuyEquals($value, $preferredSkill, $moneyBehaviour, $money, $playerDefense, $playerOffense)
     {
         $calculator = new ScoreCalculator();
@@ -45,6 +53,14 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $calculator->calculateBuy($manager, $player));
     }
 
+    /**
+     * @param int $value
+     * @param int $preferredSkill
+     * @param int $moneyBehaviour
+     * @param int $money
+     * @param int $playerDefense
+     * @param int $playerOffense
+     */
     private function assertCalculateSellEquals($value, $preferredSkill, $moneyBehaviour, $money, $playerDefense, $playerOffense)
     {
         $calculator = new ScoreCalculator();

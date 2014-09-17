@@ -75,7 +75,7 @@ class League
     /**
      * @param Team $team
      *
-     * @return int|string
+     * @return int
      *
      * @throws \Exception
      */
