@@ -11,6 +11,7 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testCalculateSkill()
     {
+        //@todo use assertCalculateBuyEquals
         $calculator = new ScoreCalculator();
 
         $manager = $this->createManager(Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 15625000);
@@ -36,31 +37,25 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCalculateMoneyBuy()
     {
+        $this->assertCalculateBuyEquals(50, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 500000000, 100, 100);
+        $this->assertCalculateBuyEquals(25, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 500000000, 100, 100);
+        $this->assertCalculateBuyEquals(100, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 2000000000, 100, 100);
+        $this->assertCalculateBuyEquals(100, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 500000000, 100, 100);
+        $this->assertCalculateBuyEquals(400, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
+    }
+
+    private function assertCalculateBuyEquals($value, $preferredSkill, $moneyBehaviour, $money, $playerDefense, $playerOffense)
+    {
         $calculator = new ScoreCalculator();
 
-        $manager = $this->createManager(Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 500000000);
-        $player = $this->createPlayer(100, 100);
-        $this->assertEquals(50, $calculator->calculateBuy($manager, $player));
-
-        $manager = $this->createManager(Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 500000000);
-        $player = $this->createPlayer(100, 100);
-        $this->assertEquals(25, $calculator->calculateBuy($manager, $player));
-
-        $manager = $this->createManager(Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 2000000000);
-        $player = $this->createPlayer(100, 100);
-        $this->assertEquals(100, $calculator->calculateBuy($manager, $player));
-
-        $manager = $this->createManager(Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 500000000);
-        $player = $this->createPlayer(100, 100);
-        $this->assertEquals(100, $calculator->calculateBuy($manager, $player));
-
-        $manager = $this->createManager(Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000);
-        $player = $this->createPlayer(100, 100);
-        $this->assertEquals(400, $calculator->calculateBuy($manager, $player));
+        $manager = $this->createManager($preferredSkill, $moneyBehaviour, $money);
+        $player = $this->createPlayer($playerDefense, $playerOffense);
+        $this->assertEquals($value, $calculator->calculateBuy($manager, $player));
     }
 
     public function testCalculateMoneySell()
     {
+        //@todo use assertCalculateSellEquals
         $calculator = new ScoreCalculator();
 
         $manager = $this->createManager(Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 500000000);
