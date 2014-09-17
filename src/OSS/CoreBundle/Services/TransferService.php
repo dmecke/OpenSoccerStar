@@ -3,7 +3,6 @@
 namespace OSS\CoreBundle\Services;
 
 use Doctrine\ORM\EntityManager;
-use OSS\CoreBundle\Entity\GameDate;
 use OSS\CoreBundle\Entity\Transfer;
 use OSS\CoreBundle\Entity\TransferOffer;
 use OSS\CoreBundle\Transfer\ScoreCalculator;
