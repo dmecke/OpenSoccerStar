@@ -5,7 +5,7 @@ namespace OSS\LeagueBundle\Twig;
 class MoneyExtension extends \Twig_Extension
 {
     /**
-     * @return \Twig_SimpleFilter
+     * @return \Twig_SimpleFilter[]
      */
     public function getFilters()
     {
