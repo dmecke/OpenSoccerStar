@@ -126,4 +126,34 @@ class Manager
     {
         return $this->id;
     }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorDefensiveSkill()
+    {
+        return self::PREFERRED_SKILL_DEFENSE == $this->preferredSkill ? 2 : 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorOffensiveSkill()
+    {
+        return self::PREFERRED_SKILL_OFFENSE == $this->preferredSkill ? 2 : 1;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorMoneyBehaviour()
+    {
+        if (self::MONEY_BEHAVIOUR_DEFENSIVE == $this->moneyBehaviour) {
+            return 2;
+        } elseif (self::MONEY_BEHAVIOUR_OFFENSIVE == $this->moneyBehaviour) {
+            return 0.5;
+        } else {
+            return 1;
+        }
+    }
 }

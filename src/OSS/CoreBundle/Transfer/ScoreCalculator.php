@@ -41,20 +41,9 @@ class ScoreCalculator
      */
     private function calculate(Manager $manager, Player $player, $type)
     {
-        $defensiveFactor = $manager->getPreferredSkill() == Manager::PREFERRED_SKILL_DEFENSE ? 2 : 1;
-        $offensiveFactor = $manager->getPreferredSkill() == Manager::PREFERRED_SKILL_OFFENSE ? 2 : 1;
-
-        $skill = $player->getSkillDefense() * $defensiveFactor + $player->getSkillOffense() * $offensiveFactor;
-
-        $value = $skill / ($defensiveFactor + $offensiveFactor);
-
+        $value = $this->calculateBaseValue($player, $manager);
         $moneyPercentage = round($player->getMarketValue() / $manager->getTeam()->getMoney(), 2);
-        $moneyFactor = $moneyPercentage * 10;
-        if ($manager->getMoneyBehaviour() == Manager::MONEY_BEHAVIOUR_DEFENSIVE) {
-            $moneyFactor *= 2;
-        } elseif ($manager->getMoneyBehaviour() == Manager::MONEY_BEHAVIOUR_OFFENSIVE) {
-            $moneyFactor /= 2;
-        }
+        $moneyFactor = $moneyPercentage * 10 * $manager->getTransferFactorMoneyBehaviour();
 
         if ($moneyFactor > 0) {
             $value = $type == self::TYPE_BUY ? $value / $moneyFactor : $value * $moneyFactor;
@@ -63,5 +52,18 @@ class ScoreCalculator
         }
 
         return $value;
+    }
+
+    /**
+     * @param Player $player
+     * @param Manager $manager
+     *
+     * @return float
+     */
+    private function calculateBaseValue(Player $player, Manager $manager)
+    {
+        $skill = $player->getSkillDefense() * $manager->getTransferFactorDefensiveSkill() + $player->getSkillOffense() * $manager->getTransferFactorOffensiveSkill();
+
+        return $skill / ($manager->getTransferFactorDefensiveSkill() + $manager->getTransferFactorOffensiveSkill());
     }
 }
