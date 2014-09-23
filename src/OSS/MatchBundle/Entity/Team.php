@@ -82,7 +82,7 @@ class Team
     /**
      * @var FinalPosition[]|ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="OSS\LeagueBundle\Entity\FinalPosition", mappedBy="team")
+     * @ORM\OneToMany(targetEntity="OSS\LeagueBundle\Entity\FinalPosition", mappedBy="team", cascade={"all"})
      */
     private $finalPositions;
 
