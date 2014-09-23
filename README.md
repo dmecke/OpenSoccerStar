@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/dmecke/OpenSoccerStar.svg)](https://travis-ci.org/dmecke/OpenSoccerStar)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/?branch=master)
 
 Play the current stable release at http://opensoccerstar.com
 
