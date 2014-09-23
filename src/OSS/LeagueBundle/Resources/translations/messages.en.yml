@@ -18,6 +18,7 @@ player:
         defense: Defense
         offense: Offense
     transfer:
+        season: Season
         team_origin: Old Team
         team_target: New Team
         amount: Transfer Fee

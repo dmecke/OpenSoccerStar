@@ -19,9 +19,11 @@ class DefaultController extends Controller
      */
     public function transfersAction()
     {
+        $gameDate = $this->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
+
         return array(
             'transferOffers' => $this->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:TransferOffer')->findAll(),
-            'transfers' => $this->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:Transfer')->findAll(),
+            'transfers' => $this->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:Transfer')->findBy(array('season' => $gameDate->getSeason())),
         );
     }
 }

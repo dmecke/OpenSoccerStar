@@ -44,11 +44,13 @@ class TransferService
      */
     private function decideOnTransferOffer(TransferOffer $transferOffer)
     {
+        $gameDate = $this->entityManager->getRepository('CoreBundle:GameDate')->findOneBy(array());
         $transferCalculator = new ScoreCalculator();
         $sellScore = $transferCalculator->calculateSellScore($transferOffer->getOriginTeam()->getManager(), $transferOffer->getPlayer());
         $sellingManager = $transferOffer->getOriginTeam()->getManager();
         if ($sellingManager->acceptTransferOffer($sellScore)) {
             $transfer = Transfer::createFromOffer($transferOffer);
+            $transfer->setSeason($gameDate->getSeason());
             $this->entityManager->persist($transfer);
 
             $transferOffer->getOriginTeam()->addMoney($transferOffer->getAmount());

@@ -49,6 +49,13 @@ class Transfer
     private $amount;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $season;
+
+    /**
      * @param TransferOffer $transferOffer
      *
      * @return Transfer
@@ -126,5 +133,21 @@ class Transfer
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeason()
+    {
+        return $this->season;
+    }
+
+    /**
+     * @param int $season
+     */
+    public function setSeason($season)
+    {
+        $this->season = $season;
     }
 }

@@ -23,6 +23,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th>{{ 'player.transfer.season'|trans }}</th>
                         <th>{{ 'player.transfer.team_origin'|trans }}</th>
                         <th>{{ 'player.transfer.team_target'|trans }}</th>
                         <th>{{ 'player.transfer.amount'|trans }}</th>
@@ -31,6 +32,7 @@
                 <tbody>
 {% for transfer in player.transfers %}
                     <tr>
+                        <td>{{ transfer.season }}</td>
                         <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</a></td>
                         <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</a></td>
                         <td>{{ transfer.amount|money }}</td>
