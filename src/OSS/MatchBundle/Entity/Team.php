@@ -80,7 +80,7 @@ class Team
     private $manager;
 
     /**
-     * @var FinalPosition[]
+     * @var FinalPosition[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="OSS\LeagueBundle\Entity\FinalPosition", mappedBy="team")
      */
@@ -89,6 +89,7 @@ class Team
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->finalPositions = new ArrayCollection();
     }
 
     /**
@@ -342,5 +343,20 @@ class Team
     public function getManager()
     {
         return $this->manager;
+    }
+
+    /**
+     * @param int $season
+     *
+     * @throws \Exception
+     */
+    public function createFinalPosition($season)
+    {
+        $finalPosition = new FinalPosition();
+        $finalPosition->setTeam($this);
+        $finalPosition->setSeason($season);
+        $finalPosition->setLeague($this->league);
+        $finalPosition->setPosition($this->league->getPositionByTeam($this));
+        $this->finalPositions->add($finalPosition);
     }
 }

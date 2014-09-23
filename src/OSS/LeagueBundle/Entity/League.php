@@ -60,6 +60,23 @@ class League
         return $teams;
     }
 
+    public function resetStandings()
+    {
+        foreach ($this->teams as $team) {
+            $team->resetPointsAndGoals();
+        }
+    }
+
+    /**
+     * @param int $season
+     */
+    public function createFinalPositions($season)
+    {
+        foreach ($this->teams as $team) {
+            $team->createFinalPosition($season);
+        }
+    }
+
     /**
      * @param int $position
      *

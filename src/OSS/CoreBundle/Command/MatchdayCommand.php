@@ -3,9 +3,8 @@
 namespace OSS\CoreBundle\Command;
 
 use OSS\CoreBundle\Entity\GameDate;
-use OSS\LeagueBundle\Entity\FinalPosition;
+use OSS\LeagueBundle\Entity\League;
 use OSS\MatchBundle\Entity\Fixture;
-use OSS\MatchBundle\Entity\Team;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,40 +36,15 @@ class MatchdayCommand extends BaseCommand
 
         $gameDate->incrementWeek();
         if ($gameDate->getWeek() == 1) {
-            $this->resetStandings($gameDate->getSeason() - 1);
+            /** @var League[] $leagues */
+            $leagues = $this->getLeagueRepository()->findAll();
+            foreach ($leagues as $league) {
+                $league->createFinalPositions($gameDate->getSeason() - 1);
+                $league->resetStandings();
+            }
             $this->getTransferOfferRepository()->removeAll();
             $this->getFixtureService()->createFixtures($gameDate->getSeason());
         }
         $this->getEntityManager()->flush();
-    }
-
-    /**
-     * @param int $season
-     */
-    private function resetStandings($season)
-    {
-        /** @var Team[] $teams */
-        $teams = $this->getTeamRepository()->findAll();
-        foreach ($teams as $team) {
-            $this->resetStandingForTeam($team, $season);
-        }
-        $this->getEntityManager()->flush();
-    }
-
-    /**
-     * @param Team $team
-     * @param int $season
-     *
-     * @throws \Exception
-     */
-    private function resetStandingForTeam(Team $team, $season)
-    {
-        $finalPosition = new FinalPosition();
-        $finalPosition->setTeam($team);
-        $finalPosition->setSeason($season);
-        $finalPosition->setLeague($team->getLeague());
-        $finalPosition->setPosition($team->getLeague()->getPositionByTeam($team));
-        $this->getEntityManager()->persist($finalPosition);
-        $team->resetPointsAndGoals();
     }
 }
