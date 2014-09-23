@@ -29,11 +29,11 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCalculateMoneySell()
     {
-        $this->assertCalculateSellEquals(200, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 500000000, 100, 100);
-        $this->assertCalculateSellEquals(400, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 500000000, 100, 100);
-        $this->assertCalculateSellEquals(100, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 2000000000, 100, 100);
-        $this->assertCalculateSellEquals(100, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 500000000, 100, 100);
-        $this->assertCalculateSellEquals(25, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
+        $this->assertCalculateSellEquals(400, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 500000000, 100, 100);
+        $this->assertCalculateSellEquals(800, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 500000000, 100, 100);
+        $this->assertCalculateSellEquals(200, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 2000000000, 100, 100);
+        $this->assertCalculateSellEquals(200, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 500000000, 100, 100);
+        $this->assertCalculateSellEquals(50, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
     }
 
     /**

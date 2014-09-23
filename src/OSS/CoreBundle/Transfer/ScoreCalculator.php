@@ -46,7 +46,7 @@ class ScoreCalculator
         $moneyFactor = $moneyPercentage * 10 * $manager->getTransferFactorMoneyBehaviour();
 
         if ($moneyFactor > 0) {
-            $value = $type == self::TYPE_BUY ? $value / $moneyFactor : $value * $moneyFactor;
+            $value = $type == self::TYPE_BUY ? $value / $moneyFactor : $value * $moneyFactor * 2;
         } else {
             $value = 0;
         }
