@@ -3,6 +3,7 @@
 namespace OSS\LeagueBundle\Services;
 
 use Doctrine\ORM\EntityManager;
+use OSS\LeagueBundle\Entity\League;
 use OSS\LeagueBundle\FixtureGenerator\Generator;
 use OSS\MatchBundle\Entity\Fixture;
 
@@ -28,6 +29,7 @@ class FixtureService
      */
     public function createFixtures($season)
     {
+        /** @var League $league */
         $league = $this->entityManager->getRepository('LeagueBundle:League')->findOneBy(array());
         $generator = new Generator(count($league->getTeams()));
         $matches = $generator->createFixtures();

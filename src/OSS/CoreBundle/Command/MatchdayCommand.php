@@ -22,11 +22,14 @@ class MatchdayCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         for ($i = 1; $i <= $input->getArgument('count'); $i++) {
-            $this->executeOnce($input, $output);
+            $this->executeOnce($output);
         }
     }
 
-    private function executeOnce(InputInterface $input, OutputInterface $output)
+    /**
+     * @param OutputInterface $output
+     */
+    private function executeOnce(OutputInterface $output)
     {
         /** @var GameDate $gameDate */
         $gameDate = $this->getGameDateRepository()->findOneBy(array());
