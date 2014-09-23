@@ -40,6 +40,14 @@ abstract class BaseCommand extends ContainerAwareCommand
     /**
      * @return EntityRepository
      */
+    protected function getLeagueRepository()
+    {
+        return $this->getEntityManager()->getRepository('LeagueBundle:League');
+    }
+
+    /**
+     * @return EntityRepository
+     */
     protected function getTeamRepository()
     {
         return $this->getEntityManager()->getRepository('MatchBundle:Team');
