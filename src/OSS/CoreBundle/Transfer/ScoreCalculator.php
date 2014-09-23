@@ -16,9 +16,9 @@ class ScoreCalculator
      *
      * @return int
      */
-    public function calculateBuy(Manager $manager, Player $player)
+    public function calculateBuyScore(Manager $manager, Player $player)
     {
-        return $this->calculate($manager, $player, self::TYPE_BUY);
+        return $this->calculateScore($manager, $player, self::TYPE_BUY);
     }
 
     /**
@@ -27,9 +27,9 @@ class ScoreCalculator
      *
      * @return int
      */
-    public function calculateSell(Manager $manager, Player $player)
+    public function calculateSellScore(Manager $manager, Player $player)
     {
-        return $this->calculate($manager, $player, self::TYPE_SELL);
+        return $this->calculateScore($manager, $player, self::TYPE_SELL);
     }
 
     /**
@@ -39,7 +39,7 @@ class ScoreCalculator
      *
      * @return int
      */
-    private function calculate(Manager $manager, Player $player, $type)
+    private function calculateScore(Manager $manager, Player $player, $type)
     {
         $value = $this->calculateBaseValue($player, $manager);
         $moneyPercentage = round($player->getMarketValue() / $manager->getTeam()->getMoney(), 2);

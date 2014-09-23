@@ -49,6 +49,20 @@ class Manager
     private $moneyBehaviour;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $acceptTransferScoreOffset;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $denyTransferScoreOffset;
+
+    /**
      * @var Team
      *
      * @ORM\OneToOne(targetEntity="OSS\MatchBundle\Entity\Team", inversedBy="manager")
@@ -155,5 +169,57 @@ class Manager
         } else {
             return 1;
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getAcceptTransferScoreOffset()
+    {
+        return $this->acceptTransferScoreOffset;
+    }
+
+    /**
+     * @param int $acceptTransferScoreOffset
+     */
+    public function setAcceptTransferScoreOffset($acceptTransferScoreOffset)
+    {
+        $this->acceptTransferScoreOffset = $acceptTransferScoreOffset;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDenyTransferScoreOffset()
+    {
+        return $this->denyTransferScoreOffset;
+    }
+
+    /**
+     * @param int $denyTransferScoreOffset
+     */
+    public function setDenyTransferScoreOffset($denyTransferScoreOffset)
+    {
+        $this->denyTransferScoreOffset = $denyTransferScoreOffset;
+    }
+
+    /**
+     * @param int $transferOfferScore
+     *
+     * @return bool
+     */
+    public function acceptTransferOffer($transferOfferScore)
+    {
+        return $transferOfferScore >= $this->acceptTransferScoreOffset;
+    }
+
+    /**
+     * @param int $transferOfferScore
+     *
+     * @return bool
+     */
+    public function denyTransferOffer($transferOfferScore)
+    {
+        return $transferOfferScore <= $this->denyTransferScoreOffset;
     }
 }

@@ -13,11 +13,6 @@ use OSS\MatchBundle\Entity\Team;
 class LoadManagerData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
     /**
-     * @var int
-     */
-    private $playerCounter = 1;
-
-    /**
      * @param ObjectManager $objectManager
      */
     public function load(ObjectManager $objectManager)
@@ -32,6 +27,8 @@ class LoadManagerData extends AbstractFixture implements FixtureInterface, Order
             $manager->setName($faker->firstNameMale . ' '. $faker->lastName);
             $manager->setPreferredSkill(rand(1, 3));
             $manager->setMoneyBehaviour(rand(1, 3));
+            $manager->setAcceptTransferScoreOffset(rand(75, 200));
+            $manager->setDenyTransferScoreOffset(rand(25, 75));
             $manager->setTeam($team);
             $objectManager->persist($manager);
         }

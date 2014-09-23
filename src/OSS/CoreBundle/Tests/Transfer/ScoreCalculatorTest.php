@@ -50,7 +50,7 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $manager = $this->createManager($preferredSkill, $moneyBehaviour, $money);
         $player = $this->createPlayer($playerDefense, $playerOffense);
-        $this->assertEquals($value, $calculator->calculateBuy($manager, $player));
+        $this->assertEquals($value, $calculator->calculateBuyScore($manager, $player));
     }
 
     /**
@@ -67,7 +67,7 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
         $manager = $this->createManager($preferredSkill, $moneyBehaviour, $money);
         $player = $this->createPlayer($playerDefense, $playerOffense);
-        $this->assertEquals($value, $calculator->calculateSell($manager, $player));
+        $this->assertEquals($value, $calculator->calculateSellScore($manager, $player));
     }
 
     /**

@@ -23,21 +23,21 @@ class Transfer
     /**
      * @var Player
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Player")
+     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Player", fetch="EAGER")
      */
     private $player;
 
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team", fetch="EAGER")
      */
     private $originTeam;
 
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team", fetch="EAGER")
      */
     private $targetTeam;
 

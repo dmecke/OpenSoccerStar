@@ -27,6 +27,26 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertTransferFactorMoneyBehaviour(0.5, Manager::MONEY_BEHAVIOUR_OFFENSIVE);
     }
 
+    public function testAcceptTransferOffer()
+    {
+        $manager = new Manager();
+        $manager->setAcceptTransferScoreOffset(100);
+        $this->assertTrue($manager->acceptTransferOffer(150));
+        $this->assertTrue($manager->acceptTransferOffer(100));
+        $this->assertFalse($manager->acceptTransferOffer(99));
+        $this->assertFalse($manager->acceptTransferOffer(50));
+    }
+
+    public function testDenyTransferOffer()
+    {
+        $manager = new Manager();
+        $manager->setDenyTransferScoreOffset(50);
+        $this->assertTrue($manager->denyTransferOffer(25));
+        $this->assertTrue($manager->denyTransferOffer(50));
+        $this->assertFalse($manager->denyTransferOffer(51));
+        $this->assertFalse($manager->denyTransferOffer(100));
+    }
+
     private function assertTransferFactorDefensiveSkill($factor, $preferredSkill)
     {
         $manager = new Manager();

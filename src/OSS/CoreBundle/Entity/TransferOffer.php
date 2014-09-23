@@ -7,7 +7,7 @@ use OSS\MatchBundle\Entity\Player;
 use OSS\MatchBundle\Entity\Team;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="OSS\CoreBundle\Repository\TransferOfferRepository")
  */
 class TransferOffer
 {
@@ -23,21 +23,21 @@ class TransferOffer
     /**
      * @var Player
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Player")
+     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Player", fetch="EAGER")
      */
     private $player;
 
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team", fetch="EAGER")
      */
     private $originTeam;
 
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team", fetch="EAGER")
      */
     private $targetTeam;
 

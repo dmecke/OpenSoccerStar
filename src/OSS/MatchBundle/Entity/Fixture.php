@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use OSS\MatchBundle\Exception\MatchException;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="OSS\MatchBundle\Repository\FixtureRepository")
  */
 class Fixture
 {
