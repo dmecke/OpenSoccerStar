@@ -90,6 +90,22 @@ class FixtureTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($fixture->isDraw());
     }
 
+    public function testGetGoalEvents()
+    {
+        $team1 = new Team();
+        $team1->setId(1);
+        $team2 = new Team();
+        $team2->setId(2);
+
+        $fixture = new Fixture();
+        $fixture->setTeamHome($team1);
+        $fixture->setTeamAway($team2);
+        $fixture->addEvent(Event::createGoal($fixture, $team1, new Player(), 1));
+        $fixture->addEvent(Event::createChance($fixture, $team2, new Player(), 2));
+
+        $this->assertCount(1, $fixture->getGoalEvents());
+    }
+
     /**
      * @param Fixture $fixture
      * @param Team $team

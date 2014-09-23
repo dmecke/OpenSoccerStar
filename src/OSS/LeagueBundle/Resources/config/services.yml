@@ -3,6 +3,10 @@ services:
         class: OSS\LeagueBundle\Services\FixtureService
         arguments: [@doctrine.orm.entity_manager]
 
+    oss.league.service.league:
+        class: OSS\LeagueBundle\Services\LeagueService
+        arguments: [@doctrine.orm.entity_manager]
+
     twig.extension.money:
         class: OSS\LeagueBundle\Twig\MoneyExtension
         tags:

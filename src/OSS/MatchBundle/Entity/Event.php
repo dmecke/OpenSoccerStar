@@ -38,14 +38,14 @@ class Event
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="Team")
+     * @ORM\ManyToOne(targetEntity="Team", fetch="EAGER")
      */
     private $team;
 
     /**
      * @var Player
      *
-     * @ORM\ManyToOne(targetEntity="Player")
+     * @ORM\ManyToOne(targetEntity="Player", fetch="EAGER")
      */
     private $player;
 

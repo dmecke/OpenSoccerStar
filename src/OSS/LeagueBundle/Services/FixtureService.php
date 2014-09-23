@@ -39,6 +39,7 @@ class FixtureService
             $fixture->setWeek($match->getWeek());
             $fixture->setTeamHome($listOfTeams[$match->getTeamHome() - 1]);
             $fixture->setTeamAway($listOfTeams[$match->getTeamAway() - 1]);
+            $fixture->setLeague($league);
 
             $this->entityManager->persist($fixture);
         }

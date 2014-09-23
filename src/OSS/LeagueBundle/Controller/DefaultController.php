@@ -41,4 +41,25 @@ class DefaultController extends Controller
             'fixtures' => $fixtures,
         );
     }
+
+    /**
+     * @return array
+     *
+     * @Route("/scorer", name="scorer")
+     * @Template
+     */
+    public function scorerAction()
+    {
+        /** @var League $league */
+        $league = $this->get('doctrine.orm.entity_manager')->getRepository('LeagueBundle:League')->findOneBy(array());
+
+        /** @var GameDate $gameDate */
+        $gameDate = $this->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:GameDate')->findOneBy(array());
+
+        $fixtures = $this->get('doctrine.orm.entity_manager')->getRepository('MatchBundle:Fixture')->findByLeagueAndSeasonWithEvents($league, $gameDate->getSeason());
+
+        return array(
+            'scorerList' => $this->get('oss.league.service.league')->getScorer($fixtures),
+        );
+    }
 }

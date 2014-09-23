@@ -14,6 +14,8 @@
                 <li class="divider"></li>
                 <li class="{% if app.request.attributes.get('_route') == 'fixtures' %}active{% endif %}"><a href="{{ path('fixtures') }}">{{ 'menu.fixtures'|trans }}</a></li>
                 <li class="divider"></li>
+                <li class="{% if app.request.attributes.get('_route') == 'scorer' %}active{% endif %}"><a href="{{ path('scorer') }}">{{ 'menu.scorer'|trans }}</a></li>
+                <li class="divider"></li>
                 <li class="{% if app.request.attributes.get('_route') == 'transfers' %}active{% endif %}"><a href="{{ path('transfers') }}">{{ 'menu.transfers'|trans }}</a></li>
                 <li class="divider"></li>
             </ul>

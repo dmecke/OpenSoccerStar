@@ -2,6 +2,7 @@ menu:
     headline: Menu
     standings: Standings
     fixtures: Fixtures
+    scorer: Scorer
     transfers: Transfers
 login_oauth: OAuth Login
 privacy: Privacy

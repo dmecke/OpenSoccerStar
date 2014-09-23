@@ -4,6 +4,7 @@ namespace OSS\LeagueBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use OSS\MatchBundle\Entity\Fixture;
 use OSS\MatchBundle\Entity\Team;
 
 /**
@@ -27,9 +28,17 @@ class League
      */
     private $teams;
 
+    /**
+     * @var ArrayCollection|Fixture[]
+     *
+     * @ORM\OneToMany(targetEntity="OSS\MatchBundle\Entity\Fixture", mappedBy="league")
+     */
+    private $fixtures;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
+        $this->fixtures = new ArrayCollection();
     }
 
     /**
@@ -115,5 +124,29 @@ class League
     public function getTeams()
     {
         return $this->teams;
+    }
+
+    /**
+     * @param Fixture $fixture
+     */
+    public function addFixture(Fixture $fixture)
+    {
+        $this->fixtures->add($fixture);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return ArrayCollection|Fixture[]
+     */
+    public function getFixtures()
+    {
+        return $this->fixtures;
     }
 }

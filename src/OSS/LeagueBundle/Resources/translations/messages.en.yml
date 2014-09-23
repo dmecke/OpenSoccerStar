@@ -9,6 +9,10 @@ fixtures:
     team_home: Home
     team_away: Away
     score: Score
+scorer:
+    player: Player
+    team: Team
+    goals: Goals
 team:
     player:
         name: Name

@@ -2,7 +2,9 @@
 
 namespace OSS\MatchBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use OSS\LeagueBundle\Entity\League;
 use OSS\MatchBundle\Exception\MatchException;
 
 /**
@@ -34,6 +36,13 @@ class Fixture
     private $week;
 
     /**
+     * @var League
+     *
+     * @ORM\ManyToOne(targetEntity="OSS\LeagueBundle\Entity\League", inversedBy="fixtures")
+     */
+    private $league;
+
+    /**
      * @var Team
      *
      * @ORM\ManyToOne(targetEntity="Team")
@@ -48,11 +57,11 @@ class Fixture
     private $teamAway;
 
     /**
-     * @var Event[]
+     * @var ArrayCollection|Event[]
      *
      * @ORM\OneToMany(targetEntity="Event", mappedBy="fixture", cascade={"all"})
      */
-    private $events = array();
+    private $events;
 
     /**
      * @var bool
@@ -81,6 +90,11 @@ class Fixture
      * @ORM\Column(type="integer", nullable=true)
      */
     private $scoreAway;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -185,6 +199,21 @@ class Fixture
     }
 
     /**
+     * @return Event[]
+     */
+    public function getGoalEvents()
+    {
+        $goalEvents = array();
+        foreach ($this->events as $event) {
+            if ($event->isGoal()) {
+                $goalEvents[] = $event;
+            }
+        }
+
+        return $goalEvents;
+    }
+
+    /**
      * @param Event $event
      *
      * @throws MatchException
@@ -193,9 +222,9 @@ class Fixture
     {
         $this->events[] = $event;
         if ($event->isGoal()) {
-            if ($event->getTeam()->equals($this->teamHome)) {
+            if (null !== $this->teamHome && $event->getTeam()->equals($this->teamHome)) {
                 $this->scoreHome++;
-            } elseif ($event->getTeam()->equals($this->teamAway)) {
+            } elseif (null !== $this->teamAway && $event->getTeam()->equals($this->teamAway)) {
                 $this->scoreAway++;
             } else {
                 throw new MatchException('team with id ' . $event->getTeam()->getId() . ' is not part of this match');
@@ -294,5 +323,13 @@ class Fixture
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param League $league
+     */
+    public function setLeague(League $league)
+    {
+        $this->league = $league;
     }
 }
