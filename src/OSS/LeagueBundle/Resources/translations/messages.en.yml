@@ -17,6 +17,10 @@ player:
     skill:
         defense: Defense
         offense: Offense
+    transfer:
+        team_origin: Old Team
+        team_target: New Team
+        amount: Transfer Fee
 manager:
     preferred_skill:
         label: Preferred Skill
@@ -28,6 +32,5 @@ manager:
         1: Conservative
         2: Neutral
         3: Offensive
-
 season: Season
 position: Position

@@ -3,6 +3,7 @@
 namespace OSS\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OSS\CoreBundle\Entity\Transfer;
 
 /**
  * @ORM\Entity
@@ -45,6 +46,13 @@ class Player
      * @ORM\Column(type="integer")
      */
     private $skillOffense;
+
+    /**
+     * @var Transfer
+     *
+     * @ORM\OneToMany(targetEntity="OSS\CoreBundle\Entity\Transfer", mappedBy="player")
+     */
+    private $transfers;
 
     /**
      * @param Player $player
@@ -164,5 +172,13 @@ class Player
     static public function compareAverageSkill(Player $a, Player $b)
     {
         return $a->getSkillAverage() < $b->getSkillAverage();
+    }
+
+    /**
+     * @return Transfer
+     */
+    public function getTransfers()
+    {
+        return $this->transfers;
     }
 }

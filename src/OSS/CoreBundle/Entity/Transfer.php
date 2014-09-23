@@ -23,7 +23,7 @@ class Transfer
     /**
      * @var Player
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Player", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Player", inversedBy="transfers", fetch="EAGER")
      */
     private $player;
 
