@@ -42,8 +42,7 @@ class ScoreCalculator
     private function calculateScore(Manager $manager, Player $player, $type)
     {
         $value = $this->calculateBaseValue($player, $manager);
-        $moneyPercentage = round($player->getMarketValue() / $manager->getTeam()->getMoney(), 2);
-        $moneyFactor = $moneyPercentage * 10 * $manager->getTransferFactorMoneyBehaviour();
+        $moneyFactor = $this->getMoneyPercentage($player->getMarketValue(), $manager->getTeam()->getMoney()) * 10 * $manager->getTransferFactorMoneyBehaviour();
 
         if ($moneyFactor > 0) {
             $value = $type == self::TYPE_BUY ? $value / $moneyFactor : $value * $moneyFactor * 2;
@@ -52,6 +51,21 @@ class ScoreCalculator
         }
 
         return $value;
+    }
+
+    /**
+     * @param int $marketValue
+     * @param int $money
+     *
+     * @return float
+     */
+    public function getMoneyPercentage($marketValue, $money)
+    {
+        if (empty($money)) {
+            return 0;
+        }
+
+        return round($marketValue / $money, 2);
     }
 
     /**

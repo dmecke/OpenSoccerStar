@@ -116,6 +116,14 @@ class Player
     }
 
     /**
+     * @return bool
+     */
+    public function hasTeam()
+    {
+        return null !== $this->team;
+    }
+
+    /**
      * @return int
      */
     public function getSkillDefense()

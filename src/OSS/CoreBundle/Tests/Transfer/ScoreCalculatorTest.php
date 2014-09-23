@@ -36,6 +36,14 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertCalculateSellEquals(50, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
     }
 
+    public function testGetMoneyPercentage()
+    {
+        $scoreCalculator = new ScoreCalculator();
+        $this->assertEquals(0.1, $scoreCalculator->getMoneyPercentage(10, 100));
+        $this->assertEquals(1, $scoreCalculator->getMoneyPercentage(100, 100));
+        $this->assertEquals(0, $scoreCalculator->getMoneyPercentage(100, 0));
+    }
+
     /**
      * @param int $value
      * @param int $preferredSkill

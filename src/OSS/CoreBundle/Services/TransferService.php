@@ -81,12 +81,13 @@ class TransferService
      *
      * @return null|Player
      */
-    private function selectBestFittingPlayer(Manager $manager, array $playersToInvestigate)
+    public function selectBestFittingPlayer(Manager $manager, array $playersToInvestigate)
     {
         $transferScoreCalculator = new ScoreCalculator();
         $pickedPlayer = null;
         $bestScore = 0;
         foreach ($playersToInvestigate as $player) {
+            if ($player->hasTeam() && $player->getTeam()->equals($manager->getTeam())) continue;
             $score = $transferScoreCalculator->calculateBuyScore($manager, $player);
             if ($score > $bestScore) {
                 $pickedPlayer = $player;
