@@ -5,6 +5,8 @@
 <table>
     <thead>
         <tr>
+            <th>{{ 'fixture.player'|trans }}</th>
+            <th>{{ 'fixture.event'|trans }}</th>
             <th>{{ 'fixture.minute'|trans }}</th>
             <th>{{ 'fixture.event'|trans }}</th>
             <th>{{ 'fixture.player'|trans }}</th>
@@ -12,9 +14,11 @@
     </thead>
 {% for event in fixture.events %}
     <tr class="{% if app.user and app.user.player.equals(event.player) %}own{% endif %}">
+        <td>{% if event.team.equals(fixture.teamHome) %}{{ event.player.name }}{% endif %}</td>
+        <td>{% if event.team.equals(fixture.teamHome) %}{{ event.type }}{% endif %}</td>
         <td>{{ event.minute }}.</td>
-        <td>{{ event.type }}</td>
-        <td>{{ event.player.name }}</td>
+        <td>{% if event.team.equals(fixture.teamAway) %}{{ event.type }}{% endif %}</td>
+        <td>{% if event.team.equals(fixture.teamAway) %}{{ event.player.name }}{% endif %}</td>
     </tr>
 {% endfor %}
 </table>
