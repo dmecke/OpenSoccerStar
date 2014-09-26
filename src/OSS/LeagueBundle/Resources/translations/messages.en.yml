@@ -22,11 +22,12 @@ player:
     skill:
         defense: Defense
         offense: Offense
-    transfer:
-        season: Season
-        team_origin: Old Team
-        team_target: New Team
-        amount: Transfer Fee
+transfer:
+    season: Season
+    player: Player
+    team_origin: Old Team
+    team_target: New Team
+    amount: Transfer Fee
 manager:
     preferred_skill:
         label: Preferred Skill

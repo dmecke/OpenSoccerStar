@@ -3,7 +3,71 @@
 {% block content %}
     <h3>{{ team.name }}<small> - {{ team.money|money }}</small></h3>
     <div class="row">
-        <div class="large-4 columns">
+        <div class="large-12 columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'team.manager'|trans }}</th>
+                        <th>{{ 'team.trainer'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{% if team.hasManager %}<a href="{{ path('profile_manager', { 'id': team.manager.id } ) }}">{{ team.manager.name }}</a>{% else %}-{% endif %}</td>
+                        <td>{% if team.hasTrainer %}<a href="{{ path('profile_trainer', { 'id': team.trainer.id } ) }}">{{ team.trainer.name }}</a>{% else %}-{% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-6 columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'transfer.season'|trans }}</th>
+                        <th>{{ 'transfer.player'|trans }}</th>
+                        <th>{{ 'transfer.team_origin'|trans }}</th>
+                        <th>{{ 'transfer.amount'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+{% for transfer in team.transfersIncoming %}
+                    <tr>
+                        <td>{{ transfer.season }}</td>
+                        <td>{{ transfer.player.name }}</td>
+                        <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</a></td>
+                        <td>{{ transfer.amount|money }}</td>
+                    </tr>
+{% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="large-6 columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'transfer.season'|trans }}</th>
+                        <th>{{ 'transfer.player'|trans }}</th>
+                        <th>{{ 'transfer.team_target'|trans }}</th>
+                        <th>{{ 'transfer.amount'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+{% for transfer in team.transfersOutgoing %}
+                    <tr>
+                        <td>{{ transfer.season }}</td>
+                        <td>{{ transfer.player.name }}</td>
+                        <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</a></td>
+                        <td>{{ transfer.amount|money }}</td>
+                    </tr>
+{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-6 columns">
             <table>
                 <thead>
                     <tr>
@@ -23,23 +87,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="large-4 columns">
-            <table>
-                <thead>
-                    <tr>
-                        <th>{{ 'team.manager'|trans }}</th>
-                        <th>{{ 'team.trainer'|trans }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{% if team.hasManager %}<a href="{{ path('profile_manager', { 'id': team.manager.id } ) }}">{{ team.manager.name }}</a>{% else %}-{% endif %}</td>
-                        <td>{% if team.hasTrainer %}<a href="{{ path('profile_trainer', { 'id': team.trainer.id } ) }}">{{ team.trainer.name }}</a>{% else %}-{% endif %}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="large-4 columns">
+        <div class="large-6 columns">
             <table>
                 <thead>
                     <tr>

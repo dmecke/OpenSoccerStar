@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use OSS\CoreBundle\Entity\Manager;
 use OSS\CoreBundle\Entity\Trainer;
+use OSS\CoreBundle\Entity\Transfer;
 use OSS\LeagueBundle\Entity\FinalPosition;
 use OSS\LeagueBundle\Entity\League;
 
@@ -93,6 +94,20 @@ class Team
      * @ORM\OneToMany(targetEntity="OSS\LeagueBundle\Entity\FinalPosition", mappedBy="team", cascade={"all"})
      */
     private $finalPositions;
+
+    /**
+     * @var Transfer[]
+     *
+     * @ORM\OneToMany(targetEntity="OSS\CoreBundle\Entity\Transfer", mappedBy="targetTeam")
+     */
+    private $transfersIncoming;
+
+    /**
+     * @var Transfer[]
+     *
+     * @ORM\OneToMany(targetEntity="OSS\CoreBundle\Entity\Transfer", mappedBy="originTeam")
+     */
+    private $transfersOutgoing;
 
     public function __construct()
     {
@@ -412,5 +427,21 @@ class Team
         $finalPosition->setLeague($this->league);
         $finalPosition->setPosition($this->league->getPositionByTeam($this));
         $this->finalPositions->add($finalPosition);
+    }
+
+    /**
+     * @return Transfer[]
+     */
+    public function getTransfersIncoming()
+    {
+        return $this->transfersIncoming;
+    }
+
+    /**
+     * @return Transfer[]
+     */
+    public function getTransfersOutgoing()
+    {
+        return $this->transfersOutgoing;
     }
 }
