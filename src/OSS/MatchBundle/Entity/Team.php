@@ -5,6 +5,7 @@ namespace OSS\MatchBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use OSS\CoreBundle\Entity\Manager;
+use OSS\CoreBundle\Entity\Trainer;
 use OSS\LeagueBundle\Entity\FinalPosition;
 use OSS\LeagueBundle\Entity\League;
 
@@ -71,6 +72,13 @@ class Team
      * @ORM\Column(type="integer")
      */
     private $money;
+
+    /**
+     * @var Trainer
+     *
+     * @ORM\OneToOne(targetEntity="OSS\CoreBundle\Entity\Trainer", mappedBy="team")
+     */
+    private $trainer;
 
     /**
      * @var Manager
@@ -338,11 +346,57 @@ class Team
     }
 
     /**
+     * @return Trainer
+     */
+    public function getTrainer()
+    {
+        return $this->trainer;
+    }
+
+    /**
+     * @param Trainer $trainer
+     */
+    public function setTrainer(Trainer $trainer)
+    {
+        $this->trainer = $trainer;
+        if (null === $trainer->getTeam()) {
+            $trainer->setTeam($this);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTrainer()
+    {
+        return null !== $this->trainer;
+    }
+
+    /**
      * @return Manager
      */
     public function getManager()
     {
         return $this->manager;
+    }
+
+    /**
+     * @param Manager $manager
+     */
+    public function setManager(Manager $manager)
+    {
+        $this->manager = $manager;
+        if (null === $manager->getTeam()) {
+            $manager->setTeam($this);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasManager()
+    {
+        return null !== $this->manager;
     }
 
     /**

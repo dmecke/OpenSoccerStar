@@ -17,6 +17,7 @@ team:
     player:
         name: Name
     manager: Manager
+    trainer: Trainer
 player:
     skill:
         defense: Defense
@@ -37,5 +38,13 @@ manager:
         1: Conservative
         2: Neutral
         3: Offensive
+trainer:
+    preferred_training:
+        label: Preferred Training
+        1: Defensive
+        2: Neutral
+        3: Offensive
+    skill:
+        label: Skill
 season: Season
 position: Position

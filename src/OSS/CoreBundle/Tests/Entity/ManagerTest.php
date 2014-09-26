@@ -3,9 +3,38 @@
 namespace OSS\CoreBundle\Tests\Entity;
 
 use OSS\CoreBundle\Entity\Manager;
+use OSS\MatchBundle\Entity\Team;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Manager
+     */
+    private $manager;
+
+    public function setUp()
+    {
+        $this->manager = new Manager();
+    }
+
+    public function tearDown()
+    {
+        $this->manager = null;
+    }
+
+    public function testGetTeam()
+    {
+        $this->assertNull($this->manager->getTeam());
+    }
+
+    public function testSetAndGetTeam()
+    {
+        $team = new Team();
+        $this->manager->setTeam($team);
+        $this->assertEquals($team, $this->manager->getTeam());
+        $this->assertEquals($this->manager, $team->getManager());
+    }
+
     public function testDefensiveSkillTransferFactor()
     {
         $this->assertTransferFactorDefensiveSkill(1, Manager::PREFERRED_SKILL_NEUTRAL);

@@ -131,6 +131,9 @@ class Manager
     public function setTeam(Team $team)
     {
         $this->team = $team;
+        if (null === $this->team->getManager()) {
+            $this->team->setManager($this);
+        }
     }
 
     /**
