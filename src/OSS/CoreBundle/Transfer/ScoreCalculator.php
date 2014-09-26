@@ -29,6 +29,10 @@ class ScoreCalculator
      */
     public function calculateSellScore(Manager $manager, Player $player)
     {
+        if ($manager->getTeam()->getPlayers()->count() <= 11) {
+            return -1;
+        }
+
         return $this->calculateScore($manager, $player, self::TYPE_SELL);
     }
 
@@ -47,7 +51,7 @@ class ScoreCalculator
         if ($moneyFactor > 0) {
             $value = $type == self::TYPE_BUY ? $value / $moneyFactor : $value * $moneyFactor * 2;
         } else {
-            $value = 0;
+            $value = -1;
         }
 
         return $value;

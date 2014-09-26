@@ -223,7 +223,7 @@ class Team
     }
 
     /**
-     * @return Player[]
+     * @return ArrayCollection|Player[]
      */
     public function getPlayers()
     {

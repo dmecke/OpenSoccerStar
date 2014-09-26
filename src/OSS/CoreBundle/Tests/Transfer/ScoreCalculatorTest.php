@@ -36,6 +36,19 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertCalculateSellEquals(50, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
     }
 
+    public function testCalculateSellWithLessThan11Players()
+    {
+        $scoreCalculator = new ScoreCalculator();
+        $team = new Team();
+        $team->setMoney(1000000);
+        $manager = new Manager();
+        $manager->setTeam($team);
+        $player = new Player();
+        $player->setSkillOffense(100);
+        $player->setSkillDefense(100);
+        $this->assertEquals(-1, $scoreCalculator->calculateSellScore($manager, $player));
+    }
+
     public function testGetMoneyPercentage()
     {
         $scoreCalculator = new ScoreCalculator();
@@ -87,6 +100,9 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
     {
         $team = new Team();
         $team->setMoney($money);
+        for ($i = 1; $i <= 20; $i++) {
+            $team->addPlayer(new Player());
+        }
 
         return $team;
     }
