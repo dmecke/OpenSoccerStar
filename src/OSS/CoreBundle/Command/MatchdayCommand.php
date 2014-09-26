@@ -34,6 +34,20 @@ class MatchdayCommand extends BaseCommand
         /** @var GameDate $gameDate */
         $gameDate = $this->getGameDateRepository()->findOneBy(array());
 
+        $this->executeMatches($gameDate, $output);
+        $this->getTransferService()->handleTransfers();
+
+        $gameDate->incrementWeek();
+        $this->executeStartOfWeek($gameDate);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param GameDate $gameDate
+     * @param OutputInterface $output
+     */
+    private function executeMatches(GameDate $gameDate, OutputInterface $output)
+    {
         /** @var Fixture[] $matches */
         $matches = $this->getFixtureRepository()->findByGameDate($gameDate);
         $progress = new ProgressBar($output, count($matches));
@@ -43,10 +57,13 @@ class MatchdayCommand extends BaseCommand
             $progress->advance();
         }
         $progress->finish();
+    }
 
-        $this->getTransferService()->handleTransfers();
-
-        $gameDate->incrementWeek();
+    /**
+     * @param GameDate $gameDate
+     */
+    private function executeStartOfWeek(GameDate $gameDate)
+    {
         if ($gameDate->getWeek() == 1) {
             /** @var League[] $leagues */
             $leagues = $this->getLeagueRepository()->findAll();
@@ -57,6 +74,5 @@ class MatchdayCommand extends BaseCommand
             $this->getTransferOfferRepository()->removeAll();
             $this->getFixtureService()->createFixtures($gameDate->getSeason());
         }
-        $this->getEntityManager()->flush();
     }
 }

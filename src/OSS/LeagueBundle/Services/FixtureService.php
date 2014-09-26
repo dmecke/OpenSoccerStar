@@ -46,6 +46,5 @@ class FixtureService
             $this->entityManager->persist($fixture);
         }
         $this->entityManager->flush();
-
     }
 }
