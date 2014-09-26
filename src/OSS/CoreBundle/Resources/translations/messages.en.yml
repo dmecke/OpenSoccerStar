@@ -43,8 +43,11 @@ team:
     trainer: Trainer
 player:
     skill:
+        label: Skill
         defense: Defense
         offense: Offense
+    training_value:
+        label: Training Value
 transfer:
     season: Season
     player: Player

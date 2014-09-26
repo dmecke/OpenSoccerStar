@@ -7,77 +7,112 @@ use OSS\CoreBundle\Entity\Team;
 
 class PlayerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Player
+     */
+    private $player;
+
+    public function setUp()
+    {
+        $this->player = new Player();
+    }
+
+    public function tearDown()
+    {
+        $this->player = null;
+    }
+
     public function testEquals()
     {
-        $player1 = new Player();
         $player2 = new Player();
 
-        $this->assertTrue($player1->equals($player2));
+        $this->assertTrue($this->player->equals($player2));
 
-        $player1->setId(1);
+        $this->player->setId(1);
         $player2->setId(1);
-        $this->assertTrue($player1->equals($player2));
+        $this->assertTrue($this->player->equals($player2));
 
-        $player1->setId(1);
+        $this->player->setId(1);
         $player2->setId(2);
-        $this->assertFalse($player1->equals($player2));
+        $this->assertFalse($this->player->equals($player2));
     }
 
     public function testSetTeam()
     {
-        $team1 = new Team();
-        $team1->setId(1);
-        $team2 = new Team();
-        $team2->setId(2);
-        $player = new Player();
+        $team = new Team();
 
-        $player->setTeam($team1);
-        $this->assertEquals($team1, $player->getTeam());
-        $this->assertContains($player, $team1->getPlayers());
-
-        $player->setTeam($team2);
-        $this->assertEquals($team2, $player->getTeam());
-        $this->assertContains($player, $team2->getPlayers());
+        $this->player->setTeam($team);
+        $this->assertEquals($team, $this->player->getTeam());
+        $this->assertContains($this->player, $team->getPlayers());
     }
 
     public function testAverage()
     {
-        $player = $this->createPlayer(50, 70);
-        $this->assertEquals(60, $player->getSkillAverage());
+        $this->setPlayerSkills(50, 70);
+        $this->assertEquals(60, $this->player->getSkillAverage());
     }
 
     public function testCompareAverageSkill()
     {
-        $player1 = $this->createPlayer(50, 50);
-        $player2 = $this->createPlayer(60, 60);
-        $this->assertTrue(Player::compareAverageSkill($player1, $player2));
+        $this->setPlayerSkills(50, 50);
 
-        $player2 = $this->createPlayer(50, 50);
-        $this->assertFalse(Player::compareAverageSkill($player1, $player2));
+        $comparePlayer = new Player();
+        $comparePlayer->setSkillDefense(60);
+        $comparePlayer->setSkillOffense(60);
+        $this->assertTrue(Player::compareAverageSkill($this->player, $comparePlayer));
 
-        $player2 = $this->createPlayer(40, 40);
-        $this->assertFalse(Player::compareAverageSkill($player1, $player2));
+        $comparePlayer = new Player();
+        $comparePlayer->setSkillDefense(50);
+        $comparePlayer->setSkillOffense(50);
+        $this->assertFalse(Player::compareAverageSkill($this->player, $comparePlayer));
+
+        $comparePlayer = new Player();
+        $comparePlayer->setSkillDefense(40);
+        $comparePlayer->setSkillOffense(40);
+        $this->assertFalse(Player::compareAverageSkill($this->player, $comparePlayer));
     }
 
     public function testMarketValue()
     {
-        $this->assertEquals(100, $this->createPlayer(10, 10)->getMarketValue());
-        $this->assertEquals(1562500, $this->createPlayer(50, 50)->getMarketValue());
-        $this->assertEquals(100000000, $this->createPlayer(100, 100)->getMarketValue());
+        $this->setPlayerSkills(10, 10);
+        $this->assertEquals(100, $this->player->getMarketValue());
+
+        $this->setPlayerSkills(50, 50);
+        $this->assertEquals(1562500, $this->player->getMarketValue());
+
+        $this->setPlayerSkills(100, 100);
+        $this->assertEquals(100000000, $this->player->getMarketValue());
+    }
+
+    public function testGetTrainingValueDefense()
+    {
+        $this->assertEquals(0, $this->player->getTrainingValueDefense());
+    }
+
+    public function testSetAndGetTrainingValueDefense()
+    {
+        $this->player->setTrainingValueDefense(50);
+        $this->assertEquals(50, $this->player->getTrainingValueDefense());
+    }
+
+    public function testGetTrainingValueOffense()
+    {
+        $this->assertEquals(0, $this->player->getTrainingValueOffense());
+    }
+
+    public function testSetAndGetTrainingValueOffense()
+    {
+        $this->player->setTrainingValueOffense(50);
+        $this->assertEquals(50, $this->player->getTrainingValueOffense());
     }
 
     /**
      * @param int $skillDefense
      * @param int $skillOffense
-     *
-     * @return Player
      */
-    private function createPlayer($skillDefense, $skillOffense)
+    private function setPlayerSkills($skillDefense, $skillOffense)
     {
-        $player = new Player();
-        $player->setSkillDefense($skillDefense);
-        $player->setSkillOffense($skillOffense);
-
-        return $player;
+        $this->player->setSkillDefense($skillDefense);
+        $this->player->setSkillOffense($skillOffense);
     }
 }

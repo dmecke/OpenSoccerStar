@@ -5,8 +5,8 @@ services:
         tags:
             - { name: twig.extension }
 
-    twig.extension.money:
-        class: OSS\CoreBundle\Twig\MoneyExtension
+    twig.extension.number:
+        class: OSS\CoreBundle\Twig\NumberExtension
         tags:
             - { name: twig.extension }
 

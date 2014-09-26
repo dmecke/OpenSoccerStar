@@ -29,7 +29,7 @@ class DefaultController extends Controller
             'transfers' => $this->get('doctrine.orm.entity_manager')->getRepository('CoreBundle:Transfer')->findBy(array('season' => $gameDate->getSeason())),
         );
     }
-    
+
     /**
      * @return array
      *

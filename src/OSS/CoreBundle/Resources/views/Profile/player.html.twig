@@ -7,14 +7,21 @@
             <table>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>{{ 'player.skill.defense'|trans }}</th>
                         <th>{{ 'player.skill.offense'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>{{ 'player.skill.label'|trans }}</td>
                         <td>{{ player.skillDefense }}</td>
                         <td>{{ player.skillOffense }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'player.training_value.label'|trans }}</td>
+                        <td class="{{ player.trainingValueDefense|cssClass }}">{{ player.trainingValueDefense|signed }}</td>
+                        <td class="{{ player.trainingValueOffense|cssClass }}">{{ player.trainingValueOffense|signed }}</td>
                     </tr>
                 </tbody>
             </table>

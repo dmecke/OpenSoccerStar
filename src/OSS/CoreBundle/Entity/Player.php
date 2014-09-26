@@ -47,6 +47,20 @@ class Player
     private $skillOffense;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingValueDefense;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingValueOffense;
+
+    /**
      * @var Transfer
      *
      * @ORM\OneToMany(targetEntity="Transfer", mappedBy="player")
@@ -187,5 +201,37 @@ class Player
     public function getTransfers()
     {
         return $this->transfers;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingValueDefense()
+    {
+        return $this->trainingValueDefense;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setTrainingValueDefense($value)
+    {
+        $this->trainingValueDefense = $value;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingValueOffense()
+    {
+        return $this->trainingValueOffense;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setTrainingValueOffense($value)
+    {
+        $this->trainingValueOffense = $value;
     }
 }

@@ -35,6 +35,6 @@ class GameDateExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'game_date';
+        return 'oss.core.game_date';
     }
 }
