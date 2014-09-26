@@ -37,28 +37,28 @@ class Player
      *
      * @ORM\Column(type="integer")
      */
-    private $skillDefense;
+    private $skillDefense = 1;
 
     /**
      * @var int
      *
      * @ORM\Column(type="integer")
      */
-    private $skillOffense;
+    private $skillOffense = 1;
 
     /**
      * @var int
      *
      * @ORM\Column(type="integer")
      */
-    private $trainingValueDefense;
+    private $trainingValueDefense = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(type="integer")
      */
-    private $trainingValueOffense;
+    private $trainingValueOffense = 0;
 
     /**
      * @var Transfer
@@ -233,5 +233,21 @@ class Player
     public function setTrainingValueOffense($value)
     {
         $this->trainingValueOffense = $value;
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function addTrainingValueDefense($amount)
+    {
+        $this->trainingValueDefense += $amount;
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function addTrainingValueOffense($amount)
+    {
+        $this->trainingValueOffense += $amount;
     }
 }

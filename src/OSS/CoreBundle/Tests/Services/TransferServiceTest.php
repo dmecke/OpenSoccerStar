@@ -10,12 +10,20 @@ use OSS\CoreBundle\Services\TransferService;
 
 class TransferServiceTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSelectBestFittingPlayer()
+    /**
+     * @var TransferService
+     */
+    private $transferService;
+
+    public function setUp()
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getMockBuilder('Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock();
-        $transferService = new TransferService($entityManager);
+        $this->transferService = new TransferService($entityManager);
+    }
 
+    public function testSelectBestFittingPlayer()
+    {
         $team = new Team();
         $team->setId(1);
         $team->setMoney(10);
@@ -27,12 +35,12 @@ class TransferServiceTest extends \PHPUnit_Framework_TestCase
         $player1->setSkillDefense(10);
         $players = array($player1);
 
-        $this->assertNull($transferService->selectBestFittingPlayer($manager, $players));
+        $this->assertNull($this->transferService->selectBestFittingPlayer($manager, $players));
 
         $player2 = new Player();
         $player2->setId(2);
         $player2->setSkillDefense(10);
         $players[] = $player2;
-        $this->assertEquals($player2, $transferService->selectBestFittingPlayer($manager, $players));
+        $this->assertEquals($player2, $this->transferService->selectBestFittingPlayer($manager, $players));
     }
 }

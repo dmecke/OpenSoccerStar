@@ -10,17 +10,27 @@ use OSS\CoreBundle\Services\MatchEvaluationService;
 
 class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var MatchEvaluationService
+     */
+    private $matchEvaluationService;
+
     public function setUp()
     {
         mt_srand(0); // take care to always generate the same row of random numbers
+        $this->matchEvaluationService = new MatchEvaluationService();
+    }
+
+    public function tearDown()
+    {
+        $this->matchEvaluationService = null;
     }
 
     public function testHasScore()
     {
         $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
-        $matchEvaluation = new MatchEvaluationService();
 
-        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->matchEvaluationService->evaluateCompleteMatch($fixture);
 
         $this->assertGreaterThanOrEqual(0, $fixture->getScoreHome());
         $this->assertGreaterThanOrEqual(0, $fixture->getScoreAway());
@@ -31,56 +41,48 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoTeamsAssigned()
     {
-        $match = new Fixture();
-        $matchEvaluation = new MatchEvaluationService();
-
-        $matchEvaluation->evaluateCompleteMatch($match);
+        $this->matchEvaluationService->evaluateCompleteMatch(new Fixture());
     }
 
     public function testIsFinished()
     {
         $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
-        $matchEvaluation = new MatchEvaluationService();
 
         $this->assertFalse($fixture->isFinished());
 
-        $matchEvaluation->evaluateMinuteOfMatch($fixture);
+        $this->matchEvaluationService->evaluateMinuteOfMatch($fixture);
         $this->assertFalse($fixture->isFinished());
 
-        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->matchEvaluationService->evaluateCompleteMatch($fixture);
         $this->assertTrue($fixture->isFinished());
     }
 
     public function testEventsGenerated()
     {
         $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
-        $matchEvaluation = new MatchEvaluationService();
 
-        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->matchEvaluationService->evaluateCompleteMatch($fixture);
         $this->assertGreaterThan(0, count($fixture->getEvents()));
     }
 
     public function testHappensEvent()
     {
-        $matchEvaluation = new MatchEvaluationService();
-
         for ($i = 0; $i < 32; $i++) {
-            $this->assertFalse($matchEvaluation->happensEvent());
+            $this->assertFalse($this->matchEvaluationService->happensEvent());
         }
-        $this->assertTrue($matchEvaluation->happensEvent());
+        $this->assertTrue($this->matchEvaluationService->happensEvent());
     }
 
     public function testMinutesToPlay()
     {
         $fixture = $this->createFixture($this->createTeam(1), $this->createTeam(2));
-        $matchEvaluation = new MatchEvaluationService();
 
         for ($i = 0; $i <= 10; $i++) {
-            $this->assertGreaterThanOrEqual(90, $matchEvaluation->getMinutesToPlay());
-            $this->assertLessThanOrEqual(95, $matchEvaluation->getMinutesToPlay());
+            $this->assertGreaterThanOrEqual(90, $this->matchEvaluationService->getMinutesToPlay());
+            $this->assertLessThanOrEqual(95, $this->matchEvaluationService->getMinutesToPlay());
         }
 
-        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->matchEvaluationService->evaluateCompleteMatch($fixture);
         $this->assertEquals(90, $fixture->getMinutesPlayed());
     }
 
@@ -89,7 +91,6 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
         $team1 = $this->createTeam(1);
         $team2 = $this->createTeam(2);
         $fixture = $this->createFixture($team1, $team2);
-        $matchEvaluation = new MatchEvaluationService();
 
         $this->assertEquals(0, $team1->getPoints());
         $this->assertEquals(0, $team1->getGoalsFor());
@@ -98,7 +99,7 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $team2->getGoalsFor());
         $this->assertEquals(0, $team2->getGoalsAgainst());
 
-        $matchEvaluation->evaluateCompleteMatch($fixture);
+        $this->matchEvaluationService->evaluateCompleteMatch($fixture);
 
         $this->assertEquals(1, $team1->getPoints());
         $this->assertEquals(0, $team1->getGoalsFor());

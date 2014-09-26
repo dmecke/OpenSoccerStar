@@ -12,11 +12,25 @@ use OSS\CoreBundle\Services\LeagueService;
 
 class LeagueServiceTest extends \PHPUnit_Framework_TestCase
 {
-    public function testScorer()
+    /**
+     * @var LeagueService
+     */
+    private $leagueService;
+
+    public function setUp()
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getMockBuilder('Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock();
-        $leagueService = new LeagueService($entityManager);
+        $this->leagueService = new LeagueService($entityManager);
+    }
+
+    public function tearDown()
+    {
+        $this->leagueService = null;
+    }
+
+    public function testScorer()
+    {
         $league = new League();
 
         $team1 = new Team();
@@ -44,7 +58,7 @@ class LeagueServiceTest extends \PHPUnit_Framework_TestCase
         $fixture->addEvent(Event::createGoal($fixture, $team1, $player1, 2));
         $fixture->addEvent(Event::createGoal($fixture, $team2, $player2, 3));
 
-        $scorer = $leagueService->getScorer(array($fixture));
+        $scorer = $this->leagueService->getScorer(array($fixture));
         $this->assertEquals($player1, $scorer[0]->getPlayer());
         $this->assertEquals($player2, $scorer[1]->getPlayer());
         $this->assertEquals(2, $scorer[0]->getGoals());

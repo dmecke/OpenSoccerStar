@@ -41,7 +41,7 @@ class TrainerTest extends \PHPUnit_Framework_TestCase
 
     public function testSkill()
     {
-        $this->assertEquals(0, $this->trainer->getSkill());
+        $this->assertEquals(1, $this->trainer->getSkill());
     }
 
     public function testSetAndGetSkill()
@@ -83,5 +83,39 @@ class TrainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->trainer->setName('John Doe');
         $this->assertEquals('John Doe', $this->trainer->getName());
+    }
+
+    public function testGetTrainingFactorDefensiveByNeutralTrainer()
+    {
+        $this->assertEquals(0.5, $this->trainer->getTrainingFactorDefensive());
+    }
+
+    public function testGetTrainingFactorOffensiveByNeutralTrainer()
+    {
+        $this->assertEquals(0.5, $this->trainer->getTrainingFactorOffensive());
+    }
+
+    public function testGetTrainingFactorDefensiveByDefensiveTrainer()
+    {
+        $this->trainer->setPreferredTraining(Trainer::PREFERRED_TRAINING_DEFENSIVE);
+        $this->assertEquals(0.75, $this->trainer->getTrainingFactorDefensive());
+    }
+
+    public function testGetTrainingFactorOffensiveByDefensiveTrainer()
+    {
+        $this->trainer->setPreferredTraining(Trainer::PREFERRED_TRAINING_DEFENSIVE);
+        $this->assertEquals(0.25, $this->trainer->getTrainingFactorOffensive());
+    }
+
+    public function testGetTrainingFactorDefensiveByOffensiveTrainer()
+    {
+        $this->trainer->setPreferredTraining(Trainer::PREFERRED_TRAINING_OFFENSIVE);
+        $this->assertEquals(0.25, $this->trainer->getTrainingFactorDefensive());
+    }
+
+    public function testGetTrainingFactorOffensiveByOffensiveTrainer()
+    {
+        $this->trainer->setPreferredTraining(Trainer::PREFERRED_TRAINING_OFFENSIVE);
+        $this->assertEquals(0.75, $this->trainer->getTrainingFactorOffensive());
     }
 }

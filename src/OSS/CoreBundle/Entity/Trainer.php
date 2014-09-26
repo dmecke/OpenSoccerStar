@@ -41,7 +41,7 @@ class Trainer
      *
      * @ORM\Column(type="integer")
      */
-    private $skill;
+    private $skill = 1;
 
     /**
      * @var Team
@@ -96,6 +96,34 @@ class Trainer
     public function setPreferredTraining($preferredTraining)
     {
         $this->preferredTraining = $preferredTraining;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTrainingFactorDefensive()
+    {
+        if ($this->preferredTraining == self::PREFERRED_TRAINING_DEFENSIVE) {
+            return 0.75;
+        } elseif ($this->preferredTraining == self::PREFERRED_TRAINING_OFFENSIVE) {
+            return 0.25;
+        } else {
+            return 0.5;
+        }
+    }
+
+    /**
+     * @return float
+     */
+    public function getTrainingFactorOffensive()
+    {
+        if ($this->preferredTraining == self::PREFERRED_TRAINING_OFFENSIVE) {
+            return 0.75;
+        } elseif ($this->preferredTraining == self::PREFERRED_TRAINING_DEFENSIVE) {
+            return 0.25;
+        } else {
+            return 0.5;
+        }
     }
 
     /**

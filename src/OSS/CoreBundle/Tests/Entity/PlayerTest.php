@@ -106,6 +106,18 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(50, $this->player->getTrainingValueOffense());
     }
 
+    public function testAddTrainingValueDefense()
+    {
+        $this->player->addTrainingValueDefense(1);
+        $this->assertEquals(1, $this->player->getTrainingValueDefense());
+    }
+
+    public function testAddTrainingValueOffense()
+    {
+        $this->player->addTrainingValueOffense(1);
+        $this->assertEquals(1, $this->player->getTrainingValueOffense());
+    }
+
     /**
      * @param int $skillDefense
      * @param int $skillOffense
