@@ -3,7 +3,7 @@
 namespace OSS\CoreBundle\Tests\Entity;
 
 use OSS\CoreBundle\Entity\Manager;
-use OSS\MatchBundle\Entity\Team;
+use OSS\CoreBundle\Entity\Team;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {

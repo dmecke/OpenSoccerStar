@@ -3,7 +3,6 @@
 namespace OSS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use OSS\MatchBundle\Entity\Team;
 
 /**
  * @ORM\Entity
@@ -47,7 +46,7 @@ class Trainer
     /**
      * @var Team
      *
-     * @ORM\OneToOne(targetEntity="OSS\MatchBundle\Entity\Team", inversedBy="trainer")
+     * @ORM\OneToOne(targetEntity="Team", inversedBy="trainer")
      */
     private $team;
 

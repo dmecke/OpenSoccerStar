@@ -4,7 +4,7 @@ namespace OSS\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use OSS\MatchBundle\Entity\Player;
+use OSS\CoreBundle\Entity\Player;
 
 class LoadPlayerData extends AbstractTeamMemberFixture implements FixtureInterface, OrderedFixtureInterface
 {

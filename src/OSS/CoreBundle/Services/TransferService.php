@@ -4,10 +4,10 @@ namespace OSS\CoreBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use OSS\CoreBundle\Entity\Manager;
+use OSS\CoreBundle\Entity\Player;
 use OSS\CoreBundle\Entity\Transfer;
 use OSS\CoreBundle\Entity\TransferOffer;
 use OSS\CoreBundle\Transfer\ScoreCalculator;
-use OSS\MatchBundle\Entity\Player;
 
 class TransferService
 {
@@ -64,7 +64,7 @@ class TransferService
 
     private function createTransferOffers()
     {
-        $players = $this->entityManager->getRepository('MatchBundle:Player')->findAll();
+        $players = $this->entityManager->getRepository('CoreBundle:Player')->findAll();
         $managers = $this->entityManager->getRepository('CoreBundle:Manager')->findAll();
         foreach ($managers as $manager) {
             $pickedPlayer = $this->selectBestFittingPlayer($manager, $this->pickPlayersToInvestigate($players));

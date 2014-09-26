@@ -4,9 +4,9 @@ namespace OSS\CoreBundle\Tests\Services;
 
 use Doctrine\ORM\EntityManager;
 use OSS\CoreBundle\Entity\Manager;
+use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Services\TransferService;
-use OSS\MatchBundle\Entity\Player;
-use OSS\MatchBundle\Entity\Team;
 
 class TransferServiceTest extends \PHPUnit_Framework_TestCase
 {

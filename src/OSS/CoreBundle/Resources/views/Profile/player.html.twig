@@ -1,0 +1,45 @@
+{% extends 'CoreBundle::layout.html.twig' %}
+
+{% block content %}
+    <h3>{{ player.name }}<small> - <a href="{{ path('profile_team', { 'id': player.team.id } ) }}">{{ player.team.name }}</a></small></h3>
+    <div class="row">
+        <div class="large-6 columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'player.skill.defense'|trans }}</th>
+                        <th>{{ 'player.skill.offense'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ player.skillDefense }}</td>
+                        <td>{{ player.skillOffense }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="large-6 columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'transfer.season'|trans }}</th>
+                        <th>{{ 'transfer.team_origin'|trans }}</th>
+                        <th>{{ 'transfer.team_target'|trans }}</th>
+                        <th>{{ 'transfer.amount'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+{% for transfer in player.transfers %}
+                    <tr>
+                        <td>{{ transfer.season }}</td>
+                        <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</a></td>
+                        <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</a></td>
+                        <td>{{ transfer.amount|money }}</td>
+                    </tr>
+{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -3,8 +3,6 @@
 namespace OSS\CoreBundle\Command;
 
 use OSS\CoreBundle\Entity\GameDate;
-use OSS\LeagueBundle\Entity\League;
-use OSS\MatchBundle\Entity\Fixture;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

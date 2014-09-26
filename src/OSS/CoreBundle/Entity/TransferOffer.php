@@ -3,8 +3,6 @@
 namespace OSS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use OSS\MatchBundle\Entity\Player;
-use OSS\MatchBundle\Entity\Team;
 
 /**
  * @ORM\Entity(repositoryClass="OSS\CoreBundle\Repository\TransferOfferRepository")
@@ -23,21 +21,21 @@ class TransferOffer
     /**
      * @var Player
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Player", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Player", fetch="EAGER")
      */
     private $player;
 
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Team", fetch="EAGER")
      */
     private $originTeam;
 
     /**
      * @var Team
      *
-     * @ORM\ManyToOne(targetEntity="OSS\MatchBundle\Entity\Team", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Team", fetch="EAGER")
      */
     private $targetTeam;
 
