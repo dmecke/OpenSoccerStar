@@ -4,8 +4,8 @@ namespace OSS\UserBundle\Listener;
 
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Event\UserEvent;
-use OSS\MatchBundle\Entity\Player;
-use OSS\MatchBundle\Entity\Team;
+use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\Team;
 use OSS\UserBundle\Entity\User;
 
 class RegistrationListener
@@ -36,7 +36,7 @@ class RegistrationListener
         $player->setSkillDefense(rand(1, 100));
         $player->setSkillOffense(rand(1, 100));
         /** @var Team[] $teams */
-        $teams = $this->entityManager->getRepository('MatchBundle:Team')->findAll();
+        $teams = $this->entityManager->getRepository('CoreBundle:Team')->findAll();
         $player->setTeam($teams[rand(0, count($teams) - 1)]);
         $this->entityManager->persist($player);
 

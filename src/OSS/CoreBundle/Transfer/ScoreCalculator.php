@@ -3,7 +3,7 @@
 namespace OSS\CoreBundle\Transfer;
 
 use OSS\CoreBundle\Entity\Manager;
-use OSS\MatchBundle\Entity\Player;
+use OSS\CoreBundle\Entity\Player;
 
 class ScoreCalculator
 {

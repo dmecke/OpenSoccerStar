@@ -4,11 +4,11 @@ namespace OSS\CoreBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use OSS\CoreBundle\Repository\FixtureRepository;
 use OSS\CoreBundle\Repository\TransferOfferRepository;
+use OSS\CoreBundle\Services\FixtureService;
+use OSS\CoreBundle\Services\MatchEvaluationService;
 use OSS\CoreBundle\Services\TransferService;
-use OSS\LeagueBundle\Services\FixtureService;
-use OSS\MatchBundle\Repository\FixtureRepository;
-use OSS\MatchBundle\Services\MatchEvaluationService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 abstract class BaseCommand extends ContainerAwareCommand
@@ -26,7 +26,7 @@ abstract class BaseCommand extends ContainerAwareCommand
      */
     protected function getFixtureRepository()
     {
-        return $this->getEntityManager()->getRepository('MatchBundle:Fixture');
+        return $this->getEntityManager()->getRepository('CoreBundle:Fixture');
     }
 
     /**
@@ -42,7 +42,7 @@ abstract class BaseCommand extends ContainerAwareCommand
      */
     protected function getLeagueRepository()
     {
-        return $this->getEntityManager()->getRepository('LeagueBundle:League');
+        return $this->getEntityManager()->getRepository('CoreBundle:League');
     }
 
     /**
@@ -50,7 +50,7 @@ abstract class BaseCommand extends ContainerAwareCommand
      */
     protected function getTeamRepository()
     {
-        return $this->getEntityManager()->getRepository('MatchBundle:Team');
+        return $this->getEntityManager()->getRepository('CoreBundle:Team');
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class BaseCommand extends ContainerAwareCommand
      */
     protected function getFixtureService()
     {
-        return $this->getContainer()->get('oss.league.service.fixture');
+        return $this->getContainer()->get('oss.core.service.fixture');
     }
 
     /**
@@ -74,7 +74,7 @@ abstract class BaseCommand extends ContainerAwareCommand
      */
     protected function getMatchEvaluationService()
     {
-        return $this->getContainer()->get('oss.match.service.match_evaluation');
+        return $this->getContainer()->get('oss.core.service.match_evaluation');
     }
 
     /**

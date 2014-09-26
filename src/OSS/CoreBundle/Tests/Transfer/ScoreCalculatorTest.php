@@ -3,9 +3,9 @@
 namespace OSS\CoreBundle\Tests\Entity;
 
 use OSS\CoreBundle\Entity\Manager;
+use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Transfer\ScoreCalculator;
-use OSS\MatchBundle\Entity\Player;
-use OSS\MatchBundle\Entity\Team;
 
 class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 {

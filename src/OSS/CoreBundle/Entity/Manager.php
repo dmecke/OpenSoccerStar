@@ -3,7 +3,6 @@
 namespace OSS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use OSS\MatchBundle\Entity\Team;
 
 /**
  * @ORM\Entity
@@ -65,7 +64,7 @@ class Manager
     /**
      * @var Team
      *
-     * @ORM\OneToOne(targetEntity="OSS\MatchBundle\Entity\Team", inversedBy="manager")
+     * @ORM\OneToOne(targetEntity="Team", inversedBy="manager")
      */
     private $team;
 

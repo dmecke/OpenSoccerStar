@@ -1,3 +1,0 @@
-services:
-    oss.match.service.match_evaluation:
-        class: OSS\MatchBundle\Services\MatchEvaluationService

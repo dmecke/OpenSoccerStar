@@ -1,4 +1,0 @@
-fixture:
-    minute: Minute
-    event: Event
-    player: Player

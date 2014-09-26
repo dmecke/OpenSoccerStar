@@ -4,7 +4,7 @@ namespace OSS\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use OSS\MatchBundle\Entity\Player;
+use OSS\CoreBundle\Entity\Player;
 
 /**
  * @ORM\Entity
@@ -37,7 +37,7 @@ class User extends BaseUser
     /**
      * @var Player
      *
-     * @ORM\OneToOne(targetEntity="OSS\MatchBundle\Entity\Player")
+     * @ORM\OneToOne(targetEntity="OSS\CoreBundle\Entity\Player")
      */
     protected $player;
 

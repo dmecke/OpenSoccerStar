@@ -6,8 +6,8 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use OSS\LeagueBundle\Entity\League;
-use OSS\MatchBundle\Entity\Team;
+use OSS\CoreBundle\Entity\League;
+use OSS\CoreBundle\Entity\Team;
 
 class LoadTeamData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {

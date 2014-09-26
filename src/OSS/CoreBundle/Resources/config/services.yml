@@ -5,6 +5,22 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.extension.money:
+        class: OSS\CoreBundle\Twig\MoneyExtension
+        tags:
+            - { name: twig.extension }
+
+    oss.core.service.fixture:
+        class: OSS\CoreBundle\Services\FixtureService
+        arguments: [@doctrine.orm.entity_manager]
+
+    oss.core.service.league:
+        class: OSS\CoreBundle\Services\LeagueService
+        arguments: [@doctrine.orm.entity_manager]
+
+    oss.core.service.match_evaluation:
+        class: OSS\CoreBundle\Services\MatchEvaluationService
+
     oss.core.service.transfer:
         class: OSS\CoreBundle\Services\TransferService
         arguments: [@doctrine.orm.entity_manager]

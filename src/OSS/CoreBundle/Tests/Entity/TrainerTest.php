@@ -2,8 +2,8 @@
 
 namespace OSS\CoreBundle\Tests\Entity;
 
+use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Entity\Trainer;
-use OSS\MatchBundle\Entity\Team;
 
 class TrainerTest extends \PHPUnit_Framework_TestCase
 {

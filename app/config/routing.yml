@@ -2,14 +2,6 @@ core:
     resource: "@CoreBundle/Controller"
     type: annotation
 
-league:
-    resource: "@LeagueBundle/Controller"
-    type: annotation
-
-match:
-    resource: "@MatchBundle/Controller"
-    type: annotation
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

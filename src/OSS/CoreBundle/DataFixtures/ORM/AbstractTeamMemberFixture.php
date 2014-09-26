@@ -7,9 +7,9 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory as FakerFactory;
 use OSS\CoreBundle\Entity\Manager;
+use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Entity\Trainer;
-use OSS\MatchBundle\Entity\Player;
-use OSS\MatchBundle\Entity\Team;
 
 abstract class AbstractTeamMemberFixture extends AbstractFixture implements FixtureInterface
 {
