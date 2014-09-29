@@ -35,6 +35,7 @@ class MatchdayCommand extends BaseCommand
         $gameDate = $this->getGameDateRepository()->findOneBy(array());
 
         $this->executeMatches($gameDate, $output);
+        $this->getTrainingService()->handleTrainingValueReduction();
         $this->getTrainingService()->handleTraining();
         $this->getTransferService()->handleTransfers();
 

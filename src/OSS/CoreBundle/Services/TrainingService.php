@@ -28,4 +28,15 @@ class TrainingService
             $team->train();
         }
     }
+
+    public function handleTrainingValueReduction()
+    {
+        /** @var Team[] $teams */
+        $teams = $this->teamRepository->findAll();
+        foreach ($teams as $team) {
+            foreach ($team->getPlayers() as $player) {
+                $player->decreaseTrainingValues();
+            }
+        }
+    }
 }

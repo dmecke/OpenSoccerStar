@@ -22,6 +22,16 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
         $this->player = null;
     }
 
+    /**
+     * @param int $skillDefense
+     * @param int $skillOffense
+     */
+    private function setUpPlayer($skillDefense, $skillOffense)
+    {
+        $this->player->setSkillDefense($skillDefense);
+        $this->player->setSkillOffense($skillOffense);
+    }
+
     public function testEquals()
     {
         $player2 = new Player();
@@ -48,13 +58,13 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function testAverage()
     {
-        $this->setPlayerSkills(50, 70);
+        $this->setUpPlayer(50, 70);
         $this->assertEquals(60, $this->player->getSkillAverage());
     }
 
     public function testCompareAverageSkill()
     {
-        $this->setPlayerSkills(50, 50);
+        $this->setUpPlayer(50, 50);
 
         $comparePlayer = new Player();
         $comparePlayer->setSkillDefense(60);
@@ -74,13 +84,13 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function testMarketValue()
     {
-        $this->setPlayerSkills(10, 10);
+        $this->setUpPlayer(10, 10);
         $this->assertEquals(100, $this->player->getMarketValue());
 
-        $this->setPlayerSkills(50, 50);
+        $this->setUpPlayer(50, 50);
         $this->assertEquals(1562500, $this->player->getMarketValue());
 
-        $this->setPlayerSkills(100, 100);
+        $this->setUpPlayer(100, 100);
         $this->assertEquals(100000000, $this->player->getMarketValue());
     }
 
@@ -118,13 +128,14 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $this->player->getTrainingValueOffense());
     }
 
-    /**
-     * @param int $skillDefense
-     * @param int $skillOffense
-     */
-    private function setPlayerSkills($skillDefense, $skillOffense)
+    public function testTrainingValueReduction()
     {
-        $this->player->setSkillDefense($skillDefense);
-        $this->player->setSkillOffense($skillOffense);
+        $this->setUpPlayer(20, 50);
+        $this->player->setTrainingValueDefense(20);
+        $this->player->setTrainingValueOffense(20);
+
+        $this->player->decreaseTrainingValues();
+        $this->assertEquals(10, $this->player->getTrainingValueDefense());
+        $this->assertEquals(-5, $this->player->getTrainingValueOffense());
     }
 }

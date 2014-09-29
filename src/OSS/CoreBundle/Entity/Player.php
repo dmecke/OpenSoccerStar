@@ -250,4 +250,10 @@ class Player
     {
         $this->trainingValueOffense += $amount;
     }
+
+    public function decreaseTrainingValues()
+    {
+        $this->trainingValueDefense -= floor($this->skillDefense * 0.5);
+        $this->trainingValueOffense -= floor($this->skillOffense * 0.5);
+    }
 }
