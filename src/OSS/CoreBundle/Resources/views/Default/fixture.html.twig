@@ -5,6 +5,22 @@
 <table>
     <thead>
         <tr>
+            <th>{{ fixture.teamHome.name }}</th>
+            <th>{{ fixture.teamAway.name }}</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for i in 1..11 %}
+        <tr>
+            <td><a href="{{ path('profile_player', { 'id': fixture.lineupHome.player(i).id } ) }}">{{ fixture.lineupHome.player(i).name }}</a></td>
+            <td><a href="{{ path('profile_player', { 'id': fixture.lineupAway.player(i).id } ) }}">{{ fixture.lineupAway.player(i).name }}</a></td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+<table>
+    <thead>
+        <tr>
             <th>{{ 'fixture.player'|trans }}</th>
             <th>{{ 'fixture.event'|trans }}</th>
             <th>{{ 'fixture.minute'|trans }}</th>

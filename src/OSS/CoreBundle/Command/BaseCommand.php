@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use OSS\CoreBundle\Repository\FixtureRepository;
 use OSS\CoreBundle\Repository\TransferOfferRepository;
 use OSS\CoreBundle\Services\FixtureService;
+use OSS\CoreBundle\Services\LineupService;
 use OSS\CoreBundle\Services\MatchEvaluationService;
 use OSS\CoreBundle\Services\TrainingService;
 use OSS\CoreBundle\Services\TransferService;
@@ -68,6 +69,14 @@ abstract class BaseCommand extends ContainerAwareCommand
     protected function getFixtureService()
     {
         return $this->getContainer()->get('oss.core.service.fixture');
+    }
+
+    /**
+     * @return LineupService
+     */
+    protected function getLineupService()
+    {
+        return $this->getContainer()->get('oss.core.service.lineup');
     }
 
     /**

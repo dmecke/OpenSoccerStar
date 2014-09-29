@@ -56,6 +56,7 @@ class MatchdayCommand extends BaseCommand
         $progress = new ProgressBar($output, count($matches));
         $progress->start();
         foreach ($matches as $match) {
+            $this->getLineupService()->createFixtureLineup($match);
             $this->getMatchEvaluationService()->evaluateCompleteMatch($match);
             $progress->advance();
         }

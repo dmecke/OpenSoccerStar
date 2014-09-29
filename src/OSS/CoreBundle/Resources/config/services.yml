@@ -18,6 +18,10 @@ services:
         class: OSS\CoreBundle\Services\LeagueService
         arguments: [@doctrine.orm.entity_manager]
 
+    oss.core.service.lineup:
+        class: OSS\CoreBundle\Services\LineupService
+        arguments: [@doctrine.orm.entity_manager]
+
     oss.core.service.match_evaluation:
         class: OSS\CoreBundle\Services\MatchEvaluationService
 

@@ -90,6 +90,13 @@ class Fixture
      */
     private $scoreAway;
 
+    /**
+     * @var Lineup[]
+     *
+     * @ORM\OneToMany(targetEntity="Lineup", mappedBy="fixture")
+     */
+    private $lineups;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -330,5 +337,37 @@ class Fixture
     public function setLeague(League $league)
     {
         $this->league = $league;
+    }
+
+    /**
+     * @return Lineup
+     *
+     * @throws \Exception
+     */
+    public function getLineupHome()
+    {
+        foreach ($this->lineups as $lineup) {
+            if ($lineup->getTeam()->equals($this->teamHome)) {
+                return $lineup;
+            }
+        }
+
+        throw new \Exception('could not find lineup for home team');
+    }
+
+    /**
+     * @return Lineup
+     *
+     * @throws \Exception
+     */
+    public function getLineupAway()
+    {
+        foreach ($this->lineups as $lineup) {
+            if ($lineup->getTeam()->equals($this->teamAway)) {
+                return $lineup;
+            }
+        }
+
+        throw new \Exception('could not find lineup for away team');
     }
 }
