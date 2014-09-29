@@ -55,16 +55,18 @@ class Transfer
 
     /**
      * @param TransferOffer $transferOffer
+     * @param GameDate $gameDate
      *
      * @return Transfer
      */
-    static public function createFromOffer(TransferOffer $transferOffer)
+    static public function createFromOffer(TransferOffer $transferOffer, GameDate $gameDate)
     {
         $transfer = new Transfer();
         $transfer->setOriginTeam($transferOffer->getOriginTeam());
         $transfer->setTargetTeam($transferOffer->getTargetTeam());
         $transfer->setPlayer($transferOffer->getPlayer());
         $transfer->setAmount($transferOffer->getAmount());
+        $transfer->setSeason($gameDate->getSeason());
 
         return $transfer;
     }

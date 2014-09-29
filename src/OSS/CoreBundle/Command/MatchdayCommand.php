@@ -37,7 +37,8 @@ class MatchdayCommand extends BaseCommand
         $this->executeMatches($gameDate, $output);
         $this->getTrainingService()->handleTrainingValueReduction();
         $this->getTrainingService()->handleTraining();
-        $this->getTransferService()->handleTransfers();
+        $this->getTransferService()->decideOnTransferOffers();
+        $this->getTransferService()->createTransferOffers();
 
         $gameDate->incrementWeek();
         $this->executeHalfOfSeason($gameDate);

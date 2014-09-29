@@ -38,20 +38,20 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCalculateSellWithLessThan11Players()
     {
-        $scoreCalculator = new ScoreCalculator();
         $team = new Team();
         $team->setMoney(1000000);
         $manager = new Manager();
         $manager->setTeam($team);
+        $scoreCalculator = new ScoreCalculator($manager);
         $player = new Player();
         $player->setSkillOffense(100);
         $player->setSkillDefense(100);
-        $this->assertEquals(-1, $scoreCalculator->calculateSellScore($manager, $player));
+        $this->assertEquals(-1, $scoreCalculator->calculateSellScore($player));
     }
 
     public function testGetMoneyPercentage()
     {
-        $scoreCalculator = new ScoreCalculator();
+        $scoreCalculator = new ScoreCalculator(new Manager());
         $this->assertEquals(0.1, $scoreCalculator->getMoneyPercentage(10, 100));
         $this->assertEquals(1, $scoreCalculator->getMoneyPercentage(100, 100));
         $this->assertEquals(0, $scoreCalculator->getMoneyPercentage(100, 0));
@@ -67,11 +67,11 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     private function assertCalculateBuyEquals($value, $preferredSkill, $moneyBehaviour, $money, $playerDefense, $playerOffense)
     {
-        $calculator = new ScoreCalculator();
-
         $manager = $this->createManager($preferredSkill, $moneyBehaviour, $money);
+        $calculator = new ScoreCalculator($manager);
+
         $player = $this->createPlayer($playerDefense, $playerOffense);
-        $this->assertEquals($value, $calculator->calculateBuyScore($manager, $player));
+        $this->assertEquals($value, $calculator->calculateBuyScore($player));
     }
 
     /**
@@ -84,11 +84,11 @@ class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     private function assertCalculateSellEquals($value, $preferredSkill, $moneyBehaviour, $money, $playerDefense, $playerOffense)
     {
-        $calculator = new ScoreCalculator();
-
         $manager = $this->createManager($preferredSkill, $moneyBehaviour, $money);
+        $calculator = new ScoreCalculator($manager);
+
         $player = $this->createPlayer($playerDefense, $playerOffense);
-        $this->assertEquals($value, $calculator->calculateSellScore($manager, $player));
+        $this->assertEquals($value, $calculator->calculateSellScore($player));
     }
 
     /**

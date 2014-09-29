@@ -173,4 +173,13 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $players[0]->getTrainingValueDefense());
         $this->assertEquals(0, $players[0]->getTrainingValueOffense());
     }
+
+    public function testSendMoney()
+    {
+        $this->team->setMoney(1000);
+        $targetTeam = new Team();
+        $this->team->sendMoney($targetTeam, 500);
+        $this->assertEquals(500, $this->team->getMoney());
+        $this->assertEquals(500, $targetTeam->getMoney());
+    }
 }
