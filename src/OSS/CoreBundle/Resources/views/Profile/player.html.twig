@@ -1,7 +1,7 @@
 {% extends 'CoreBundle::layout.html.twig' %}
 
 {% block content %}
-    <h3>{{ player.name }}<small> - <a href="{{ path('profile_team', { 'id': player.team.id } ) }}">{{ player.team.name }}</a></small></h3>
+    <h3>{{ player.name }}<small> - {{ player.team|teamLink }}</small></h3>
     <div class="row">
         <div class="large-6 columns">
             <table>
@@ -40,8 +40,8 @@
 {% for transfer in player.transfers %}
                     <tr>
                         <td>{{ transfer.season }}</td>
-                        <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</a></td>
-                        <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</a></td>
+                        <td>{{ transfer.originTeam|teamLink }}</td>
+                        <td>{{ transfer.targetTeam|teamLink }}</td>
                         <td>{{ transfer.amount|money }}</td>
                     </tr>
 {% endfor %}

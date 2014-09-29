@@ -35,8 +35,8 @@
 {% for transfer in team.transfersIncoming %}
                     <tr>
                         <td>{{ transfer.season }}</td>
-                        <td><a href="{{ path('profile_player', { 'id': transfer.player.id } ) }}">{{ transfer.player.name }}</a></td>
-                        <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</a></td>
+                        <td>{{ transfer.player|playerLink }}</td>
+                        <td>{{ transfer.originTeam|teamLink }}</td>
                         <td>{{ transfer.amount|money }}</td>
                     </tr>
 {% endfor %}
@@ -57,8 +57,8 @@
 {% for transfer in team.transfersOutgoing %}
                     <tr>
                         <td>{{ transfer.season }}</td>
-                        <td><a href="{{ path('profile_player', { 'id': transfer.player.id } ) }}">{{ transfer.player.name }}</a></td>
-                        <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</a></td>
+                        <td>{{ transfer.player|playerLink }}</td>
+                        <td>{{ transfer.targetTeam|teamLink }}</td>
                         <td>{{ transfer.amount|money }}</td>
                     </tr>
 {% endfor %}
@@ -79,7 +79,7 @@
                 <tbody>
                 {% for player in team.players %}
                     <tr class="{% if app.user and app.user.player.equals(player) %}own{% endif %}">
-                        <td><a href="{{ path('profile_player', { 'id': player.id } ) }}">{{ player.name }}</a></td>
+                        <td>{{ player|playerLink }}</td>
                         <td>{{ player.skillDefense }}</td>
                         <td>{{ player.skillOffense }}</td>
                     </tr>

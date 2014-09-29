@@ -1,0 +1,17 @@
+services:
+    oss.core.twig.game_date:
+        class: OSS\CoreBundle\Twig\GameDateExtension
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: twig.extension }
+
+    oss.core.twig.number:
+        class: OSS\CoreBundle\Twig\NumberExtension
+        tags:
+            - { name: twig.extension }
+
+    oss.core.twig.link:
+        class: OSS\CoreBundle\Twig\LinkExtension
+        arguments: [@router]
+        tags:
+            - { name: twig.extension }

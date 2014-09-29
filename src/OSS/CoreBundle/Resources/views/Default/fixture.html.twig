@@ -12,8 +12,8 @@
     <tbody>
 {% for i in 1..11 %}
         <tr>
-            <td><a href="{{ path('profile_player', { 'id': fixture.lineupHome.player(i).id } ) }}">{{ fixture.lineupHome.player(i).name }}</a></td>
-            <td><a href="{{ path('profile_player', { 'id': fixture.lineupAway.player(i).id } ) }}">{{ fixture.lineupAway.player(i).name }}</a></td>
+            <td>{{ fixture.lineupHome.player(i)|playerLink }}</td>
+            <td>{{ fixture.lineupAway.player(i)|playerLink }}</a></td>
         </tr>
 {% endfor %}
     </tbody>
@@ -30,11 +30,11 @@
     </thead>
 {% for event in fixture.events %}
     <tr class="{% if app.user and app.user.player.equals(event.player) %}own{% endif %}">
-        <td>{% if event.team.equals(fixture.teamHome) %}<a href="{{ path('profile_player', { 'id': event.player.id } ) }}">{{ event.player.name }}</a>{% endif %}</td>
+        <td>{% if event.team.equals(fixture.teamHome) %}{{ event.player|playerLink }}{% endif %}</td>
         <td>{% if event.team.equals(fixture.teamHome) %}{{ event.type }}{% endif %}</td>
         <td>{{ event.minute }}.</td>
         <td>{% if event.team.equals(fixture.teamAway) %}{{ event.type }}{% endif %}</td>
-        <td>{% if event.team.equals(fixture.teamAway) %}<a href="{{ path('profile_player', { 'id': event.player.id } ) }}">{{ event.player.name }}</a>{% endif %}</td>
+        <td>{% if event.team.equals(fixture.teamAway) %}{{ event.player|playerLink }}{% endif %}</td>
     </tr>
 {% endfor %}
 </table>

@@ -1,15 +1,4 @@
 services:
-    twig.extension.game_date:
-        class: OSS\CoreBundle\Twig\GameDateExtension
-        arguments: [@doctrine.orm.entity_manager]
-        tags:
-            - { name: twig.extension }
-
-    twig.extension.number:
-        class: OSS\CoreBundle\Twig\NumberExtension
-        tags:
-            - { name: twig.extension }
-
     oss.core.service.fixture:
         class: OSS\CoreBundle\Services\FixtureService
         arguments: [@doctrine.orm.entity_manager]

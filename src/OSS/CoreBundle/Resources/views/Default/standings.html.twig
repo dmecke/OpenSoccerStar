@@ -16,7 +16,7 @@
 {% for position,team in standings %}
         <tr class="{% if app.user and app.user.player.team.equals(team) %}own{% endif %}">
             <td>{{ position+1 }}.</td>
-            <td><a href="{{ path('profile_team', { 'id': team.id } ) }}">{{ team.name }}</a></td>
+            <td>{{ team|teamLink }}</td>
             <td>{{ team.goalsDifference }}</td>
             <td>{{ team.goalsFor }}</td>
             <td>{{ team.goalsAgainst }}</td>

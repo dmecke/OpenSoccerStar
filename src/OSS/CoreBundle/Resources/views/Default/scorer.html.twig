@@ -14,8 +14,8 @@
         {% for position,scorer in scorerList %}
             <tr class="{% if app.user and app.user.player.equals(scorer.player) %}own{% endif %}">
                 <td>{{ position+1 }}.</td>
-                <td><a href="{{ path('profile_player', { 'id': scorer.player.id } ) }}">{{ scorer.player.name }}</a></td>
-                <td><a href="{{ path('profile_team', { 'id': scorer.player.team.id } ) }}">{{ scorer.player.team.name }}</a></td>
+                <td>{{ scorer.player|playerLink }}</td>
+                <td>{{ scorer.player.team|teamLink }}</td>
                 <td>{{ scorer.goals }}</td>
             </tr>
         {% endfor %}

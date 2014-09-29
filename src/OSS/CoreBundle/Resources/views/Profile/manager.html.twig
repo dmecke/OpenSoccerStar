@@ -1,7 +1,7 @@
 {% extends 'CoreBundle::layout.html.twig' %}
 
 {% block content %}
-    <h3>{{ manager.name }}<small> - <a href="{{ path('profile_team', { 'id': manager.team.id } ) }}">{{ manager.team.name }}</a></small></h3>
+    <h3>{{ manager.name }}<small> - {{ manager.team|teamLink }}</small></h3>
     <table>
         <thead>
             <tr>

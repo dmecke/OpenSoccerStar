@@ -10,9 +10,9 @@
     <tbody>
     {% for transfer in transfers %}
         <tr>
-            <td><a href="{{ path('profile_player', { 'id': transfer.player.id } ) }}">{{ transfer.player.name }}</a></td>
-            <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</td>
-            <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</td>
+            <td>{{ transfer.player|playerLink }}</td>
+            <td>{{ transfer.originTeam|teamLink }}</td>
+            <td>{{ transfer.targetTeam|teamLink }}</td>
             <td>{{ transfer.amount|money }}</td>
         </tr>
     {% endfor %}
