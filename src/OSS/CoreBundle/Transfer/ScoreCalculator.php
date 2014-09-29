@@ -11,42 +11,52 @@ class ScoreCalculator
     const TYPE_SELL = 'sell';
 
     /**
-     * @param Manager $manager
-     * @param Player $player
-     *
-     * @return int
+     * @var Manager
      */
-    public function calculateBuyScore(Manager $manager, Player $player)
-    {
-        return $this->calculateScore($manager, $player, self::TYPE_BUY);
-    }
+    private $manager;
 
     /**
      * @param Manager $manager
+     */
+    public function __construct(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    /**
      * @param Player $player
      *
      * @return int
      */
-    public function calculateSellScore(Manager $manager, Player $player)
+    public function calculateBuyScore(Player $player)
     {
-        if ($manager->getTeam()->getPlayers()->count() <= 11) {
+        return $this->calculateScore($player, self::TYPE_BUY);
+    }
+
+    /**
+     * @param Player $player
+     *
+     * @return int
+     */
+    public function calculateSellScore(Player $player)
+    {
+        if ($this->manager->getTeam()->getPlayers()->count() <= 11) {
             return -1;
         }
 
-        return $this->calculateScore($manager, $player, self::TYPE_SELL);
+        return $this->calculateScore($player, self::TYPE_SELL);
     }
 
     /**
-     * @param Manager $manager
      * @param Player $player
      * @param string $type
      *
      * @return int
      */
-    private function calculateScore(Manager $manager, Player $player, $type)
+    private function calculateScore(Player $player, $type)
     {
-        $value = $this->calculateBaseValue($player, $manager);
-        $moneyFactor = $this->getMoneyPercentage($player->getMarketValue(), $manager->getTeam()->getMoney()) * 10 * $manager->getTransferFactorMoneyBehaviour();
+        $value = $this->calculateBaseValue($player);
+        $moneyFactor = $this->getMoneyPercentage($player->getMarketValue(), $this->manager->getTeam()->getMoney()) * 10 * $this->manager->getTransferFactorMoneyBehaviour();
 
         if ($moneyFactor > 0) {
             $value = $type == self::TYPE_BUY ? $value / $moneyFactor : $value * $moneyFactor * 2;
@@ -74,14 +84,13 @@ class ScoreCalculator
 
     /**
      * @param Player $player
-     * @param Manager $manager
      *
      * @return float
      */
-    private function calculateBaseValue(Player $player, Manager $manager)
+    private function calculateBaseValue(Player $player)
     {
-        $skill = $player->getSkillDefense() * $manager->getTransferFactorDefensiveSkill() + $player->getSkillOffense() * $manager->getTransferFactorOffensiveSkill();
+        $skill = $player->getSkillDefense() * $this->manager->getTransferFactorDefensiveSkill() + $player->getSkillOffense() * $this->manager->getTransferFactorOffensiveSkill();
 
-        return $skill / ($manager->getTransferFactorDefensiveSkill() + $manager->getTransferFactorOffensiveSkill());
+        return $skill / ($this->manager->getTransferFactorDefensiveSkill() + $this->manager->getTransferFactorOffensiveSkill());
     }
 }

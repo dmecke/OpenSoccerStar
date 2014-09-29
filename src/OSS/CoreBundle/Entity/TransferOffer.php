@@ -3,6 +3,7 @@
 namespace OSS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OSS\CoreBundle\Transfer\ScoreCalculator;
 
 /**
  * @ORM\Entity(repositoryClass="OSS\CoreBundle\Repository\TransferOfferRepository")
@@ -108,5 +109,34 @@ class TransferOffer
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    /**
+     * @param GameDate $gameDate
+     *
+     * @return Transfer
+     */
+    public function execute(GameDate $gameDate)
+    {
+        $this->targetTeam->sendMoney($this->originTeam, $this->amount);
+        $this->player->setTeam($this->targetTeam);
+
+        return Transfer::createFromOffer($this, $gameDate);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSellAccepted()
+    {
+        return $this->originTeam->getManager()->isSellAccepted($this->player);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSellDenied()
+    {
+        return $this->originTeam->getManager()->isSellDenied($this->player);
     }
 }

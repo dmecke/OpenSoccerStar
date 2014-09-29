@@ -20,4 +20,4 @@ services:
 
     oss.core.service.transfer:
         class: OSS\CoreBundle\Services\TransferService
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @oss.core.repository.transfer_offer]

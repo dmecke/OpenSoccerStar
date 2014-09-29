@@ -5,9 +5,8 @@ namespace OSS\CoreBundle\Services;
 use Doctrine\ORM\EntityManager;
 use OSS\CoreBundle\Entity\Manager;
 use OSS\CoreBundle\Entity\Player;
-use OSS\CoreBundle\Entity\Transfer;
 use OSS\CoreBundle\Entity\TransferOffer;
-use OSS\CoreBundle\Transfer\ScoreCalculator;
+use OSS\CoreBundle\Repository\TransferOfferRepository;
 
 class TransferService
 {
@@ -17,23 +16,24 @@ class TransferService
     private $entityManager;
 
     /**
-     * @param EntityManager $entityManager
+     * @var TransferOfferRepository
      */
-    public function __construct(EntityManager $entityManager)
+    private $transferOfferRepository;
+
+    /**
+     * @param EntityManager $entityManager
+     * @param TransferOfferRepository $transferOfferRepository
+     */
+    public function __construct(EntityManager $entityManager, TransferOfferRepository $transferOfferRepository)
     {
         $this->entityManager = $entityManager;
+        $this->transferOfferRepository = $transferOfferRepository;
     }
 
-    public function handleTransfers()
+    public function decideOnTransferOffers()
     {
-        $this->decideOnTransferOffers();
-        $this->createTransferOffers();
-    }
-
-    private function decideOnTransferOffers()
-    {
-        $transferOffers = $this->entityManager->getRepository('CoreBundle:TransferOffer')->findAll();
-        foreach ($transferOffers as $transferOffer) {
+        /** @var TransferOffer $transferOffer */
+        foreach ($this->transferOfferRepository->findAll() as $transferOffer) {
             $this->decideOnTransferOffer($transferOffer);
         }
         $this->entityManager->flush();
@@ -45,75 +45,27 @@ class TransferService
     private function decideOnTransferOffer(TransferOffer $transferOffer)
     {
         $gameDate = $this->entityManager->getRepository('CoreBundle:GameDate')->findOneBy(array());
-        $transferCalculator = new ScoreCalculator();
-        $sellScore = $transferCalculator->calculateSellScore($transferOffer->getOriginTeam()->getManager(), $transferOffer->getPlayer());
-        $sellingManager = $transferOffer->getOriginTeam()->getManager();
-        if ($sellingManager->acceptTransferOffer($sellScore)) {
-            $transfer = Transfer::createFromOffer($transferOffer);
-            $transfer->setSeason($gameDate->getSeason());
+        if ($transferOffer->isSellAccepted()) {
+            $transfer = $transferOffer->execute($gameDate);
             $this->entityManager->persist($transfer);
-
-            $transferOffer->getOriginTeam()->addMoney($transferOffer->getAmount());
-            $transferOffer->getTargetTeam()->subtractAmount($transferOffer->getAmount());
-            $transferOffer->getPlayer()->setTeam($transferOffer->getTargetTeam());
             $this->entityManager->remove($transferOffer);
-        } elseif ($sellingManager->denyTransferOffer($sellScore)) {
+        } elseif ($transferOffer->isSellDenied()) {
             $this->entityManager->remove($transferOffer);
         }
     }
 
-    private function createTransferOffers()
+    public function createTransferOffers()
     {
         $players = $this->entityManager->getRepository('CoreBundle:Player')->findAll();
         $managers = $this->entityManager->getRepository('CoreBundle:Manager')->findAll();
         foreach ($managers as $manager) {
-            $pickedPlayer = $this->selectBestFittingPlayer($manager, $this->pickPlayersToInvestigate($players));
+            $pickedPlayer = $manager->selectBestFittingPlayer($this->pickPlayersToInvestigate($players));
             if ($pickedPlayer !== null) {
-                $this->createTransferOffer($pickedPlayer, $manager);
+                $transferOffer = $manager->createTransferOffer($pickedPlayer, $manager);
+                $this->entityManager->persist($transferOffer);
             }
         }
         $this->entityManager->flush();
-    }
-
-    /**
-     * @param Manager $manager
-     * @param Player[] $playersToInvestigate
-     *
-     * @return null|Player
-     */
-    public function selectBestFittingPlayer(Manager $manager, array $playersToInvestigate)
-    {
-        $transferScoreCalculator = new ScoreCalculator();
-        $pickedPlayer = null;
-        $bestScore = 0;
-        foreach ($playersToInvestigate as $player) {
-            if ($player->hasTeam() && $player->getTeam()->equals($manager->getTeam())) continue;
-            $score = $transferScoreCalculator->calculateBuyScore($manager, $player);
-            if ($score > $bestScore) {
-                $pickedPlayer = $player;
-                $bestScore = $score;
-            }
-        }
-
-        return $pickedPlayer;
-    }
-
-    /**
-     * @param Player $player
-     * @param Manager $manager
-     *
-     * @return TransferOffer
-     */
-    private function createTransferOffer(Player $player, Manager $manager)
-    {
-        $transfer = new TransferOffer();
-        $transfer->setPlayer($player);
-        $transfer->setOriginTeam($player->getTeam());
-        $transfer->setTargetTeam($manager->getTeam());
-        $transfer->setAmount($player->getMarketValue());
-        $this->entityManager->persist($transfer);
-
-        return $transfer;
     }
 
     /**

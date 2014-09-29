@@ -451,4 +451,14 @@ class Team
             $this->trainer->train($player);
         }
     }
+
+    /**
+     * @param Team $team
+     * @param int $amount
+     */
+    public function sendMoney(Team $team, $amount)
+    {
+        $this->subtractAmount($amount);
+        $team->addMoney($amount);
+    }
 }

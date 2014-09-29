@@ -3,6 +3,7 @@
 namespace OSS\CoreBundle\Tests\Entity;
 
 use OSS\CoreBundle\Entity\Manager;
+use OSS\CoreBundle\Entity\Player;
 use OSS\CoreBundle\Entity\Team;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -72,6 +73,46 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->manager->denyTransferOffer(50));
         $this->assertFalse($this->manager->denyTransferOffer(51));
         $this->assertFalse($this->manager->denyTransferOffer(100));
+    }
+
+    public function testSelectBestFittingPlayer()
+    {
+        $team = new Team();
+        $team->setId(1);
+        $team->setMoney(10);
+        $this->manager->setTeam($team);
+        $player1 = new Player();
+        $player1->setId(1);
+        $player1->setTeam($team);
+        $player1->setSkillDefense(10);
+        $players = array($player1);
+
+        $this->assertNull($this->manager->selectBestFittingPlayer($players));
+
+        $player2 = new Player();
+        $player2->setId(2);
+        $player2->setSkillDefense(10);
+        $players[] = $player2;
+        $this->assertEquals($player2, $this->manager->selectBestFittingPlayer($players));
+    }
+
+    public function testCreateTransferOffer()
+    {
+        $originTeam = new Team();
+        $targetTeam = new Team();
+
+        $this->manager->setTeam($targetTeam);
+
+        $player = new Player();
+        $player->setSkillDefense(10);
+        $player->setSkillOffense(10);
+        $player->setTeam($originTeam);
+
+        $transferOffer = $this->manager->createTransferOffer($player);
+        $this->assertEquals($originTeam, $transferOffer->getOriginTeam());
+        $this->assertEquals($targetTeam, $transferOffer->getTargetTeam());
+        $this->assertEquals($player, $transferOffer->getPlayer());
+        $this->assertEquals(100, $transferOffer->getAmount());
     }
 
     private function assertTransferFactorDefensiveSkill($factor, $preferredSkill)

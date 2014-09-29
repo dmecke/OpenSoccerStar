@@ -3,6 +3,7 @@
 namespace OSS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OSS\CoreBundle\Transfer\ScoreCalculator;
 
 /**
  * @ORM\Entity
@@ -67,6 +68,16 @@ class Manager
      * @ORM\OneToOne(targetEntity="Team", inversedBy="manager")
      */
     private $team;
+
+    /**
+     * @var ScoreCalculator
+     */
+    private $transferScoreCalculator;
+
+    public function __construct()
+    {
+        $this->transferScoreCalculator = new ScoreCalculator($this);
+    }
 
     /**
      * @return string
@@ -223,5 +234,72 @@ class Manager
     public function denyTransferOffer($transferOfferScore)
     {
         return $transferOfferScore <= $this->denyTransferScoreOffset;
+    }
+
+    /**
+     * @param Player[] $playersToInvestigate
+     *
+     * @return null|Player
+     */
+    public function selectBestFittingPlayer(array $playersToInvestigate)
+    {
+        $pickedPlayer = null;
+        $bestScore = 0;
+        foreach ($playersToInvestigate as $player) {
+            if ($player->hasTeam() && $player->getTeam()->equals($this->team)) continue;
+            $score = $this->transferScoreCalculator->calculateBuyScore($player);
+            if ($score > $bestScore) {
+                $pickedPlayer = $player;
+                $bestScore = $score;
+            }
+        }
+
+        return $pickedPlayer;
+    }
+
+    /**
+     * @param Player $player
+     *
+     * @return TransferOffer
+     */
+    public function createTransferOffer(Player $player)
+    {
+        $transfer = new TransferOffer();
+        $transfer->setPlayer($player);
+        $transfer->setOriginTeam($player->getTeam());
+        $transfer->setTargetTeam($this->team);
+        $transfer->setAmount($player->getMarketValue());
+
+        return $transfer;
+    }
+
+    /**
+     * @param Player $player
+     *
+     * @return int
+     */
+    public function calculateSellScore(Player $player)
+    {
+        return $this->transferScoreCalculator->calculateSellScore($player);
+    }
+
+    /**
+     * @param Player $player
+     *
+     * @return bool
+     */
+    public function isSellAccepted(Player $player)
+    {
+        return $this->acceptTransferOffer($this->calculateSellScore($player));
+    }
+
+    /**
+     * @param Player $player
+     *
+     * @return bool
+     */
+    public function isSellDenied(Player $player)
+    {
+        return $this->denyTransferOffer($this->calculateSellScore($player));
     }
 }
