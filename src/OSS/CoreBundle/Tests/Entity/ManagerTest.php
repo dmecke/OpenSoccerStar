@@ -58,42 +58,37 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptTransferOffer()
     {
-        $manager = new Manager();
-        $manager->setAcceptTransferScoreOffset(100);
-        $this->assertTrue($manager->acceptTransferOffer(150));
-        $this->assertTrue($manager->acceptTransferOffer(100));
-        $this->assertFalse($manager->acceptTransferOffer(99));
-        $this->assertFalse($manager->acceptTransferOffer(50));
+        $this->manager->setAcceptTransferScoreOffset(100);
+        $this->assertTrue($this->manager->acceptTransferOffer(150));
+        $this->assertTrue($this->manager->acceptTransferOffer(100));
+        $this->assertFalse($this->manager->acceptTransferOffer(99));
+        $this->assertFalse($this->manager->acceptTransferOffer(50));
     }
 
     public function testDenyTransferOffer()
     {
-        $manager = new Manager();
-        $manager->setDenyTransferScoreOffset(50);
-        $this->assertTrue($manager->denyTransferOffer(25));
-        $this->assertTrue($manager->denyTransferOffer(50));
-        $this->assertFalse($manager->denyTransferOffer(51));
-        $this->assertFalse($manager->denyTransferOffer(100));
+        $this->manager->setDenyTransferScoreOffset(50);
+        $this->assertTrue($this->manager->denyTransferOffer(25));
+        $this->assertTrue($this->manager->denyTransferOffer(50));
+        $this->assertFalse($this->manager->denyTransferOffer(51));
+        $this->assertFalse($this->manager->denyTransferOffer(100));
     }
 
     private function assertTransferFactorDefensiveSkill($factor, $preferredSkill)
     {
-        $manager = new Manager();
-        $manager->setPreferredSkill($preferredSkill);
-        $this->assertEquals($factor, $manager->getTransferFactorDefensiveSkill());
+        $this->manager->setPreferredSkill($preferredSkill);
+        $this->assertEquals($factor, $this->manager->getTransferFactorDefensiveSkill());
     }
 
     private function assertTransferFactorOffensiveSkill($factor, $preferredSkill)
     {
-        $manager = new Manager();
-        $manager->setPreferredSkill($preferredSkill);
-        $this->assertEquals($factor, $manager->getTransferFactorOffensiveSkill());
+        $this->manager->setPreferredSkill($preferredSkill);
+        $this->assertEquals($factor, $this->manager->getTransferFactorOffensiveSkill());
     }
 
     private function assertTransferFactorMoneyBehaviour($factor, $moneyBehaviour)
     {
-        $manager = new Manager();
-        $manager->setMoneyBehaviour($moneyBehaviour);
-        $this->assertEquals($factor, $manager->getTransferFactorMoneyBehaviour());
+        $this->manager->setMoneyBehaviour($moneyBehaviour);
+        $this->assertEquals($factor, $this->manager->getTransferFactorMoneyBehaviour());
     }
 }

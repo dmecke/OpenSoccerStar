@@ -346,13 +346,7 @@ class Fixture
      */
     public function getLineupHome()
     {
-        foreach ($this->lineups as $lineup) {
-            if ($lineup->getTeam()->equals($this->teamHome)) {
-                return $lineup;
-            }
-        }
-
-        throw new \Exception('could not find lineup for home team');
+        return $this->getLineup($this->teamHome);
     }
 
     /**
@@ -362,12 +356,24 @@ class Fixture
      */
     public function getLineupAway()
     {
+        return $this->getLineup($this->teamAway);
+    }
+
+    /**
+     * @param Team $team
+     *
+     * @return Lineup
+     *
+     * @throws \Exception
+     */
+    private function getLineup(Team $team)
+    {
         foreach ($this->lineups as $lineup) {
-            if ($lineup->getTeam()->equals($this->teamAway)) {
+            if ($lineup->getTeam()->equals($team)) {
                 return $lineup;
             }
         }
 
-        throw new \Exception('could not find lineup for away team');
+        throw new \Exception('could not find lineup for team ' . $team->getId());
     }
 }

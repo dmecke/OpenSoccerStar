@@ -103,13 +103,7 @@ class Trainer
      */
     public function getTrainingFactorDefensive()
     {
-        if ($this->preferredTraining == self::PREFERRED_TRAINING_DEFENSIVE) {
-            return 0.75;
-        } elseif ($this->preferredTraining == self::PREFERRED_TRAINING_OFFENSIVE) {
-            return 0.25;
-        } else {
-            return 0.5;
-        }
+        return $this->getTrainingFactor(0.75, 0.25);
     }
 
     /**
@@ -117,10 +111,21 @@ class Trainer
      */
     public function getTrainingFactorOffensive()
     {
-        if ($this->preferredTraining == self::PREFERRED_TRAINING_OFFENSIVE) {
-            return 0.75;
-        } elseif ($this->preferredTraining == self::PREFERRED_TRAINING_DEFENSIVE) {
-            return 0.25;
+        return $this->getTrainingFactor(0.25, 0.75);
+    }
+
+    /**
+     * @param float $defensiveFactor
+     * @param float $offensiveFactor
+     *
+     * @return float
+     */
+    private function getTrainingFactor($defensiveFactor, $offensiveFactor)
+    {
+        if ($this->preferredTraining == self::PREFERRED_TRAINING_DEFENSIVE) {
+            return $defensiveFactor;
+        } elseif ($this->preferredTraining == self::PREFERRED_TRAINING_OFFENSIVE) {
+            return $offensiveFactor;
         } else {
             return 0.5;
         }
