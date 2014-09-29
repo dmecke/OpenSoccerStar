@@ -51,6 +51,20 @@ class Player
      *
      * @ORM\Column(type="integer")
      */
+    private $skillChangeDefense = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $skillChangeOffense = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
     private $trainingValueDefense = 0;
 
     /**
@@ -255,5 +269,53 @@ class Player
     {
         $this->trainingValueDefense -= floor($this->skillDefense * 0.5);
         $this->trainingValueOffense -= floor($this->skillOffense * 0.5);
+    }
+
+    public function updateSkills()
+    {
+        $this->skillChangeDefense = max(0, min(100, $this->calculateSkillChange($this->trainingValueDefense)));
+        $this->skillDefense += $this->skillChangeDefense;
+        $this->trainingValueDefense = 0;
+
+        $this->skillChangeOffense += max(0, min(100, $this->calculateSkillChange($this->trainingValueOffense)));
+        $this->skillOffense += $this->skillChangeOffense;
+        $this->trainingValueOffense = 0;
+    }
+
+    /**
+     * @param int $trainingValue
+     *
+     * @return int
+     */
+    private function calculateSkillChange($trainingValue)
+    {
+        $change = 0;
+        for ($i = 0; $i < abs($trainingValue) && $change < 10; $i++) {
+            if (rand(1, 100) == 1) {
+                $change++;
+            }
+        }
+
+        if ($trainingValue < 0) {
+            $change *= -1;
+        }
+
+        return $change;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkillChangeDefense()
+    {
+        return $this->skillChangeDefense;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkillChangeOffense()
+    {
+        return $this->skillChangeOffense;
     }
 }

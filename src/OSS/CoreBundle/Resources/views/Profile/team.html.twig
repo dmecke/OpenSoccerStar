@@ -35,7 +35,7 @@
 {% for transfer in team.transfersIncoming %}
                     <tr>
                         <td>{{ transfer.season }}</td>
-                        <td>{{ transfer.player.name }}</td>
+                        <td><a href="{{ path('profile_player', { 'id': transfer.player.id } ) }}">{{ transfer.player.name }}</a></td>
                         <td><a href="{{ path('profile_team', { 'id': transfer.originTeam.id } ) }}">{{ transfer.originTeam.name }}</a></td>
                         <td>{{ transfer.amount|money }}</td>
                     </tr>
@@ -57,7 +57,7 @@
 {% for transfer in team.transfersOutgoing %}
                     <tr>
                         <td>{{ transfer.season }}</td>
-                        <td>{{ transfer.player.name }}</td>
+                        <td><a href="{{ path('profile_player', { 'id': transfer.player.id } ) }}">{{ transfer.player.name }}</a></td>
                         <td><a href="{{ path('profile_team', { 'id': transfer.targetTeam.id } ) }}">{{ transfer.targetTeam.name }}</a></td>
                         <td>{{ transfer.amount|money }}</td>
                     </tr>

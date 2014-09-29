@@ -40,7 +40,8 @@ class MatchdayCommand extends BaseCommand
         $this->getTransferService()->handleTransfers();
 
         $gameDate->incrementWeek();
-        $this->executeStartOfWeek($gameDate);
+        $this->executeHalfOfSeason($gameDate);
+        $this->executeStartOfSeason($gameDate);
         $this->getEntityManager()->flush();
     }
 
@@ -61,12 +62,20 @@ class MatchdayCommand extends BaseCommand
         $progress->finish();
     }
 
+    private function executeHalfOfSeason(GameDate $gameDate)
+    {
+        if ($gameDate->getWeek() == 18) {
+            $this->getTrainingService()->handleSkillUpdate();
+        }
+    }
+
     /**
      * @param GameDate $gameDate
      */
-    private function executeStartOfWeek(GameDate $gameDate)
+    private function executeStartOfSeason(GameDate $gameDate)
     {
         if ($gameDate->getWeek() == 1) {
+            $this->getTrainingService()->handleSkillUpdate();
             /** @var League[] $leagues */
             $leagues = $this->getLeagueRepository()->findAll();
             foreach ($leagues as $league) {

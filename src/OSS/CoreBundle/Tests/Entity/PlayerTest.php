@@ -25,11 +25,19 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
     /**
      * @param int $skillDefense
      * @param int $skillOffense
+     * @param int $trainingValueDefense
+     * @param int $trainingValueOffense
      */
-    private function setUpPlayer($skillDefense, $skillOffense)
+    private function setUpPlayer($skillDefense, $skillOffense, $trainingValueDefense = null, $trainingValueOffense = null)
     {
         $this->player->setSkillDefense($skillDefense);
         $this->player->setSkillOffense($skillOffense);
+        if (null !== $trainingValueDefense) {
+            $this->player->setTrainingValueDefense($trainingValueDefense);
+        }
+        if (null !== $trainingValueOffense) {
+            $this->player->setTrainingValueOffense($trainingValueOffense);
+        }
     }
 
     public function testEquals()
@@ -130,12 +138,28 @@ class PlayerTest extends \PHPUnit_Framework_TestCase
 
     public function testTrainingValueReduction()
     {
-        $this->setUpPlayer(20, 50);
-        $this->player->setTrainingValueDefense(20);
-        $this->player->setTrainingValueOffense(20);
+        $this->setUpPlayer(20, 50, 20, 20);
 
         $this->player->decreaseTrainingValues();
         $this->assertEquals(10, $this->player->getTrainingValueDefense());
         $this->assertEquals(-5, $this->player->getTrainingValueOffense());
+    }
+
+    public function testUpdateSkill()
+    {
+        $this->setUpPlayer(20, 50, 100, -100);
+
+        $this->player->updateSkills();
+        $this->assertGreaterThanOrEqual(20, $this->player->getSkillDefense());
+        $this->assertLessThanOrEqual(30, $this->player->getSkillDefense());
+        $this->assertEquals(0, $this->player->getTrainingValueDefense());
+        $this->assertGreaterThanOrEqual(0, $this->player->getSkillChangeDefense());
+        $this->assertLessThanOrEqual(10, $this->player->getSkillChangeDefense());
+
+        $this->assertGreaterThanOrEqual(40, $this->player->getSkillOffense());
+        $this->assertLessThanOrEqual(50, $this->player->getSkillOffense());
+        $this->assertEquals(0, $this->player->getTrainingValueOffense());
+        $this->assertGreaterThanOrEqual(0, $this->player->getSkillChangeOffense());
+        $this->assertLessThanOrEqual(10, $this->player->getSkillChangeOffense());
     }
 }

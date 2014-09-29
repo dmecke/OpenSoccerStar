@@ -15,8 +15,8 @@
                 <tbody>
                     <tr>
                         <td>{{ 'player.skill.label'|trans }}</td>
-                        <td>{{ player.skillDefense }}</td>
-                        <td>{{ player.skillOffense }}</td>
+                        <td>{{ player.skillDefense }}{% if player.skillChangeDefense %} <small><span class="{{ player.skillChangeDefense|cssClass }}">{{ player.skillChangeDefense|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skillOffense }}{% if player.skillChangeOffense %} <small><span class="{{ player.skillChangeOffense|cssClass }}">{{ player.skillChangeOffense|signed }}</span></small>{% endif %}</td>
                     </tr>
                     <tr>
                         <td>{{ 'player.training_value.label'|trans }}</td>
