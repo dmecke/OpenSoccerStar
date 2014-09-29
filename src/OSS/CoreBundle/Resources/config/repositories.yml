@@ -1,0 +1,6 @@
+services:
+    oss.core.repository.team:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [OSS\CoreBundle\Entity\Team]

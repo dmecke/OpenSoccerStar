@@ -160,4 +160,16 @@ class Trainer
     {
         return $this->team;
     }
+
+    /**
+     * @param Player $player
+     */
+    public function train(Player $player)
+    {
+        $defensive = ceil($this->skill * $this->getTrainingFactorDefensive());
+        $offensive = ceil($this->skill * $this->getTrainingFactorOffensive());
+
+        $player->addTrainingValueDefense($defensive);
+        $player->addTrainingValueOffense($offensive);
+    }
 }

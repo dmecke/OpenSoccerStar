@@ -146,4 +146,31 @@ class TeamTest extends \PHPUnit_Framework_TestCase
         $this->team->setManager(new Manager());
         $this->assertTrue($this->team->hasManager());
     }
+
+    public function testHandleTraining()
+    {
+        $this->team->setTrainer(new Trainer());
+        $this->team->addPlayer(new Player());
+        $player = new Player();
+        $player->setTrainingValueDefense(10);
+        $player->setTrainingValueOffense(10);
+        $this->team->addPlayer($player);
+
+        $this->team->train();
+        $players = $this->team->getPlayers();
+        $this->assertEquals(1, $players[0]->getTrainingValueDefense());
+        $this->assertEquals(1, $players[0]->getTrainingValueOffense());
+        $this->assertEquals(11, $players[1]->getTrainingValueDefense());
+        $this->assertEquals(11, $players[1]->getTrainingValueOffense());
+    }
+
+    public function testHandleTrainingWithoutTrainer()
+    {
+        $this->team->addPlayer(new Player());
+
+        $this->team->train();
+        $players = $this->team->getPlayers();
+        $this->assertEquals(0, $players[0]->getTrainingValueDefense());
+        $this->assertEquals(0, $players[0]->getTrainingValueOffense());
+    }
 }

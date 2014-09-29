@@ -2,6 +2,7 @@
 
 namespace OSS\CoreBundle\Tests\Entity;
 
+use OSS\CoreBundle\Entity\Player;
 use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Entity\Trainer;
 
@@ -12,6 +13,11 @@ class TrainerTest extends \PHPUnit_Framework_TestCase
      */
     private $trainer;
 
+    /**
+     * @var Player
+     */
+    private $player;
+
     public function setUp()
     {
         $this->trainer = new Trainer();
@@ -20,6 +26,28 @@ class TrainerTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->trainer = null;
+        $this->player = null;
+    }
+
+    /**
+     * @param int $skill
+     * @param int $preferredTraining
+     */
+    private function setUpTrainer($skill, $preferredTraining)
+    {
+        $this->trainer->setSkill($skill);
+        $this->trainer->setPreferredTraining($preferredTraining);
+    }
+
+    /**
+     * @param int $trainingValueDefense
+     * @param int $trainingValueOffense
+     */
+    private function setUpPlayer($trainingValueDefense, $trainingValueOffense)
+    {
+        $this->player = new Player();
+        $this->player->setTrainingValueDefense($trainingValueDefense);
+        $this->player->setTrainingValueOffense($trainingValueOffense);
     }
 
     public function testPreferredTraining()
@@ -117,5 +145,53 @@ class TrainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->trainer->setPreferredTraining(Trainer::PREFERRED_TRAINING_OFFENSIVE);
         $this->assertEquals(0.75, $this->trainer->getTrainingFactorOffensive());
+    }
+
+    public function testTrainByNeutralTrainerWithSkill1()
+    {
+        $this->setUpPlayer(0, 0);
+
+        $this->trainer->train($this->player);
+        $this->assertEquals(1, $this->player->getTrainingValueDefense());
+        $this->assertEquals(1, $this->player->getTrainingValueOffense());
+    }
+
+    public function testTrainByNeutralTrainerWithSkill1AndBaseValue()
+    {
+        $this->setUpPlayer(1, 1);
+
+        $this->trainer->train($this->player);
+        $this->assertEquals(2, $this->player->getTrainingValueDefense());
+        $this->assertEquals(2, $this->player->getTrainingValueOffense());
+    }
+
+    public function testTrainByNeutralTrainerWithSkill50()
+    {
+        $this->setUpPlayer(0, 0);
+        $this->trainer->setSkill(50);
+
+        $this->trainer->train($this->player);
+        $this->assertEquals(25, $this->player->getTrainingValueDefense());
+        $this->assertEquals(25, $this->player->getTrainingValueOffense());
+    }
+
+    public function testTrainByDefensiveTrainerWithSkill100()
+    {
+        $this->setUpPlayer(0, 0);
+        $this->setUpTrainer(100, Trainer::PREFERRED_TRAINING_DEFENSIVE);
+
+        $this->trainer->train($this->player);
+        $this->assertEquals(75, $this->player->getTrainingValueDefense());
+        $this->assertEquals(25, $this->player->getTrainingValueOffense());
+    }
+
+    public function testTrainByOffensiveTrainerWithSkill100()
+    {
+        $this->setUpPlayer(0, 0);
+        $this->setUpTrainer(100, Trainer::PREFERRED_TRAINING_OFFENSIVE);
+
+        $this->trainer->train($this->player);
+        $this->assertEquals(25, $this->player->getTrainingValueDefense());
+        $this->assertEquals(75, $this->player->getTrainingValueOffense());
     }
 }

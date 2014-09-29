@@ -8,6 +8,7 @@ use OSS\CoreBundle\Repository\FixtureRepository;
 use OSS\CoreBundle\Repository\TransferOfferRepository;
 use OSS\CoreBundle\Services\FixtureService;
 use OSS\CoreBundle\Services\MatchEvaluationService;
+use OSS\CoreBundle\Services\TrainingService;
 use OSS\CoreBundle\Services\TransferService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
@@ -75,6 +76,14 @@ abstract class BaseCommand extends ContainerAwareCommand
     protected function getMatchEvaluationService()
     {
         return $this->getContainer()->get('oss.core.service.match_evaluation');
+    }
+
+    /**
+     * @return TrainingService
+     */
+    protected function getTrainingService()
+    {
+        return $this->getContainer()->get('oss.core.service.training');
     }
 
     /**

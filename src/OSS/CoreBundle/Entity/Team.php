@@ -439,4 +439,16 @@ class Team
     {
         return $this->transfersOutgoing;
     }
+
+    public function train()
+    {
+        if (!$this->hasTrainer()) {
+            return;
+        }
+
+        foreach ($this->players as $player)
+        {
+            $this->trainer->train($player);
+        }
+    }
 }

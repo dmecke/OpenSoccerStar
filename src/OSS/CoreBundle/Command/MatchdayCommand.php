@@ -2,7 +2,9 @@
 
 namespace OSS\CoreBundle\Command;
 
+use OSS\CoreBundle\Entity\Fixture;
 use OSS\CoreBundle\Entity\GameDate;
+use OSS\CoreBundle\Entity\League;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,6 +35,7 @@ class MatchdayCommand extends BaseCommand
         $gameDate = $this->getGameDateRepository()->findOneBy(array());
 
         $this->executeMatches($gameDate, $output);
+        $this->getTrainingService()->handleTraining();
         $this->getTransferService()->handleTransfers();
 
         $gameDate->incrementWeek();

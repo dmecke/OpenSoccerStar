@@ -2,17 +2,30 @@
 
 namespace OSS\CoreBundle\Services;
 
-use OSS\CoreBundle\Entity\Player;
-use OSS\CoreBundle\Entity\Trainer;
+use Doctrine\ORM\EntityRepository;
+use OSS\CoreBundle\Entity\Team;
 
 class TrainingService
 {
-    public function train(Player $player, Trainer $trainer)
-    {
-        $defensive = ceil($trainer->getSkill() * $trainer->getTrainingFactorDefensive());
-        $offensive = ceil($trainer->getSkill() * $trainer->getTrainingFactorOffensive());
+    /**
+     * @var EntityRepository
+     */
+    private $teamRepository;
 
-        $player->addTrainingValueDefense($defensive);
-        $player->addTrainingValueOffense($offensive);
+    /**
+     * @param EntityRepository $repository
+     */
+    public function __construct(EntityRepository $repository)
+    {
+        $this->teamRepository = $repository;
+    }
+
+    public function handleTraining()
+    {
+        /** @var Team[] $teams */
+        $teams = $this->teamRepository->findAll();
+        foreach ($teams as $team) {
+            $team->train();
+        }
     }
 }
