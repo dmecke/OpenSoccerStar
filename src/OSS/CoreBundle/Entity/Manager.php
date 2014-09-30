@@ -7,6 +7,7 @@ use OSS\CoreBundle\Transfer\ScoreCalculator;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Manager
 {
@@ -76,7 +77,7 @@ class Manager
 
     public function __construct()
     {
-        $this->transferScoreCalculator = new ScoreCalculator($this);
+        $this->initTransferScoreCalculator();
     }
 
     /**
@@ -301,5 +302,13 @@ class Manager
     public function isSellDenied(Player $player)
     {
         return $this->denyTransferOffer($this->calculateSellScore($player));
+    }
+
+    /**
+     * @ORM\PostLoad
+     */
+    public function initTransferScoreCalculator()
+    {
+        $this->transferScoreCalculator = new ScoreCalculator($this);
     }
 }
