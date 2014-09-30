@@ -1,0 +1,54 @@
+services:
+    oss.core.listener.clean_transfer_offers:
+        class: OSS\CoreBundle\Listener\CleanTransferOffersListener
+        arguments: [@oss.core.repository.transfer_offer]
+        tags:
+            - { name: kernel.event_listener, event: post_week_change, method: execute }
+
+    oss.core.listener.create_fixtures:
+        class: OSS\CoreBundle\Listener\CreateFixturesListener
+        arguments: [@oss.core.service.fixture]
+        tags:
+            - { name: kernel.event_listener, event: post_week_change, method: execute }
+
+    oss.core.listener.create_transfer_offers:
+        class: OSS\CoreBundle\Listener\CreateTransferOffersListener
+        arguments: [@oss.core.repository.player, @oss.core.repository.manager, @doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: pre_week_change, method: execute }
+
+    oss.core.listener.decide_on_transfer_offers:
+        class: OSS\CoreBundle\Listener\DecideOnTransferOffersListener
+        arguments: [@oss.core.repository.transfer_offer, @doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: pre_week_change, method: execute }
+
+    oss.core.listener.evaluate_matches:
+        class: OSS\CoreBundle\Listener\EvaluateMatchesListener
+        arguments: [@oss.core.repository.fixture, @oss.core.service.lineup, @oss.core.service.match_evaluation]
+        tags:
+            - { name: kernel.event_listener, event: pre_week_change, method: execute }
+
+    oss.core.listener.reset_standings:
+        class: OSS\CoreBundle\Listener\ResetStandingsListener
+        arguments: [@oss.core.repository.league]
+        tags:
+            - { name: kernel.event_listener, event: post_week_change, method: execute }
+
+    oss.core.listener.skill_update:
+        class: OSS\CoreBundle\Listener\SkillUpdateListener
+        arguments: [@oss.core.repository.team]
+        tags:
+            - { name: kernel.event_listener, event: pre_week_change, method: execute }
+
+    oss.core.listener.training:
+        class: OSS\CoreBundle\Listener\TrainingListener
+        arguments: [@oss.core.repository.team]
+        tags:
+            - { name: kernel.event_listener, event: pre_week_change, method: execute }
+
+    oss.core.listener.training_value_reduction:
+        class: OSS\CoreBundle\Listener\TrainingValueReductionListener
+        arguments: [@oss.core.repository.team]
+        tags:
+            - { name: kernel.event_listener, event: pre_week_change, method: execute }

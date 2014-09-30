@@ -1,4 +1,28 @@
 services:
+    oss.core.repository.fixture:
+        class: OSS\CoreBundle\Repository\FixtureRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [OSS\CoreBundle\Entity\Fixture]
+
+    oss.core.repository.league:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [OSS\CoreBundle\Entity\League]
+
+    oss.core.repository.manager:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [OSS\CoreBundle\Entity\Manager]
+
+    oss.core.repository.player:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [OSS\CoreBundle\Entity\Player]
+
     oss.core.repository.team:
         class: Doctrine\ORM\EntityRepository
         factory_service: doctrine.orm.entity_manager

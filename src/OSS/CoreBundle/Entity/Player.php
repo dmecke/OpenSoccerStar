@@ -273,12 +273,12 @@ class Player
 
     public function updateSkills()
     {
-        $this->skillChangeDefense = max(0, min(100, $this->calculateSkillChange($this->trainingValueDefense)));
-        $this->skillDefense += $this->skillChangeDefense;
+        $this->skillChangeDefense = max(-10, min(10, $this->calculateSkillChange($this->trainingValueDefense)));
+        $this->skillDefense = max(1, min(100, $this->skillDefense + $this->skillChangeDefense));
         $this->trainingValueDefense = 0;
 
-        $this->skillChangeOffense += max(0, min(100, $this->calculateSkillChange($this->trainingValueOffense)));
-        $this->skillOffense += $this->skillChangeOffense;
+        $this->skillChangeOffense = max(-10, min(10, $this->calculateSkillChange($this->trainingValueOffense)));
+        $this->skillOffense = max(1, min(100, $this->skillOffense + $this->skillChangeOffense));
         $this->trainingValueOffense = 0;
     }
 

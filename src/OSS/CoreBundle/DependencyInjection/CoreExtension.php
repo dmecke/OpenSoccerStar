@@ -15,5 +15,6 @@ class CoreExtension extends Extension
         $loader->load('services.yml');
         $loader->load('repositories.yml');
         $loader->load('twig.yml');
+        $loader->load('listener.yml');
     }
 }

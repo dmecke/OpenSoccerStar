@@ -14,10 +14,6 @@ services:
     oss.core.service.match_evaluation:
         class: OSS\CoreBundle\Services\MatchEvaluationService
 
-    oss.core.service.training:
-        class: OSS\CoreBundle\Services\TrainingService
-        arguments: [@oss.core.repository.team]
-
     oss.core.service.transfer:
         class: OSS\CoreBundle\Services\TransferService
         arguments: [@doctrine.orm.entity_manager, @oss.core.repository.transfer_offer]
