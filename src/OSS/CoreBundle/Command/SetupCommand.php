@@ -26,7 +26,7 @@ class SetupCommand extends ContainerAwareCommand
         $output->writeln('<info>OK</info>');
 
         $output->write('setting up match fixtures......');
-        $this->getContainer()->get('oss.league.service.fixture')->createFixtures(1);
+        $this->getContainer()->get('oss.core.service.fixture')->createFixtures(1);
         $output->writeln('<info>OK</info>');
     }
 }
