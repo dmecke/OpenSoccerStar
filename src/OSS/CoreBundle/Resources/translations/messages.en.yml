@@ -41,13 +41,20 @@ team:
         name: Name
     manager: Manager
     trainer: Trainer
+skill:
+    tackling: Tackling
+    passing: Passing
+    shooting: Shooting
+    heading: Heading
+    speed: Speed
+    crossing: Crossing
+    technics: Technics
+    intelligence: Intelligence
+    safety: Safety
+    dribbling: Dribbling
 player:
-    skill:
-        label: Skill
-        defense: Defense
-        offense: Offense
-    training_value:
-        label: Training Value
+    skill: Skill
+    training_value: Training Value
 transfer:
     season: Season
     player: Player
@@ -55,24 +62,13 @@ transfer:
     team_target: New Team
     amount: Transfer Fee
 manager:
-    preferred_skill:
-        label: Preferred Skill
-        1: Offensive
-        2: Defensive
-        3: Neutral
     money_behaviour:
         label: Money Behaviour
         1: Conservative
         2: Neutral
         3: Offensive
 trainer:
-    preferred_training:
-        label: Preferred Training
-        1: Defensive
-        2: Neutral
-        3: Offensive
-    skill:
-        label: Skill
+    skill: Skill
 season: Season
 position: Position
 fixture:

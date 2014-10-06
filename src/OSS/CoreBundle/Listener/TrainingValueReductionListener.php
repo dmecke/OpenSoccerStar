@@ -24,7 +24,7 @@ class TrainingValueReductionListener
     {
         foreach ($this->findAllTeams() as $team) {
             foreach ($team->getPlayers() as $player) {
-                $player->decreaseTrainingValues();
+                $player->getSkills()->decreaseTrainingValues();
             }
         }
     }

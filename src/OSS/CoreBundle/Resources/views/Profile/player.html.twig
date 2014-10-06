@@ -3,30 +3,56 @@
 {% block content %}
     <h3>{{ player.name }}<small> - {{ player.team|teamLink }}</small></h3>
     <div class="row">
-        <div class="large-6 columns">
+        <div class="large-12 columns">
             <table>
                 <thead>
                     <tr>
                         <th></th>
-                        <th>{{ 'player.skill.defense'|trans }}</th>
-                        <th>{{ 'player.skill.offense'|trans }}</th>
+                        <th>{{ 'skill.tackling'|trans }}</th>
+                        <th>{{ 'skill.passing'|trans }}</th>
+                        <th>{{ 'skill.shooting'|trans }}</th>
+                        <th>{{ 'skill.heading'|trans }}</th>
+                        <th>{{ 'skill.speed'|trans }}</th>
+                        <th>{{ 'skill.crossing'|trans }}</th>
+                        <th>{{ 'skill.technics'|trans }}</th>
+                        <th>{{ 'skill.intelligence'|trans }}</th>
+                        <th>{{ 'skill.safety'|trans }}</th>
+                        <th>{{ 'skill.dribbling'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ 'player.skill.label'|trans }}</td>
-                        <td>{{ player.skillDefense }}{% if player.skillChangeDefense %} <small><span class="{{ player.skillChangeDefense|cssClass }}">{{ player.skillChangeDefense|signed }}</span></small>{% endif %}</td>
-                        <td>{{ player.skillOffense }}{% if player.skillChangeOffense %} <small><span class="{{ player.skillChangeOffense|cssClass }}">{{ player.skillChangeOffense|signed }}</span></small>{% endif %}</td>
+                        <td>{{ 'player.skill'|trans }}</td>
+                        <td>{{ player.skills.tackling }}{% if player.skills.changeTackling %} <small><span class="{{ player.skills.changeTackling|cssClass }}">{{ player.skills.changeTackling|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.passing }}{% if player.skills.changePassing %} <small><span class="{{ player.skills.changePassing|cssClass }}">{{ player.skills.changePassing|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.shooting }}{% if player.skills.changeShooting %} <small><span class="{{ player.skills.changeShooting|cssClass }}">{{ player.skills.changeShooting|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.heading }}{% if player.skills.changeHeading %} <small><span class="{{ player.skills.changeHeading|cssClass }}">{{ player.skills.changeHeading|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.speed }}{% if player.skills.changeSpeed %} <small><span class="{{ player.skills.changeSpeed|cssClass }}">{{ player.skills.changeSpeed|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.crossing }}{% if player.skills.changeCrossing %} <small><span class="{{ player.skills.changeCrossing|cssClass }}">{{ player.skills.changeCrossing|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.technics }}{% if player.skills.changeTechnics %} <small><span class="{{ player.skills.changeTechnics|cssClass }}">{{ player.skills.changeTechnics|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.intelligence }}{% if player.skills.changeIntelligence %} <small><span class="{{ player.skills.changeIntelligence|cssClass }}">{{ player.skills.changeIntelligence|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.safety }}{% if player.skills.changeSafety %} <small><span class="{{ player.skills.changeSafety|cssClass }}">{{ player.skills.changeSafety|signed }}</span></small>{% endif %}</td>
+                        <td>{{ player.skills.dribbling }}{% if player.skills.changeDribbling %} <small><span class="{{ player.skills.changeDribbling|cssClass }}">{{ player.skills.changeDribbling|signed }}</span></small>{% endif %}</td>
                     </tr>
                     <tr>
-                        <td>{{ 'player.training_value.label'|trans }}</td>
-                        <td class="{{ player.trainingValueDefense|cssClass }}">{{ player.trainingValueDefense|signed }}</td>
-                        <td class="{{ player.trainingValueOffense|cssClass }}">{{ player.trainingValueOffense|signed }}</td>
+                        <td>{{ 'player.training_value'|trans }}</td>
+                        <td class="{{ player.skills.trainingValueTackling|cssClass }}">{{ player.skills.trainingValueTackling|signed }}</td>
+                        <td class="{{ player.skills.trainingValuePassing|cssClass }}">{{ player.skills.trainingValuePassing|signed }}</td>
+                        <td class="{{ player.skills.trainingValueShooting|cssClass }}">{{ player.skills.trainingValueShooting|signed }}</td>
+                        <td class="{{ player.skills.trainingValueHeading|cssClass }}">{{ player.skills.trainingValueHeading|signed }}</td>
+                        <td class="{{ player.skills.trainingValueSpeed|cssClass }}">{{ player.skills.trainingValueSpeed|signed }}</td>
+                        <td class="{{ player.skills.trainingValueCrossing|cssClass }}">{{ player.skills.trainingValueCrossing|signed }}</td>
+                        <td class="{{ player.skills.trainingValueTechnics|cssClass }}">{{ player.skills.trainingValueTechnics|signed }}</td>
+                        <td class="{{ player.skills.trainingValueIntelligence|cssClass }}">{{ player.skills.trainingValueIntelligence|signed }}</td>
+                        <td class="{{ player.skills.trainingValueSafety|cssClass }}">{{ player.skills.trainingValueSafety|signed }}</td>
+                        <td class="{{ player.skills.trainingValueDribbling|cssClass }}">{{ player.skills.trainingValueDribbling|signed }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="large-6 columns">
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
             <table>
                 <thead>
                     <tr>

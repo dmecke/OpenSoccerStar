@@ -5,14 +5,32 @@
     <table>
         <thead>
             <tr>
-                <th>{{ 'manager.preferred_skill.label'|trans }}</th>
                 <th>{{ 'manager.money_behaviour.label'|trans }}</th>
+                <th>{{ 'skill.tackling'|trans }}</th>
+                <th>{{ 'skill.passing'|trans }}</th>
+                <th>{{ 'skill.shooting'|trans }}</th>
+                <th>{{ 'skill.heading'|trans }}</th>
+                <th>{{ 'skill.speed'|trans }}</th>
+                <th>{{ 'skill.crossing'|trans }}</th>
+                <th>{{ 'skill.technics'|trans }}</th>
+                <th>{{ 'skill.intelligence'|trans }}</th>
+                <th>{{ 'skill.safety'|trans }}</th>
+                <th>{{ 'skill.dribbling'|trans }}</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>{{ ('manager.preferred_skill.'~manager.preferredSkill)|trans }}</td>
                 <td>{{ ('manager.money_behaviour.'~manager.moneyBehaviour)|trans }}</td>
+                <td>{{ manager.transferFactorTackling }}%</td>
+                <td>{{ manager.transferFactorPassing }}%</td>
+                <td>{{ manager.transferFactorShooting }}%</td>
+                <td>{{ manager.transferFactorHeading }}%</td>
+                <td>{{ manager.transferFactorSpeed }}%</td>
+                <td>{{ manager.transferFactorCrossing }}%</td>
+                <td>{{ manager.transferFactorTechnics }}%</td>
+                <td>{{ manager.transferFactorIntelligence }}%</td>
+                <td>{{ manager.transferFactorSafety }}%</td>
+                <td>{{ manager.transferFactorDribbling }}%</td>
             </tr>
         </tbody>
     </table>

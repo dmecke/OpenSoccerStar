@@ -4,6 +4,7 @@ namespace OSS\CoreBundle\Tests\Entity;
 
 use OSS\CoreBundle\Entity\Manager;
 use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\PlayerSkills;
 use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Entity\Trainer;
 
@@ -84,22 +85,25 @@ class TeamTest extends \PHPUnit_Framework_TestCase
 
     public function testLineup()
     {
+        $skills1 = new PlayerSkills();
+        $skills1->setAll(40);
         $player1 = new Player();
         $player1->setId(1);
-        $player1->setSkillDefense(40);
-        $player1->setSkillOffense(40);
+        $player1->setSkills($skills1);
         $this->team->addPlayer($player1);
         for ($i = 2; $i <= 12; $i++) {
+            $skills = new PlayerSkills();
+            $skills->setAll(50);
             $player = new Player();
             $player->setId($i);
-            $player->setSkillDefense(50);
-            $player->setSkillOffense(50);
+            $player->setSkills($skills);
             $this->team->addPlayer($player);
         }
+        $skills2 = new PlayerSkills();
+        $skills2->setAll(40);
         $player2 = new Player();
         $player2->setId(13);
-        $player2->setSkillDefense(40);
-        $player2->setSkillOffense(40);
+        $player2->setSkills($skills2);
         $this->team->addPlayer($player2);
 
         $this->assertCount(11, $this->team->getLineup());
@@ -149,29 +153,34 @@ class TeamTest extends \PHPUnit_Framework_TestCase
 
     public function testHandleTraining()
     {
+        $player1 = new Player();
+        $skills1 = new PlayerSkills();
+        $player1->setSkills($skills1);
         $this->team->setTrainer(new Trainer());
-        $this->team->addPlayer(new Player());
+        $this->team->addPlayer($player1);
+        $skills = new PlayerSkills();
+        $skills->setAllTrainingValues(10);
         $player = new Player();
-        $player->setTrainingValueDefense(10);
-        $player->setTrainingValueOffense(10);
+        $player->setSkills($skills);
         $this->team->addPlayer($player);
 
         $this->team->train();
         $players = $this->team->getPlayers();
-        $this->assertEquals(1, $players[0]->getTrainingValueDefense());
-        $this->assertEquals(1, $players[0]->getTrainingValueOffense());
-        $this->assertEquals(11, $players[1]->getTrainingValueDefense());
-        $this->assertEquals(11, $players[1]->getTrainingValueOffense());
+        $this->assertEquals(1, $players[0]->getSkills()->getTrainingValueTackling());
+        $this->assertEquals(11, $players[1]->getSkills()->getTrainingValueTackling());
     }
 
     public function testHandleTrainingWithoutTrainer()
     {
-        $this->team->addPlayer(new Player());
+        $player = new Player();
+        $skills = new PlayerSkills();
+        $player->setSkills($skills);
+        $this->team->addPlayer($player);
 
         $this->team->train();
         $players = $this->team->getPlayers();
-        $this->assertEquals(0, $players[0]->getTrainingValueDefense());
-        $this->assertEquals(0, $players[0]->getTrainingValueOffense());
+        $this->assertEquals(0, $players[0]->getSkills()->getTrainingValueTackling());
+        $this->assertEquals(0, $players[0]->getSkills()->getTrainingValueTackling());
     }
 
     public function testSendMoney()

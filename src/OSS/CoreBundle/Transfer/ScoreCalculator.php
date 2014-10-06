@@ -89,8 +89,23 @@ class ScoreCalculator
      */
     private function calculateBaseValue(Player $player)
     {
-        $skill = $player->getSkillDefense() * $this->manager->getTransferFactorDefensiveSkill() + $player->getSkillOffense() * $this->manager->getTransferFactorOffensiveSkill();
+        return $player->getSkills()->getTackling() * $this->manager->getTransferFactorTackling() / 100
+               + $player->getSkills()->getPassing() * $this->manager->getTransferFactorPassing() / 100
+               + $player->getSkills()->getShooting() * $this->manager->getTransferFactorShooting() / 100
+               + $player->getSkills()->getHeading() * $this->manager->getTransferFactorHeading() / 100
+               + $player->getSkills()->getSpeed() * $this->manager->getTransferFactorSpeed() / 100
+               + $player->getSkills()->getCrossing() * $this->manager->getTransferFactorCrossing() / 100
+               + $player->getSkills()->getTechnics() * $this->manager->getTransferFactorTechnics() / 100
+               + $player->getSkills()->getIntelligence() * $this->manager->getTransferFactorIntelligence() / 100
+               + $player->getSkills()->getSafety() * $this->manager->getTransferFactorSafety() / 100
+               + $player->getSkills()->getDribbling() * $this->manager->getTransferFactorDribbling() / 100;
+    }
 
-        return $skill / ($this->manager->getTransferFactorDefensiveSkill() + $this->manager->getTransferFactorOffensiveSkill());
+    /**
+     * @return Manager
+     */
+    public function getManager()
+    {
+        return $this->manager;
     }
 }

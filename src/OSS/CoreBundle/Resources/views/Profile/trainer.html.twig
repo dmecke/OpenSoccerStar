@@ -5,14 +5,32 @@
     <table>
         <thead>
             <tr>
-                <th>{{ 'trainer.preferred_training.label'|trans }}</th>
-                <th>{{ 'trainer.skill.label'|trans }}</th>
+                <th>{{ 'trainer.skill'|trans }}</th>
+                <th>{{ 'skill.tackling'|trans }}</th>
+                <th>{{ 'skill.passing'|trans }}</th>
+                <th>{{ 'skill.shooting'|trans }}</th>
+                <th>{{ 'skill.heading'|trans }}</th>
+                <th>{{ 'skill.speed'|trans }}</th>
+                <th>{{ 'skill.crossing'|trans }}</th>
+                <th>{{ 'skill.technics'|trans }}</th>
+                <th>{{ 'skill.intelligence'|trans }}</th>
+                <th>{{ 'skill.safety'|trans }}</th>
+                <th>{{ 'skill.dribbling'|trans }}</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>{{ ('trainer.preferred_training.'~trainer.preferredTraining)|trans }}</td>
                 <td>{{ trainer.skill }}</td>
+                <td>{{ trainer.trainingFactorTackling }}%</td>
+                <td>{{ trainer.trainingFactorPassing }}%</td>
+                <td>{{ trainer.trainingFactorShooting }}%</td>
+                <td>{{ trainer.trainingFactorHeading }}%</td>
+                <td>{{ trainer.trainingFactorSpeed }}%</td>
+                <td>{{ trainer.trainingFactorCrossing }}%</td>
+                <td>{{ trainer.trainingFactorTechnics }}%</td>
+                <td>{{ trainer.trainingFactorIntelligence }}%</td>
+                <td>{{ trainer.trainingFactorSafety }}%</td>
+                <td>{{ trainer.trainingFactorDribbling }}%</td>
             </tr>
         </tbody>
     </table>

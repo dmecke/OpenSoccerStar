@@ -4,6 +4,7 @@ namespace OSS\CoreBundle\Tests\Entity;
 
 use OSS\CoreBundle\Entity\Manager;
 use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\PlayerSkills;
 use OSS\CoreBundle\Entity\Team;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -36,20 +37,12 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->manager, $team->getManager());
     }
 
-    public function testDefensiveSkillTransferFactor()
+    public function testTransferFactors()
     {
-        $this->assertTransferFactorDefensiveSkill(1, Manager::PREFERRED_SKILL_NEUTRAL);
-        $this->assertTransferFactorDefensiveSkill(2, Manager::PREFERRED_SKILL_DEFENSE);
-        $this->assertTransferFactorDefensiveSkill(1, Manager::PREFERRED_SKILL_OFFENSE);
+        $allFactors = $this->manager->getTransferFactorTackling() + $this->manager->getTransferFactorPassing() + $this->manager->getTransferFactorShooting() + $this->manager->getTransferFactorHeading() + $this->manager->getTransferFactorSpeed() + $this->manager->getTransferFactorCrossing() + $this->manager->getTransferFactorTechnics() + $this->manager->getTransferFactorIntelligence() + $this->manager->getTransferFactorSafety() + $this->manager->getTransferFactorDribbling();
+        $this->assertEquals(100, $allFactors);
     }
 
-    public function testOffensiveSkillTransferFactor()
-    {
-        $this->assertTransferFactorOffensiveSkill(1, Manager::PREFERRED_SKILL_NEUTRAL);
-        $this->assertTransferFactorOffensiveSkill(1, Manager::PREFERRED_SKILL_DEFENSE);
-        $this->assertTransferFactorOffensiveSkill(2, Manager::PREFERRED_SKILL_OFFENSE);
-    }
-    
     public function testDefensiveMoneyTransferFactor()
     {
         $this->assertTransferFactorMoneyBehaviour(1, Manager::MONEY_BEHAVIOUR_NEUTRAL);
@@ -80,18 +73,22 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $team = new Team();
         $team->setId(1);
         $team->setMoney(10);
-        $this->manager->setTeam($team);
         $player1 = new Player();
+        $this->manager->setTeam($team);
+        $skills1 = new PlayerSkills();
+        $skills1->setAll(10);
         $player1->setId(1);
         $player1->setTeam($team);
-        $player1->setSkillDefense(10);
+        $player1->setSkills($skills1);
         $players = array($player1);
 
         $this->assertNull($this->manager->selectBestFittingPlayer($players));
 
+        $skills2 = new PlayerSkills();
+        $skills2->setAll(20);
         $player2 = new Player();
         $player2->setId(2);
-        $player2->setSkillDefense(10);
+        $player2->setSkills($skills2);
         $players[] = $player2;
         $this->assertEquals($player2, $this->manager->selectBestFittingPlayer($players));
     }
@@ -103,9 +100,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->manager->setTeam($targetTeam);
 
+        $skills = new PlayerSkills();
+        $skills->setAll(10);
+
         $player = new Player();
-        $player->setSkillDefense(10);
-        $player->setSkillOffense(10);
+        $player->setSkills($skills);
         $player->setTeam($originTeam);
 
         $transferOffer = $this->manager->createTransferOffer($player);
@@ -113,18 +112,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($targetTeam, $transferOffer->getTargetTeam());
         $this->assertEquals($player, $transferOffer->getPlayer());
         $this->assertEquals(100, $transferOffer->getAmount());
-    }
-
-    private function assertTransferFactorDefensiveSkill($factor, $preferredSkill)
-    {
-        $this->manager->setPreferredSkill($preferredSkill);
-        $this->assertEquals($factor, $this->manager->getTransferFactorDefensiveSkill());
-    }
-
-    private function assertTransferFactorOffensiveSkill($factor, $preferredSkill)
-    {
-        $this->manager->setPreferredSkill($preferredSkill);
-        $this->assertEquals($factor, $this->manager->getTransferFactorOffensiveSkill());
     }
 
     private function assertTransferFactorMoneyBehaviour($factor, $moneyBehaviour)

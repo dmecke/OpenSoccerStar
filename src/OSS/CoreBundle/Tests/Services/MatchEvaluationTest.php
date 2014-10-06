@@ -4,6 +4,7 @@ namespace OSS\CoreBundle\Tests\Services;
 
 use OSS\CoreBundle\Entity\Fixture;
 use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\PlayerSkills;
 use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Exception\MatchException;
 use OSS\CoreBundle\Services\MatchEvaluationService;
@@ -118,7 +119,10 @@ class MatchEvaluationTest extends \PHPUnit_Framework_TestCase
     {
         $team = new Team();
         $team->setId($id);
-        $team->addPlayer(new Player());
+        $player = new Player();
+        $skills = new PlayerSkills();
+        $player->setSkills($skills);
+        $team->addPlayer($player);
 
         return $team;
     }

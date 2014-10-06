@@ -11,10 +11,6 @@ use OSS\CoreBundle\Transfer\ScoreCalculator;
  */
 class Manager
 {
-    const PREFERRED_SKILL_DEFENSE = 1;
-    const PREFERRED_SKILL_NEUTRAL = 2;
-    const PREFERRED_SKILL_OFFENSE = 3;
-
     const MONEY_BEHAVIOUR_DEFENSIVE = 1;
     const MONEY_BEHAVIOUR_NEUTRAL = 2;
     const MONEY_BEHAVIOUR_OFFENSIVE = 3;
@@ -40,7 +36,70 @@ class Manager
      *
      * @ORM\Column(type="integer")
      */
-    private $preferredSkill;
+    private $transferFactorTackling = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorPassing = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorShooting = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorHeading = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorSpeed = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorCrossing = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorTechnics = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorIntelligence = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorSafety = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $transferFactorDribbling = 10;
 
     /**
      * @var int
@@ -99,22 +158,6 @@ class Manager
     /**
      * @return int
      */
-    public function getPreferredSkill()
-    {
-        return $this->preferredSkill;
-    }
-
-    /**
-     * @param int $preferredSkill
-     */
-    public function setPreferredSkill($preferredSkill)
-    {
-        $this->preferredSkill = $preferredSkill;
-    }
-
-    /**
-     * @return int
-     */
     public function getMoneyBehaviour()
     {
         return $this->moneyBehaviour;
@@ -153,22 +196,6 @@ class Manager
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTransferFactorDefensiveSkill()
-    {
-        return self::PREFERRED_SKILL_DEFENSE == $this->preferredSkill ? 2 : 1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTransferFactorOffensiveSkill()
-    {
-        return self::PREFERRED_SKILL_OFFENSE == $this->preferredSkill ? 2 : 1;
     }
 
     /**
@@ -310,5 +337,165 @@ class Manager
     public function initTransferScoreCalculator()
     {
         $this->transferScoreCalculator = new ScoreCalculator($this);
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorTackling()
+    {
+        return $this->transferFactorTackling;
+    }
+
+    /**
+     * @param int $transferFactorTackling
+     */
+    public function setTransferFactorTackling($transferFactorTackling)
+    {
+        $this->transferFactorTackling = $transferFactorTackling;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorPassing()
+    {
+        return $this->transferFactorPassing;
+    }
+
+    /**
+     * @param int $transferFactorPassing
+     */
+    public function setTransferFactorPassing($transferFactorPassing)
+    {
+        $this->transferFactorPassing = $transferFactorPassing;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorShooting()
+    {
+        return $this->transferFactorShooting;
+    }
+
+    /**
+     * @param int $transferFactorShooting
+     */
+    public function setTransferFactorShooting($transferFactorShooting)
+    {
+        $this->transferFactorShooting = $transferFactorShooting;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorHeading()
+    {
+        return $this->transferFactorHeading;
+    }
+
+    /**
+     * @param int $transferFactorHeading
+     */
+    public function setTransferFactorHeading($transferFactorHeading)
+    {
+        $this->transferFactorHeading = $transferFactorHeading;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorSpeed()
+    {
+        return $this->transferFactorSpeed;
+    }
+
+    /**
+     * @param int $transferFactorSpeed
+     */
+    public function setTransferFactorSpeed($transferFactorSpeed)
+    {
+        $this->transferFactorSpeed = $transferFactorSpeed;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorCrossing()
+    {
+        return $this->transferFactorCrossing;
+    }
+
+    /**
+     * @param int $transferFactorCrossing
+     */
+    public function setTransferFactorCrossing($transferFactorCrossing)
+    {
+        $this->transferFactorCrossing = $transferFactorCrossing;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorTechnics()
+    {
+        return $this->transferFactorTechnics;
+    }
+
+    /**
+     * @param int $transferFactorTechnics
+     */
+    public function setTransferFactorTechnics($transferFactorTechnics)
+    {
+        $this->transferFactorTechnics = $transferFactorTechnics;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorIntelligence()
+    {
+        return $this->transferFactorIntelligence;
+    }
+
+    /**
+     * @param int $transferFactorIntelligence
+     */
+    public function setTransferFactorIntelligence($transferFactorIntelligence)
+    {
+        $this->transferFactorIntelligence = $transferFactorIntelligence;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorSafety()
+    {
+        return $this->transferFactorSafety;
+    }
+
+    /**
+     * @param int $transferFactorSafety
+     */
+    public function setTransferFactorSafety($transferFactorSafety)
+    {
+        $this->transferFactorSafety = $transferFactorSafety;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTransferFactorDribbling()
+    {
+        return $this->transferFactorDribbling;
+    }
+
+    /**
+     * @param int $transferFactorDribbling
+     */
+    public function setTransferFactorDribbling($transferFactorDribbling)
+    {
+        $this->transferFactorDribbling = $transferFactorDribbling;
     }
 }

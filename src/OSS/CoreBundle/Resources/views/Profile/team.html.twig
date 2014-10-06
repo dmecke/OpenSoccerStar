@@ -67,27 +67,45 @@
         </div>
     </div>
     <div class="row">
-        <div class="large-6 columns">
+        <div class="large-12 columns">
             <table>
                 <thead>
                     <tr>
                         <th>{{ 'team.player.name'|trans }}</th>
-                        <th>{{ 'player.skill.defense'|trans }}</th>
-                        <th>{{ 'player.skill.offense'|trans }}</th>
+                        <th>{{ 'skill.tackling'|trans }}</th>
+                        <th>{{ 'skill.passing'|trans }}</th>
+                        <th>{{ 'skill.shooting'|trans }}</th>
+                        <th>{{ 'skill.heading'|trans }}</th>
+                        <th>{{ 'skill.speed'|trans }}</th>
+                        <th>{{ 'skill.crossing'|trans }}</th>
+                        <th>{{ 'skill.technics'|trans }}</th>
+                        <th>{{ 'skill.intelligence'|trans }}</th>
+                        <th>{{ 'skill.safety'|trans }}</th>
+                        <th>{{ 'skill.dribbling'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for player in team.players %}
                     <tr class="{% if app.user and app.user.player.equals(player) %}own{% endif %}">
                         <td>{{ player|playerLink }}</td>
-                        <td>{{ player.skillDefense }}</td>
-                        <td>{{ player.skillOffense }}</td>
+                        <td>{{ player.skills.tackling }}</td>
+                        <td>{{ player.skills.passing }}</td>
+                        <td>{{ player.skills.shooting }}</td>
+                        <td>{{ player.skills.heading }}</td>
+                        <td>{{ player.skills.speed }}</td>
+                        <td>{{ player.skills.crossing }}</td>
+                        <td>{{ player.skills.technics }}</td>
+                        <td>{{ player.skills.intelligence }}</td>
+                        <td>{{ player.skills.safety }}</td>
+                        <td>{{ player.skills.dribbling }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-        <div class="large-6 columns">
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
             <table>
                 <thead>
                     <tr>

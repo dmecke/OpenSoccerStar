@@ -9,10 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Trainer
 {
-    const PREFERRED_TRAINING_DEFENSIVE = 1;
-    const PREFERRED_TRAINING_NEUTRAL = 2;
-    const PREFERRED_TRAINING_OFFENSIVE = 3;
-
     /**
      * @var int
      *
@@ -34,7 +30,70 @@ class Trainer
      *
      * @ORM\Column(type="integer")
      */
-    private $preferredTraining = self::PREFERRED_TRAINING_NEUTRAL;
+    private $trainingFactorTackling = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorPassing = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorShooting = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorHeading = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorSpeed = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorCrossing = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorTechnics = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorIntelligence = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorSafety = 10;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $trainingFactorDribbling = 10;
 
     /**
      * @var int
@@ -85,55 +144,6 @@ class Trainer
     /**
      * @return int
      */
-    public function getPreferredTraining()
-    {
-        return $this->preferredTraining;
-    }
-
-    /**
-     * @param int $preferredTraining
-     */
-    public function setPreferredTraining($preferredTraining)
-    {
-        $this->preferredTraining = $preferredTraining;
-    }
-
-    /**
-     * @return float
-     */
-    public function getTrainingFactorDefensive()
-    {
-        return $this->getTrainingFactor(0.75, 0.25);
-    }
-
-    /**
-     * @return float
-     */
-    public function getTrainingFactorOffensive()
-    {
-        return $this->getTrainingFactor(0.25, 0.75);
-    }
-
-    /**
-     * @param float $defensiveFactor
-     * @param float $offensiveFactor
-     *
-     * @return float
-     */
-    private function getTrainingFactor($defensiveFactor, $offensiveFactor)
-    {
-        if ($this->preferredTraining == self::PREFERRED_TRAINING_DEFENSIVE) {
-            return $defensiveFactor;
-        } elseif ($this->preferredTraining == self::PREFERRED_TRAINING_OFFENSIVE) {
-            return $offensiveFactor;
-        } else {
-            return 0.5;
-        }
-    }
-
-    /**
-     * @return int
-     */
     public function getSkill()
     {
         return $this->skill;
@@ -167,14 +177,190 @@ class Trainer
     }
 
     /**
-     * @param Player $player
+     * @param PlayerSkills $skills
      */
-    public function train(Player $player)
+    public function train(PlayerSkills $skills)
     {
-        $defensive = ceil($this->skill * $this->getTrainingFactorDefensive());
-        $offensive = ceil($this->skill * $this->getTrainingFactorOffensive());
-
-        $player->addTrainingValueDefense($defensive);
-        $player->addTrainingValueOffense($offensive);
+        $skills->addTrainingValueTackling($this->getTrainingAddValue($this->trainingFactorTackling));
+        $skills->addTrainingValuePassing($this->getTrainingAddValue($this->trainingFactorPassing));
+        $skills->addTrainingValueShooting($this->getTrainingAddValue($this->trainingFactorShooting));
+        $skills->addTrainingValueHeading($this->getTrainingAddValue($this->trainingFactorHeading));
+        $skills->addTrainingValueSpeed($this->getTrainingAddValue($this->trainingFactorSpeed));
+        $skills->addTrainingValueCrossing($this->getTrainingAddValue($this->trainingFactorCrossing));
+        $skills->addTrainingValueTechnics($this->getTrainingAddValue($this->trainingFactorTechnics));
+        $skills->addTrainingValueIntelligence($this->getTrainingAddValue($this->trainingFactorIntelligence));
+        $skills->addTrainingValueSafety($this->getTrainingAddValue($this->trainingFactorSafety));
+        $skills->addTrainingValueDribbling($this->getTrainingAddValue($this->trainingFactorDribbling));
     }
+
+    /**
+     * @param int $trainingFactor
+     * 
+     * @return int
+     */
+    private function getTrainingAddValue($trainingFactor)
+    {
+        return ceil($this->skill * 5 * $trainingFactor / 100);
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorTackling()
+    {
+        return $this->trainingFactorTackling;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorTackling($factor)
+    {
+        $this->trainingFactorTackling = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorPassing()
+    {
+        return $this->trainingFactorPassing;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorPassing($factor)
+    {
+        $this->trainingFactorPassing = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorShooting()
+    {
+        return $this->trainingFactorShooting;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorShooting($factor)
+    {
+        $this->trainingFactorShooting = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorHeading()
+    {
+        return $this->trainingFactorHeading;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorHeading($factor)
+    {
+        $this->trainingFactorHeading = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorSpeed()
+    {
+        return $this->trainingFactorSpeed;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorSpeed($factor)
+    {
+        $this->trainingFactorSpeed = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorCrossing()
+    {
+        return $this->trainingFactorCrossing;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorCrossing($factor)
+    {
+        $this->trainingFactorCrossing = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorTechnics()
+    {
+        return $this->trainingFactorTechnics;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorTechnics($factor)
+    {
+        $this->trainingFactorTechnics = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorIntelligence()
+    {
+        return $this->trainingFactorIntelligence;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorIntelligence($factor)
+    {
+        $this->trainingFactorIntelligence = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorSafety()
+    {
+        return $this->trainingFactorSafety;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorSafety($factor)
+    {
+        $this->trainingFactorSafety = $factor;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTrainingFactorDribbling()
+    {
+        return $this->trainingFactorDribbling;
+    }
+
+    /**
+     * @param int $factor
+     */
+    public function setTrainingFactorDribbling($factor)
+    {
+        $this->trainingFactorDribbling = $factor;
+    }
+
 }

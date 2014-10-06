@@ -92,7 +92,7 @@ class MatchEvaluationService
         $attacker = $attackingTeam->getRandomPlayerFromLineup();
         $defender = $defendingTeam->getRandomPlayerFromLineup();
 
-        $eventType = $attacker->getSkillOffense() * 2 > $defender->getSkillDefense() * 3 ? Event::TYPE_GOAL : Event::TYPE_CHANCE;
+        $eventType = $attacker->getSkills()->getShooting() * 2 > $defender->getSkills()->getTackling() * 3 ? Event::TYPE_GOAL : Event::TYPE_CHANCE;
 
         $event = Event::create($fixture, $eventType, $attackingTeam, $attacker, $fixture->getMinutesPlayed());
 

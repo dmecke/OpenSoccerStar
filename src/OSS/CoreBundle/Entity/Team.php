@@ -295,7 +295,7 @@ class Team
     public function getLineup()
     {
         $players = $this->players->toArray();
-        usort($players, array('OSS\CoreBundle\Entity\Player', 'compareAverageSkill'));
+        usort($players, array('OSS\CoreBundle\Entity\PlayerSkills', 'compareAverage'));
 
         return array_slice($players, 0, 11);
     }
@@ -448,7 +448,7 @@ class Team
 
         foreach ($this->players as $player)
         {
-            $this->trainer->train($player);
+            $this->trainer->train($player->getSkills());
         }
     }
 

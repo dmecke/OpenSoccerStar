@@ -4,138 +4,165 @@ namespace OSS\CoreBundle\Tests\Entity;
 
 use OSS\CoreBundle\Entity\Manager;
 use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\PlayerSkills;
 use OSS\CoreBundle\Entity\Team;
 use OSS\CoreBundle\Transfer\ScoreCalculator;
 
 class ScoreCalculatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCalculateSkill()
+    /**
+     * @var ScoreCalculator
+     */
+    private $scoreCalculator;
+
+    /**
+     * @var Player
+     */
+    private $player;
+
+    public function setUp()
     {
-        $this->assertCalculateBuyEquals(50, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 15625000, 50, 50);
-        $this->assertCalculateBuyEquals(65, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 75418890, 80, 50);
-        $this->assertCalculateBuyEquals(70, Manager::PREFERRED_SKILL_DEFENSE, Manager::MONEY_BEHAVIOUR_NEUTRAL, 75418890, 80, 50);
-        $this->assertCalculateBuyEquals(60, Manager::PREFERRED_SKILL_OFFENSE, Manager::MONEY_BEHAVIOUR_NEUTRAL, 75418890, 80, 50);
-        $this->assertCalculateBuyEquals(100, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 1000000000, 100, 100);
+        $manager = new Manager();
+        $manager->setTeam(new Team());
+        for ($i = 1; $i <= 20; $i++) {
+            $manager->getTeam()->addPlayer(new Player());
+        }
+        $this->scoreCalculator = new ScoreCalculator($manager);
+        $this->player = new Player();
+        $this->player->setSkills(new PlayerSkills());
     }
 
-    public function testCalculateMoneyBuy()
+    public function tearDown()
     {
-        $this->assertCalculateBuyEquals(50, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 500000000, 100, 100);
-        $this->assertCalculateBuyEquals(25, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 500000000, 100, 100);
-        $this->assertCalculateBuyEquals(100, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 2000000000, 100, 100);
-        $this->assertCalculateBuyEquals(100, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 500000000, 100, 100);
-        $this->assertCalculateBuyEquals(400, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
+        $this->scoreCalculator = null;
+        $this->player = null;
     }
 
-    public function testCalculateMoneySell()
+    public function testCalculateSkill1()
     {
-        $this->assertCalculateSellEquals(400, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_NEUTRAL, 500000000, 100, 100);
-        $this->assertCalculateSellEquals(800, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 500000000, 100, 100);
-        $this->assertCalculateSellEquals(200, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_DEFENSIVE, 2000000000, 100, 100);
-        $this->assertCalculateSellEquals(200, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 500000000, 100, 100);
-        $this->assertCalculateSellEquals(50, Manager::PREFERRED_SKILL_NEUTRAL, Manager::MONEY_BEHAVIOUR_OFFENSIVE, 2000000000, 100, 100);
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(15625000);
+        $this->player->getSkills()->setAll(50);
+        $this->assertEquals(50, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkill2()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(15625000);
+        $this->player->getSkills()->setAll(50);
+        $this->player->getSkills()->setTackling(100);
+        $this->player->getSkills()->setDribbling(100);
+        $this->assertEquals(20, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkill3()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(15625000);
+        $this->scoreCalculator->getManager()->setTransferFactorTackling(20);
+        $this->scoreCalculator->getManager()->setTransferFactorCrossing(0);
+        $this->player->getSkills()->setAll(50);
+        $this->player->getSkills()->setTackling(100);
+        $this->player->getSkills()->setCrossing(0);
+        $this->assertEquals(60, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkill4()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(1000000000);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(100, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkillMoney1()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(500000000);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(50, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkillMoney2()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(500000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_DEFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(25, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkillMoney3()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(2000000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_DEFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(100, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkillMoney4()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(500000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_OFFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(100, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkillMoney5()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(2000000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_OFFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(400, $this->scoreCalculator->calculateBuyScore($this->player));
+    }
+
+    public function testCalculateSkillMoneySell1()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(500000000);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(400, $this->scoreCalculator->calculateSellScore($this->player));
+    }
+
+    public function testCalculateSkillMoneySell2()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(500000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_DEFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(800, $this->scoreCalculator->calculateSellScore($this->player));
+    }
+
+    public function testCalculateSkillMoneySell3()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(2000000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_DEFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(200, $this->scoreCalculator->calculateSellScore($this->player));
+    }
+
+    public function testCalculateSkillMoneySell4()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(500000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_OFFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(200, $this->scoreCalculator->calculateSellScore($this->player));
+    }
+
+    public function testCalculateSkillMoneySell5()
+    {
+        $this->scoreCalculator->getManager()->getTeam()->setMoney(2000000000);
+        $this->scoreCalculator->getManager()->setMoneyBehaviour(Manager::MONEY_BEHAVIOUR_OFFENSIVE);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(50, $this->scoreCalculator->calculateSellScore($this->player));
     }
 
     public function testCalculateSellWithLessThan11Players()
     {
         $team = new Team();
         $team->setMoney(1000000);
-        $manager = new Manager();
-        $manager->setTeam($team);
-        $scoreCalculator = new ScoreCalculator($manager);
-        $player = new Player();
-        $player->setSkillOffense(100);
-        $player->setSkillDefense(100);
-        $this->assertEquals(-1, $scoreCalculator->calculateSellScore($player));
+        $this->scoreCalculator->getManager()->setTeam($team);
+        $this->player->getSkills()->setAll(100);
+        $this->assertEquals(-1, $this->scoreCalculator->calculateSellScore($this->player));
     }
 
     public function testGetMoneyPercentage()
     {
-        $scoreCalculator = new ScoreCalculator(new Manager());
-        $this->assertEquals(0.1, $scoreCalculator->getMoneyPercentage(10, 100));
-        $this->assertEquals(1, $scoreCalculator->getMoneyPercentage(100, 100));
-        $this->assertEquals(0, $scoreCalculator->getMoneyPercentage(100, 0));
-    }
-
-    /**
-     * @param int $value
-     * @param int $preferredSkill
-     * @param int $moneyBehaviour
-     * @param int $money
-     * @param int $playerDefense
-     * @param int $playerOffense
-     */
-    private function assertCalculateBuyEquals($value, $preferredSkill, $moneyBehaviour, $money, $playerDefense, $playerOffense)
-    {
-        $manager = $this->createManager($preferredSkill, $moneyBehaviour, $money);
-        $calculator = new ScoreCalculator($manager);
-
-        $player = $this->createPlayer($playerDefense, $playerOffense);
-        $this->assertEquals($value, $calculator->calculateBuyScore($player));
-    }
-
-    /**
-     * @param int $value
-     * @param int $preferredSkill
-     * @param int $moneyBehaviour
-     * @param int $money
-     * @param int $playerDefense
-     * @param int $playerOffense
-     */
-    private function assertCalculateSellEquals($value, $preferredSkill, $moneyBehaviour, $money, $playerDefense, $playerOffense)
-    {
-        $manager = $this->createManager($preferredSkill, $moneyBehaviour, $money);
-        $calculator = new ScoreCalculator($manager);
-
-        $player = $this->createPlayer($playerDefense, $playerOffense);
-        $this->assertEquals($value, $calculator->calculateSellScore($player));
-    }
-
-    /**
-     * @param int $money
-     *
-     * @return Team
-     */
-    private function createTeam($money)
-    {
-        $team = new Team();
-        $team->setMoney($money);
-        for ($i = 1; $i <= 20; $i++) {
-            $team->addPlayer(new Player());
-        }
-
-        return $team;
-    }
-
-    /**
-     * @param int $preferredSkill
-     * @param int $moneyBehaviour
-     * @param int $money
-     *
-     * @return Manager
-     */
-    private function createManager($preferredSkill, $moneyBehaviour, $money)
-    {
-        $manager = new Manager();
-        $manager->setPreferredSkill($preferredSkill);
-        $manager->setMoneyBehaviour($moneyBehaviour);
-        $manager->setTeam($this->createTeam($money));
-
-        return $manager;
-    }
-
-    /**
-     * @param int $skillDefense
-     * @param int $skillOffense
-     *
-     * @return Player
-     */
-    private function createPlayer($skillDefense, $skillOffense)
-    {
-        $player = new Player();
-        $player->setSkillDefense($skillDefense);
-        $player->setSkillOffense($skillOffense);
-
-        return $player;
+        $this->assertEquals(0.1, $this->scoreCalculator->getMoneyPercentage(10, 100));
+        $this->assertEquals(1, $this->scoreCalculator->getMoneyPercentage(100, 100));
+        $this->assertEquals(0, $this->scoreCalculator->getMoneyPercentage(100, 0));
     }
 }

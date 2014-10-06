@@ -5,6 +5,7 @@ namespace OSS\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use OSS\CoreBundle\Entity\Player;
+use OSS\CoreBundle\Entity\PlayerSkills;
 
 class LoadPlayerData extends AbstractTeamMemberFixture implements FixtureInterface, OrderedFixtureInterface
 {
@@ -21,8 +22,9 @@ class LoadPlayerData extends AbstractTeamMemberFixture implements FixtureInterfa
     protected function createEntity($teamIndex)
     {
         $player = new Player();
-        $player->setSkillDefense(rand(1, 100));
-        $player->setSkillOffense(rand(1, 100));
+        $playerSkills = new PlayerSkills();
+        $playerSkills->initWithRandomValues();
+        $playerSkills->setPlayer($player);
 
         return $player;
     }
