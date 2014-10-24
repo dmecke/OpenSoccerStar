@@ -1,6 +1,9 @@
-[![Build Status](https://travis-ci.org/dmecke/OpenSoccerStar.svg)](https://travis-ci.org/dmecke/OpenSoccerStar)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/?branch=master)
+[![Latest Version](https://img.shields.io/github/tag/dmecke/OpenSoccerStar.svg?style=flat-square)](https://github.com/dmecke/OpenSoccerStar/tags)
+[![Software License](https://img.shields.io/badge/license-GNU_GPL_v3.0-brightgreen.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/travis/dmecke/OpenSoccerStar/master.svg?style=flat-square)](https://travis-ci.org/dmecke/OpenSoccerStar)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/dmecke/OpenSoccerStar.svg?style=flat-square)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/dmecke/OpenSoccerStar.svg?style=flat-square)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar)
+[![Total Downloads](https://img.shields.io/packagist/dt/oss/OpenSoccerStar.svg?style=flat-square)](https://packagist.org/packages/oss/OpenSoccerStar)
 
 Play the current stable release at http://opensoccerstar.com
 
