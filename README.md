@@ -25,6 +25,12 @@ Important in my opinion is to use as many existing libraries as possible to keep
 
 When reading about how to start an open source project, there is always the advice to not start and hope for help before a base is made that offers a real use case for the people. I decided for the opposite and start with this simple text. It's not that I hope for many people to read this document or even join the project. But starting the project in the public right from the beginning takes away the pain to think about when the best time is to release a first version.
 
+## Design Principles
+The foremost priority is to achieve a maximum of immersion. Because of that there should be no moderators or admins in the game. Instead there are federations with people in positions like a president or player advisors etc. These positions are done by real people and replace the need for mods and admins.
+The game should be very accessible both for active players but also for non-members. To achieve that, every part of the game should be accessible even without a player account. So everybody might investigate the standings, team or player profiles and statistics. That also enables players to link to these pages in social media.
+All formulas in the game are public. So the real challenge for the players is not to find out the formula behind all the calculations, but the best way to handle them.
+If at some point the game needs to earn some money, this should be done by premium features that don't interfer with the skill of the players. For example additional statistics, some kind of calculators or helpers are good examples while power ups are a bad example.
+
 ## Getting Started
 So if you like the idea, simply watch this project to get informed about any updates. And when you feel the time is right, just open an issue with a question or suggestion.
 
