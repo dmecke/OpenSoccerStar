@@ -75,7 +75,7 @@ fos_user:
     user_class: OSS\UserBundle\Entity\User
 
 hwi_oauth:
-    firewall_name: main
+    firewall_names: [main]
     connect:
         account_connector: oauth_user_provider
         confirmation: false
