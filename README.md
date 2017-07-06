@@ -1,6 +1,9 @@
-[![Build Status](https://travis-ci.org/dmecke/OpenSoccerStar.svg)](https://travis-ci.org/dmecke/OpenSoccerStar)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/?branch=master)
+[![Latest Version](https://img.shields.io/github/tag/dmecke/OpenSoccerStar.svg?style=flat-square)](https://github.com/dmecke/OpenSoccerStar/tags)
+[![Software License](https://img.shields.io/badge/license-GNU_GPL_v3.0-brightgreen.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/travis/dmecke/OpenSoccerStar/master.svg?style=flat-square)](https://travis-ci.org/dmecke/OpenSoccerStar)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/dmecke/OpenSoccerStar.svg?style=flat-square)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/dmecke/OpenSoccerStar.svg?style=flat-square)](https://scrutinizer-ci.com/g/dmecke/OpenSoccerStar)
+[![Total Downloads](https://img.shields.io/packagist/dt/oss/OpenSoccerStar.svg?style=flat-square)](https://packagist.org/packages/oss/OpenSoccerStar)
 
 Play the current stable release at http://opensoccerstar.com
 
@@ -21,6 +24,12 @@ So far there is only the skeleton of the project, a plain Symfony2 project. I us
 Important in my opinion is to use as many existing libraries as possible to keep the actual business logic small and maintainable. Things like Symfony2, jQuery and a frontend framework might be obvious here. But I think it will also help to not include game mechanics that are very abstract as for example a league management. It might be not existing yet, but moving this into it's own repository enables others to use and extend it without the need to join this specific project. A league management that is able to create tables and fixtures, manage relegation and promotion, could be also used for the private Fifa tournaments for example.
 
 When reading about how to start an open source project, there is always the advice to not start and hope for help before a base is made that offers a real use case for the people. I decided for the opposite and start with this simple text. It's not that I hope for many people to read this document or even join the project. But starting the project in the public right from the beginning takes away the pain to think about when the best time is to release a first version.
+
+## Design Principles
+The foremost priority is to achieve a maximum of immersion. Because of that there should be no moderators or admins in the game. Instead there are federations with people in positions like a president or player advisors etc. These positions are done by real people and replace the need for mods and admins.
+The game should be very accessible both for active players but also for non-members. To achieve that, every part of the game should be accessible even without a player account. So everybody might investigate the standings, team or player profiles and statistics. That also enables players to link to these pages in social media.
+All formulas in the game are public. So the real challenge for the players is not to find out the formula behind all the calculations, but the best way to handle them.
+If at some point the game needs to earn some money, this should be done by premium features that don't interfer with the skill of the players. For example additional statistics, some kind of calculators or helpers are good examples while power ups are a bad example.
 
 ## Getting Started
 So if you like the idea, simply watch this project to get informed about any updates. And when you feel the time is right, just open an issue with a question or suggestion.
